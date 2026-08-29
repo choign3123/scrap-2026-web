@@ -1,0 +1,102 @@
+/* 모든 요소가 같은 중앙축을 사용하도록 단일 컬럼의 폭과 정렬을 고정합니다. */
+.page {
+  display: grid;
+  min-height: 100dvh;
+  padding: var(--space-4) var(--space-3);
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 112%, rgb(227 251 215 / 65%), transparent 38%),
+    var(--color-surface);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  width: min(100%, 360px);
+  flex-direction: column;
+  text-align: center;
+}
+
+.logo {
+  width: 88px;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.heading {
+  margin-top: var(--space-3);
+  color: #171917;
+  font-size: clamp(1.625rem, 2.2vw, 1.875rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+
+.tagline {
+  margin-top: 10px;
+  color: var(--color-text-secondary);
+  font-size: 0.975rem;
+  line-height: 1.5;
+}
+
+.loginArea {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 224px;
+  margin-top: clamp(2.75rem, 6vh, 4rem);
+  flex-direction: column;
+}
+
+.quickStartBadge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border: 1px solid #d9ddd9;
+  border-radius: var(--radius-pill);
+  color: var(--color-text-primary);
+  background: rgb(255 255 255 / 85%);
+  box-shadow: 0 4px 12px rgb(31 38 32 / 5%);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.quickStartBadge span {
+  margin-left: 3px;
+  color: #f5b800;
+}
+
+.buttonGroup {
+  display: grid;
+  width: 100%;
+  gap: 12px;
+  margin-top: var(--space-3);
+}
+
+.errorMessage {
+  width: 100%;
+  margin-top: var(--space-3);
+  padding: 12px 14px;
+  border: 1px solid var(--color-danger-soft);
+  border-radius: var(--radius-small);
+  color: var(--color-danger);
+  background: var(--color-danger-background);
+  font-size: var(--font-size-small);
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: var(--space-3) var(--space-2);
+  }
+
+  .content {
+    width: min(100%, 328px);
+  }
+
+  .loginArea {
+    margin-top: var(--space-5);
+  }
+}

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { QueryClientProvider } from '@tanstack/react-query';
 import App from './app/App';
 import { queryClient } from './app/queryClient';
+import { AuthProvider } from './contexts/AuthProvider';
 import './styles/reset.css';
 import './styles/tokens.css';
 import './styles/global.css';
@@ -19,7 +20,10 @@ createRoot(rootElement).render(
   <StrictMode>
     {/* Provider 안의 모든 컴포넌트에서 React Query를 사용할 수 있습니다. */}
     <QueryClientProvider client={queryClient}>
-      <App />
+      {/* AuthProvider는 라우터를 포함한 앱 전체에 로그인 상태를 제공합니다. */}
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </QueryClientProvider>
   </StrictMode>,
 );

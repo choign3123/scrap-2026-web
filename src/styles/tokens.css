@@ -10,6 +10,8 @@
   --color-text-secondary: #687069;
   --color-border: #e6ebe6;
   --color-danger: #d84343;
+  --color-danger-soft: #f1b8b8;
+  --color-danger-background: #fff7f7;
 
   /* 8px을 기본 단위로 사용하면 화면의 간격을 예측하기 쉽습니다. */
   --space-1: 0.5rem;
@@ -21,6 +23,7 @@
   --space-8: 4rem;
 
   --font-size-small: 0.875rem;
+  --radius-small: 8px;
   --radius-medium: 12px;
   --radius-large: 24px;
   --radius-pill: 999px;

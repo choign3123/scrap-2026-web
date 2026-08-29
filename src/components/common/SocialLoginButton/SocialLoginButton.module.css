@@ -1,0 +1,65 @@
+/* 두 로그인 버튼은 크기와 배치를 공유하고 브랜드 색상만 다르게 사용합니다. */
+.button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 58px;
+  padding: 0 var(--space-5);
+  border: 0;
+  border-radius: 8px;
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+}
+
+.button:hover:not(:disabled) {
+  filter: brightness(0.97);
+  box-shadow: 0 8px 20px rgb(31 38 32 / 12%);
+  transform: translateY(-1px);
+}
+
+.button:active:not(:disabled) {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.kakao {
+  color: #191919;
+  background: #fee500;
+}
+
+.naver {
+  color: #ffffff;
+  background: #03c75a;
+}
+
+.icon {
+  position: absolute;
+  left: var(--space-4);
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  font-size: 1.65rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.icon svg {
+  width: 27px;
+  fill: currentcolor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+}

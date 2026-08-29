@@ -13,6 +13,10 @@ body {
   background: var(--color-background);
 }
 
+button {
+  color: inherit;
+}
+
 button,
 a {
   -webkit-tap-highlight-color: transparent;
