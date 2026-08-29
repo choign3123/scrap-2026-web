@@ -1,0 +1,135 @@
+import { useState, type DragEvent, type MouseEvent } from 'react';
+import categoryMenuIcon from '../../../assets/icons/category-menu.svg';
+import type { CategoryDTO } from '../../../types/api/category';
+import styles from './Sidebar.module.css';
+
+interface CategoryListProps {
+  categories: CategoryDTO[];
+  selectedCategoryId: number | null;
+  isReordering: boolean;
+  onSelect: (categoryId: number) => void;
+  onEdit: (category: CategoryDTO) => void;
+  onDelete: (category: CategoryDTO) => void;
+  onReorder: (sourceCategoryId: number, targetCategoryId: number) => void;
+}
+
+/** 카테고리 선택, 설정 메뉴와 HTML Drag & Drop을 담당하는 목록입니다. */
+function CategoryList({
+  categories,
+  selectedCategoryId,
+  isReordering,
+  onSelect,
+  onEdit,
+  onDelete,
+  onReorder,
+}: CategoryListProps) {
+  const [openMenuCategoryId, setOpenMenuCategoryId] = useState<number | null>(null);
+  const [draggingCategoryId, setDraggingCategoryId] = useState<number | null>(null);
+
+  function handleListClick(event: MouseEvent<HTMLUListElement>) {
+    const clickedElement = event.target as HTMLElement;
+
+    if (!clickedElement.closest('[data-category-menu-root]')) {
+      setOpenMenuCategoryId(null);
+    }
+  }
+
+  function handleDragStart(event: DragEvent<HTMLLIElement>, categoryId: number) {
+    setDraggingCategoryId(categoryId);
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('text/plain', String(categoryId));
+  }
+
+  function handleDrop(event: DragEvent<HTMLLIElement>, targetCategoryId: number) {
+    event.preventDefault();
+    const sourceCategoryId = Number(event.dataTransfer.getData('text/plain'));
+
+    setDraggingCategoryId(null);
+
+    if (Number.isFinite(sourceCategoryId) && sourceCategoryId !== targetCategoryId) {
+      onReorder(sourceCategoryId, targetCategoryId);
+    }
+  }
+
+  return (
+    <ul className={styles.categoryList} onClick={handleListClick}>
+      {categories.map((category) => {
+        const isSelected = category.categoryId === selectedCategoryId;
+        const isMenuOpen = category.categoryId === openMenuCategoryId;
+        const isDragging = category.categoryId === draggingCategoryId;
+
+        return (
+          <li
+            key={category.categoryId}
+            className={`${styles.categoryRow} ${isSelected ? styles.selectedCategory : ''} ${isDragging ? styles.draggingCategory : ''}`}
+            draggable={!isReordering}
+            onDragStart={(event) => handleDragStart(event, category.categoryId)}
+            onDragEnd={() => setDraggingCategoryId(null)}
+            onDragOver={(event) => event.preventDefault()}
+            onDrop={(event) => handleDrop(event, category.categoryId)}
+          >
+            <div className={styles.categoryMenuRoot} data-category-menu-root>
+              {category.isDefault ? (
+                <span className={styles.dragIndicator} title="드래그하여 순서 변경">
+                  <img src={categoryMenuIcon} alt="" />
+                </span>
+              ) : (
+                <button
+                  type="button"
+                  className={styles.categoryMenuButton}
+                  aria-label={`${category.categoryTitle} 카테고리 설정`}
+                  aria-expanded={isMenuOpen}
+                  onClick={() =>
+                    setOpenMenuCategoryId(isMenuOpen ? null : category.categoryId)
+                  }
+                >
+                  <img src={categoryMenuIcon} alt="" />
+                </button>
+              )}
+
+              {isMenuOpen && (
+                <div className={styles.categoryMenu} role="menu">
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={() => {
+                      setOpenMenuCategoryId(null);
+                      onEdit(category);
+                    }}
+                  >
+                    이름 수정
+                  </button>
+                  <button
+                    type="button"
+                    role="menuitem"
+                    className={styles.deleteMenuItem}
+                    onClick={() => {
+                      setOpenMenuCategoryId(null);
+                      onDelete(category);
+                    }}
+                  >
+                    삭제
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <button
+              type="button"
+              className={styles.categorySelectButton}
+              aria-current={isSelected ? 'page' : undefined}
+              onClick={() => onSelect(category.categoryId)}
+            >
+              <span className={styles.categoryTitle} title={category.categoryTitle}>
+                {category.categoryTitle}
+              </span>
+              <span className={styles.categoryCount}>{category.scrapCnt}</span>
+            </button>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+export default CategoryList;

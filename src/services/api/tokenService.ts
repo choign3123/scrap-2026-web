@@ -2,9 +2,9 @@ import type { ApiResponse } from '../../types/api/common';
 import type { TokenDTO } from '../../types/api/auth';
 import { publicApiClient } from './httpClient';
 
-const TEST_MEMBER_ID = 10;
+const TEST_MEMBER_ID = 19;
 
-/** 소셜 로그인 완성 전까지 memberId 10으로 개발용 토큰을 발급합니다. */
+/** 소셜 로그인 완성 전까지 memberId 19으로 개발용 토큰을 발급합니다. */
 export async function issueTestTokens() {
   // 이 API만 공통 응답 래퍼 없이 TokenDTO를 바로 반환합니다.
   const response = await publicApiClient.get<TokenDTO>('/token/issue', {

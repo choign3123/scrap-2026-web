@@ -1,0 +1,46 @@
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+.message img {
+  width: 26px;
+  height: 26px;
+  flex: 0 0 auto;
+}
+
+.errorMessage {
+  margin-top: var(--space-2);
+  color: var(--color-danger);
+  font-size: var(--font-size-small);
+}
+
+.dangerButton,
+.secondaryButton {
+  min-width: 88px;
+  height: 42px;
+  padding: 0 18px;
+  border-radius: var(--radius-small);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dangerButton {
+  border: 1px solid var(--color-danger);
+  color: #ffffff;
+  background: var(--color-danger);
+}
+
+.secondaryButton {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.dangerButton:disabled,
+.secondaryButton:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}

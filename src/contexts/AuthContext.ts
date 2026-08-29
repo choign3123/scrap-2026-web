@@ -9,6 +9,7 @@ export interface AuthContextValue {
   isAuthenticated: boolean;
   login: (provider: SocialProvider) => Promise<void>;
   logout: () => Promise<void>;
+  signout: () => Promise<void>;
 }
 
 // Provider 밖에서 잘못 사용하면 바로 알 수 있도록 기본값을 undefined로 둡니다.

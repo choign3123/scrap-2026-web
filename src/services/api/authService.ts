@@ -10,3 +10,8 @@ export async function validateToken() {
 export async function requestLogout() {
   await apiClient.patch<ApiResponse<null>>('/auth/logout');
 }
+
+/** 회원탈퇴 확인 후 사용자 계정과 서버 데이터를 삭제합니다. */
+export async function requestSignout() {
+  await apiClient.delete<ApiResponse<null>>('/auth/signout');
+}

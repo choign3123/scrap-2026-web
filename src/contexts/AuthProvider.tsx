@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { queryClient } from '../app/queryClient';
 import { issueTestTokens } from '../services/api/tokenService';
-import { requestLogout } from '../services/api/authService';
+import { requestLogout, requestSignout } from '../services/api/authService';
 import { refreshSessionTokens } from '../services/api/apiClient';
 import { subscribeToSessionExpired } from '../services/authEvents';
 import {
@@ -90,14 +90,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }, [clearSession]);
 
+  const signout = useCallback(async () => {
+    // 회원탈퇴 API가 성공한 경우에만 로컬 인증 정보를 제거합니다.
+    await requestSignout();
+    clearSession();
+  }, [clearSession]);
+
   const contextValue = useMemo(
     () => ({
       authStatus,
       isAuthenticated: authStatus === 'authenticated',
       login,
       logout,
+      signout,
     }),
-    [authStatus, login, logout],
+    [authStatus, login, logout, signout],
   );
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
