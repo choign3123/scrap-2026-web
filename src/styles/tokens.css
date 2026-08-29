@@ -1,0 +1,28 @@
+/* 앱 전체에서 반복 사용하는 디자인 값을 변수로 모아 일관성을 유지합니다. */
+:root {
+  --color-primary: #29973b;
+  --color-primary-dark: #1f7b30;
+  --color-primary-soft: #e3fbd7;
+  --color-primary-light: #96e070;
+  --color-background: #fcfcfc;
+  --color-surface: #ffffff;
+  --color-text-primary: #202521;
+  --color-text-secondary: #687069;
+  --color-border: #e6ebe6;
+  --color-danger: #d84343;
+
+  /* 8px을 기본 단위로 사용하면 화면의 간격을 예측하기 쉽습니다. */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 2.5rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+
+  --font-size-small: 0.875rem;
+  --radius-medium: 12px;
+  --radius-large: 24px;
+  --radius-pill: 999px;
+  --shadow-card: 0 18px 50px rgb(41 151 59 / 10%);
+}
