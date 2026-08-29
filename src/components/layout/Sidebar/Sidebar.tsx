@@ -310,7 +310,7 @@ function Sidebar({
         >
           회원탈퇴
         </button>
-        {/* 레퍼런스 사이드바 하단의 고객지원 정보를 그대로 유지합니다. */}
+        {/* 고객지원 정보는 기능 메뉴와 분리해 가장 낮은 시각적 우선순위로 표시합니다. */}
         <p className={styles.contactInformation}>cs@teamscrap.co.kr&nbsp; @teamscrap2026</p>
       </footer>
 

@@ -1,39 +1,47 @@
-/* 사이드바 너비와 카테고리 행 높이는 아래 두 값만 바꾸면 전체에 함께 적용됩니다. */
+/*
+ * 자유 디자인 시안: 초록색을 절제해서 사용한 집중형 워크스페이스입니다.
+ * 너비와 카테고리 높이는 아래 두 변수만 수정하면 관련 요소에 함께 적용됩니다.
+ */
 .sidebar {
-  --sidebar-width: 275px;
-  --category-row-height: 42px;
-  --sidebar-line: #e9ece9;
-  --sidebar-inline: 14px;
+  --sidebar-width: 292px;
+  --category-row-height: 44px;
+  --sidebar-inline: 16px;
+  --sidebar-green: #247f35;
+  --sidebar-green-dark: #1d682b;
+  --sidebar-muted: #748077;
 
   display: flex;
   width: var(--sidebar-width);
   height: 100dvh;
   min-height: 0;
-  border-right: 1px solid var(--sidebar-line);
+  border-right: 1px solid #dfe8dd;
   flex: 0 0 var(--sidebar-width);
   flex-direction: column;
-  color: var(--color-text-primary);
-  background: #fafbfa;
+  color: #1f2921;
+  background: #f2f6f0;
+  box-shadow: 8px 0 28px rgb(37 72 42 / 5%);
 }
 
-/* 인사말과 닫기 버튼은 한 줄의 수직 중앙에 맞춥니다. */
+/* 인사말을 두 단계로 나누어 사용자 이름이 가장 먼저 읽히도록 합니다. */
 .profileHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 58px;
-  padding: 0 var(--sidebar-inline);
-  gap: 8px;
+  min-height: 72px;
+  padding: 12px var(--sidebar-inline) 8px;
+  gap: 12px;
 }
 
 .greeting {
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   min-width: 0;
-  gap: 4px;
-  font-size: 1rem;
-  letter-spacing: -0.025em;
-  white-space: nowrap;
+  flex-direction: column;
+  gap: 1px;
+  color: var(--sidebar-muted);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .memberGreeting {
@@ -41,22 +49,28 @@
   align-items: baseline;
   overflow: hidden;
   min-width: 0;
+  color: #1a261c;
   font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: -0.025em;
   white-space: nowrap;
 }
 
 .memberGreeting strong {
   overflow: hidden;
-  max-width: 86px;
+  max-width: 168px;
+  color: var(--sidebar-green-dark);
+  font-weight: 750;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .nameSkeleton {
-  width: 76px;
-  height: 17px;
-  border-radius: var(--radius-small);
-  background: linear-gradient(90deg, #e5e8e5 25%, #f2f4f2 50%, #e5e8e5 75%);
+  width: 104px;
+  height: 19px;
+  margin-top: 2px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #dfe8dd 25%, #edf2eb 50%, #dfe8dd 75%);
   background-size: 200% 100%;
   animation: skeleton 1.4s infinite linear;
 }
@@ -68,73 +82,95 @@
   padding: 0;
   border: 0;
   place-items: center;
-  background: transparent;
   cursor: pointer;
 }
 
 .collapseButton {
-  width: 28px;
-  height: 28px;
-  border-radius: var(--radius-small);
+  width: 34px;
+  height: 34px;
+  border: 1px solid #e1e9df;
+  border-radius: 10px;
+  background: rgb(255 255 255 / 76%);
+  transition: border-color 140ms ease, background 140ms ease;
 }
 
 .collapseButton:hover,
-.addCategoryButton:hover,
-.categoryMenuButton:hover {
+.addCategoryButton:hover {
+  border-color: #b9dab7;
   background: var(--color-primary-soft);
 }
 
-.collapseButton img,
-.addCategoryButton img {
+.collapseButton img {
   width: 22px;
   height: 22px;
 }
 
-/* 레퍼런스처럼 카드나 배경 없이 통계 두 칸만 단정하게 배치합니다. */
+/* 두 통계를 하나의 요약 패널 안에 가로형 정보 블록으로 표현합니다. */
 .statistics {
   display: grid;
-  min-height: 90px;
-  padding: 10px 40px;
-  grid-template-columns: repeat(2, 1fr);
+  min-height: 70px;
+  padding: 12px;
+  border: 1px solid #dce8d9;
+  border-radius: 16px;
+  margin: 0 var(--sidebar-inline) 14px;
+  column-gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  background: linear-gradient(135deg, rgb(255 255 255 / 92%), rgb(229 245 223 / 76%));
+  box-shadow: 0 6px 18px rgb(37 72 42 / 5%);
 }
 
 .statistics div {
   display: grid;
-  align-content: center;
-  justify-items: center;
-  color: #838983;
-  font-size: 0.6875rem;
-  line-height: 1.25;
+  align-items: center;
+  min-width: 0;
+  column-gap: 8px;
+  grid-template-columns: 30px minmax(0, 1fr);
+  grid-template-rows: auto auto;
 }
 
 .statistics img {
-  width: 24px;
-  height: 24px;
-  margin-bottom: 2px;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 9px;
+  grid-row: 1 / 3;
+  background: #e7f7e1;
 }
 
 .statistics strong {
-  color: var(--color-text-primary);
-  font-size: 0.75rem;
-  line-height: 1.2;
+  align-self: end;
+  color: #1f3122;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
+}
+
+.statistics span {
+  align-self: start;
+  overflow: hidden;
+  color: var(--sidebar-muted);
+  font-size: 0.625rem;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .compactRetryButton {
-  margin: -8px var(--sidebar-inline) 10px;
-  padding: 6px 8px;
+  margin: -6px var(--sidebar-inline) 10px;
+  padding: 7px 9px;
   border: 1px solid var(--color-danger-soft);
-  border-radius: var(--radius-small);
+  border-radius: 9px;
   color: var(--color-danger);
   background: var(--color-danger-background);
   font-size: 0.6875rem;
   cursor: pointer;
 }
 
-/* 본문을 유연하게 늘려 회원 메뉴를 화면 아래에 고정합니다. */
+/* 탐색 영역만 남은 높이를 사용해 계정 메뉴는 항상 화면 아래에 유지합니다. */
 .navigation {
   display: flex;
   min-height: 0;
-  border-top: 1px solid var(--sidebar-line);
+  padding: 2px 0 8px;
   flex: 1;
   flex-direction: column;
 }
@@ -142,79 +178,91 @@
 .favoriteButton {
   display: flex;
   align-items: center;
-  width: 100%;
-  min-height: var(--category-row-height);
+  min-height: 44px;
   padding: 0 12px;
   border: 0;
-  border-bottom: 1px solid var(--sidebar-line);
-  gap: 8px;
-  background: var(--color-surface);
-  font-size: 0.875rem;
-  font-weight: 500;
+  border-radius: 12px;
+  margin: 0 12px 8px;
+  gap: 10px;
+  color: #344139;
+  background: transparent;
+  font-size: 0.8125rem;
+  font-weight: 650;
   text-align: left;
   cursor: pointer;
+  transition: color 140ms ease, background 140ms ease, transform 140ms ease;
 }
 
-.favoriteButton:hover,
-.selectedNavigation {
-  background: #f7fff3;
+.favoriteButton:hover {
+  background: rgb(255 255 255 / 76%);
+  transform: translateX(2px);
 }
 
 .favoriteButton img {
-  width: 22px;
-  height: 22px;
+  width: 23px;
+  height: 23px;
 }
 
-.selectedNavigation {
-  box-shadow: inset 3px 0 var(--color-primary-light);
+.favoriteButton.selectedNavigation {
+  color: #fff;
+  background: var(--sidebar-green);
+  box-shadow: 0 7px 18px rgb(36 127 53 / 18%);
 }
 
 .categoryHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 60px;
-  padding: 20px 12px 0 12px;
+  min-height: 42px;
+  padding: 0 var(--sidebar-inline);
 }
 
 .categoryHeader > div {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
 }
 
 .categoryHeader img {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
+  opacity: 0.72;
 }
 
 .categoryHeader h2 {
-  color: #606760;
-  font-size: 0.875rem;
+  color: var(--sidebar-muted);
+  font-size: 0.8125rem;
   font-weight: 700;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.01em;
 }
 
 .addCategoryButton {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+}
+
+.addCategoryButton img {
+  width: 21px;
+  height: 21px;
 }
 
 .categoryArea {
   min-height: 0;
 }
 
-/* 더보기를 누르면 카테고리 영역만 스크롤되며 하단 메뉴는 움직이지 않습니다. */
+/* 확장된 경우 카테고리 영역 안에서만 스크롤합니다. */
 .expandedCategoryArea {
   overflow-y: auto;
   flex: 1;
-  scrollbar-color: #cfd5cf transparent;
+  scrollbar-color: #b9c9b8 transparent;
   scrollbar-width: thin;
 }
 
 .categoryList {
-  padding: 0;
+  padding: 0 12px;
   margin: 0;
   list-style: none;
 }
@@ -224,25 +272,35 @@
   display: flex;
   align-items: stretch;
   min-height: var(--category-row-height);
-  border-top: 1px solid var(--sidebar-line);
-  background: var(--color-surface);
-  transition: opacity 120ms ease, background 120ms ease;
-}
-
-.categoryRow:last-child {
-  border-bottom: 1px solid var(--sidebar-line);
+  border-radius: 11px;
+  margin-bottom: 3px;
+  background: transparent;
+  transition: opacity 120ms ease, background 140ms ease, box-shadow 140ms ease;
 }
 
 .categoryRow:hover {
-  background: #fbfff9;
+  background: rgb(255 255 255 / 78%);
 }
 
-.selectedCategory {
-  background: var(--color-surface);
+/* 선택 상태는 마우스를 올린 상태보다 우선해 배경과 글자의 명암 대비를 유지합니다. */
+.categoryRow.selectedCategory,
+.categoryRow.selectedCategory:hover {
+  color: #fff;
+  background: var(--sidebar-green);
+  box-shadow: 0 7px 18px rgb(36 127 53 / 18%);
+}
+
+/*
+ * button의 기본 글자색이 브라우저나 전역 CSS에 의해 다시 적용되더라도
+ * 선택된 카테고리명은 항상 초록색 배경 위에서 흰색으로 보이게 합니다.
+ */
+.selectedCategory .categorySelectButton,
+.selectedCategory .categoryTitle {
+  color: #fff;
 }
 
 .draggingCategory {
-  opacity: 0.45;
+  opacity: 0.4;
 }
 
 .categoryMenuRoot {
@@ -256,10 +314,20 @@
 .categoryMenuButton,
 .dragIndicator {
   display: grid;
-  width: 26px;
-  height: 30px;
-  border-radius: var(--radius-small);
+  width: 28px;
+  height: 32px;
+  border-radius: 8px;
   place-items: center;
+  background: transparent;
+}
+
+.categoryMenuButton:hover {
+  background: rgb(227 251 215 / 62%);
+}
+
+/* 수정 가능한 카테고리의 메뉴 버튼은 드래그 전용 표시보다 선명하게 보여줍니다. */
+.categoryMenuButton img {
+  opacity: 0.68;
 }
 
 .dragIndicator {
@@ -270,35 +338,56 @@
 .dragIndicator img {
   width: 3px;
   height: 17px;
-  opacity: 0.45;
+  opacity: 0.42;
+}
+
+.selectedCategory .categoryMenuButton img,
+.selectedCategory .dragIndicator img {
+  filter: brightness(0) invert(1);
+  opacity: 0.72;
 }
 
 .categoryMenu {
   position: absolute;
   z-index: 20;
-  top: 31px;
-  left: 8px;
-  width: 104px;
+  top: 36px;
+  left: 7px;
+  width: 148px;
   overflow: hidden;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-small);
+  border: 1px solid #dfe7dd;
+  border-radius: 10px;
   background: var(--color-surface);
-  box-shadow: 0 10px 28px rgb(31 38 32 / 15%);
+  box-shadow: 0 14px 32px rgb(31 48 34 / 16%);
 }
 
 .categoryMenu button {
+  display: flex;
+  align-items: center;
   width: 100%;
-  min-height: 36px;
-  padding: 0 11px;
+  min-height: 42px;
+  padding: 0 12px;
   border: 0;
+  gap: 9px;
+  color: #263129;
   background: transparent;
   font-size: 0.75rem;
   text-align: left;
   cursor: pointer;
 }
 
+.categoryMenu button + button {
+  border-top: 1px solid #edf0ec;
+}
+
+.categoryMenu button img {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  opacity: 0.7;
+}
+
 .categoryMenu button:hover {
-  background: var(--color-background);
+  background: #f4f7f3;
 }
 
 .categoryMenu .deleteMenuItem {
@@ -309,9 +398,10 @@
   display: flex;
   align-items: center;
   min-width: 0;
-  padding: 0;
+  padding: 0 8px 0 0;
   border: 0;
   flex: 1;
+  color: inherit;
   background: transparent;
   text-align: left;
   cursor: pointer;
@@ -320,55 +410,61 @@
 .categoryTitle {
   overflow: hidden;
   min-width: 0;
-  padding: 0 8px 0 0;
+  padding-right: 8px;
   flex: 1;
-  font-size: 0.875rem;
-  font-weight: 450;
+  font-size: 0.8125rem;
+  font-weight: 520;
+  letter-spacing: -0.012em;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-/* 이미지처럼 개수 영역은 행의 오른쪽 끝까지 채우는 직사각형으로 표시합니다. */
 .categoryCount {
   display: grid;
-  width: 38px;
-  min-height: calc(var(--category-row-height) - 1px);
-  flex: 0 0 38px;
+  min-width: 30px;
+  height: 25px;
+  padding: 0 7px;
+  border-radius: var(--radius-pill);
+  flex: 0 0 auto;
   place-items: center;
-  color: #233125;
-  background: var(--color-primary-soft);
-  font-size: 0.875rem;
+  color: var(--sidebar-green-dark);
+  background: #def4d6;
+  font-size: 0.6875rem;
   font-variant-numeric: tabular-nums;
-  font-weight: 450;
+  font-weight: 750;
 }
 
 .selectedCategory .categoryCount {
-  background: var(--color-primary-light);
+  color: #164d22;
+  background: #b9ef9e;
 }
 
 .moreCategoriesButton {
-  min-height: 36px;
-  padding: 0 16px;
+  min-height: 34px;
+  padding: 0 18px;
   border: 0;
-  color: #a1a6a1;
+  color: var(--sidebar-muted);
   background: transparent;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
   text-align: left;
   cursor: pointer;
 }
 
 .moreCategoriesButton:hover {
-  color: var(--color-primary-dark);
+  color: var(--sidebar-green-dark);
 }
 
 .categorySkeletonList {
   display: grid;
-  gap: 1px;
+  padding: 0 12px;
+  gap: 3px;
 }
 
 .categorySkeletonList span {
   height: var(--category-row-height);
-  background: linear-gradient(90deg, #eef0ee 25%, #f7f8f7 50%, #eef0ee 75%);
+  border-radius: 11px;
+  background: linear-gradient(90deg, #e4ebe2 25%, #f4f7f3 50%, #e4ebe2 75%);
   background-size: 200% 100%;
   animation: skeleton 1.4s infinite linear;
 }
@@ -376,7 +472,7 @@
 .categoryError,
 .emptyCategory {
   padding: 18px var(--sidebar-inline);
-  color: var(--color-text-secondary);
+  color: var(--sidebar-muted);
   font-size: 0.75rem;
   line-height: 1.5;
   text-align: center;
@@ -384,60 +480,69 @@
 
 .categoryError button {
   margin-top: 7px;
-  padding: 5px 9px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-small);
+  padding: 6px 10px;
+  border: 1px solid #dce5da;
+  border-radius: 8px;
   background: var(--color-surface);
   cursor: pointer;
 }
 
 .operationError {
   margin: 7px 12px;
-  padding: 7px 9px;
-  border-radius: var(--radius-small);
+  padding: 8px 10px;
+  border-radius: 9px;
   color: var(--color-danger);
   background: var(--color-danger-background);
   font-size: 0.6875rem;
   line-height: 1.4;
 }
 
-/* 회원 설정은 레퍼런스처럼 제목과 두 개의 평평한 메뉴 행으로 구분합니다. */
+/* 계정 메뉴는 두 버튼을 한 행에 배치해 탐색 영역과 명확히 구분합니다. */
 .memberActions {
+  display: grid;
+  padding: 10px 12px 8px;
   flex: 0 0 auto;
-  background: #fafbfa;
+  column-gap: 6px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  background: #eaf0e7;
 }
 
 .memberActionsTitle {
   display: flex;
   align-items: center;
-  min-height: 44px;
-  padding: 0 12px;
+  min-height: 34px;
+  padding: 0 4px;
   gap: 8px;
-  color: #606760;
-  font-size: 0.875rem;
-  font-weight: 600;
+  grid-column: 1 / -1;
+  color: var(--sidebar-muted);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .memberActionsTitle img {
-  width: 22px;
-  height: 22px;
+  width: 19px;
+  height: 19px;
+  opacity: 0.72;
 }
 
 .memberActions > button {
-  width: 100%;
-  min-height: var(--category-row-height);
-  padding: 0 18px;
-  border: 0;
-  border-top: 1px solid var(--sidebar-line);
-  background: var(--color-surface);
+  min-width: 0;
+  min-height: 36px;
+  padding: 0 8px;
+  border: 1px solid #dbe5d8;
+  border-radius: 9px;
+  color: #465049;
+  background: rgb(255 255 255 / 70%);
   font-size: 0.8125rem;
-  font-weight: 500;
-  text-align: left;
+  font-weight: 600;
   cursor: pointer;
 }
 
 .memberActions > button:hover:not(:disabled) {
-  background: #f7fff3;
+  border-color: #b8d5b5;
+  color: var(--sidebar-green-dark);
+  background: #fff;
 }
 
 .memberActions > button:disabled {
@@ -446,16 +551,16 @@
 }
 
 .memberActions .signoutButton {
-  color: var(--color-text-primary);
+  color: #9a5757;
 }
 
 .contactInformation {
   overflow: hidden;
-  padding: 10px 8px;
-  border-top: 1px solid var(--sidebar-line);
+  padding: 10px 2px 1px;
   margin: 0;
-  color: #b0b5b0;
-  font-size: 0.625rem;
+  grid-column: 1 / -1;
+  color: #9ba49c;
+  font-size: 0.75rem;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -467,12 +572,12 @@
   }
 }
 
-/* 모바일에서는 레퍼런스 비율보다 터치 영역을 조금 넓힌 drawer로 사용합니다. */
+/* 모바일에서는 화면을 대부분 덮되 본문 일부가 보여 drawer임을 인지할 수 있게 합니다. */
 @media (max-width: 768px) {
   .sidebar {
-    width: min(82vw, 280px);
-    flex-basis: min(82vw, 280px);
-    box-shadow: 18px 0 48px rgb(20 25 21 / 18%);
+    width: min(86vw, 292px);
+    flex-basis: min(86vw, 292px);
+    box-shadow: 18px 0 48px rgb(20 35 23 / 20%);
   }
 }
 
@@ -480,5 +585,9 @@
   .nameSkeleton,
   .categorySkeletonList span {
     animation: none;
+  }
+
+  .favoriteButton {
+    transition: none;
   }
 }

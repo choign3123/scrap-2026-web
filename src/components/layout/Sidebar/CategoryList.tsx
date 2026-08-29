@@ -1,5 +1,7 @@
 import { useState, type DragEvent, type MouseEvent } from 'react';
 import categoryMenuIcon from '../../../assets/icons/category-menu.svg';
+import editIcon from '../../../assets/icons/edit.svg';
+import trashIcon from '../../../assets/icons/trash.svg';
 import type { CategoryDTO } from '../../../types/api/category';
 import styles from './Sidebar.module.css';
 
@@ -70,7 +72,10 @@ function CategoryList({
           >
             <div className={styles.categoryMenuRoot} data-category-menu-root>
               {category.isDefault ? (
-                <span className={styles.dragIndicator} title="드래그하여 순서 변경">
+                <span
+                  className={styles.dragIndicator}
+                  title="드래그하여 순서 변경 (기본 카테고리는 수정·삭제할 수 없습니다)"
+                >
                   <img src={categoryMenuIcon} alt="" />
                 </span>
               ) : (
@@ -79,6 +84,7 @@ function CategoryList({
                   className={styles.categoryMenuButton}
                   aria-label={`${category.categoryTitle} 카테고리 설정`}
                   aria-expanded={isMenuOpen}
+                  title="카테고리 메뉴"
                   onClick={() =>
                     setOpenMenuCategoryId(isMenuOpen ? null : category.categoryId)
                   }
@@ -88,7 +94,11 @@ function CategoryList({
               )}
 
               {isMenuOpen && (
-                <div className={styles.categoryMenu} role="menu">
+                <div
+                  className={styles.categoryMenu}
+                  role="menu"
+                  aria-label={`${category.categoryTitle} 카테고리 관리`}
+                >
                   <button
                     type="button"
                     role="menuitem"
@@ -97,7 +107,8 @@ function CategoryList({
                       onEdit(category);
                     }}
                   >
-                    이름 수정
+                    <img src={editIcon} alt="" />
+                    <span>카테고리명 수정</span>
                   </button>
                   <button
                     type="button"
@@ -108,7 +119,8 @@ function CategoryList({
                       onDelete(category);
                     }}
                   >
-                    삭제
+                    <img src={trashIcon} alt="" />
+                    <span>카테고리 삭제</span>
                   </button>
                 </div>
               )}

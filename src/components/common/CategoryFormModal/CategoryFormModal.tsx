@@ -20,7 +20,7 @@ function CategoryFormModal({
   const [categoryTitle, setCategoryTitle] = useState(initialTitle);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const modalTitle = mode === 'create' ? '새 카테고리' : '카테고리 이름 수정';
+  const modalTitle = mode === 'create' ? '새 카테고리' : '카테고리명 수정';
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -72,6 +72,7 @@ function CategoryFormModal({
         <label className={styles.label} htmlFor="category-title">
           카테고리 이름
         </label>
+        <p className={styles.helperText}>사이드바에 표시할 이름을 입력해 주세요.</p>
         <input
           id="category-title"
           className={styles.input}

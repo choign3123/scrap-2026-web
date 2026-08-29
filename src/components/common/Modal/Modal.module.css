@@ -1,51 +1,60 @@
-/* Modal은 화면 중앙에 배치하고 배경과 충분한 명도 차이를 둡니다. */
+/* Modal 배경은 현재 작업 화면을 인지할 수 있을 정도로만 어둡게 처리합니다. */
 .backdrop {
   position: fixed;
   z-index: 1000;
   inset: 0;
   display: grid;
-  padding: var(--space-3);
+  padding: 24px;
   place-items: center;
-  background: rgb(20 25 21 / 38%);
-  backdrop-filter: blur(2px);
+  background: rgb(20 31 22 / 38%);
+  backdrop-filter: blur(5px);
+  animation: backdrop-in 160ms ease-out;
 }
 
 .dialog {
-  width: min(100%, 420px);
+  width: min(100%, 440px);
   overflow: hidden;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-large);
+  border: 1px solid rgb(223 232 221 / 90%);
+  border-radius: 20px;
   background: var(--color-surface);
-  box-shadow: 0 24px 70px rgb(20 25 21 / 20%);
+  box-shadow: 0 28px 80px rgb(20 38 24 / 24%);
+  animation: dialog-in 180ms ease-out;
 }
 
+/* 제목과 닫기 버튼은 작은 팝업에서도 충분한 여백을 갖게 합니다. */
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-3) 0;
+  min-height: 72px;
+  padding: 18px 22px 16px 24px;
+  border-bottom: 1px solid #edf1ec;
+  gap: 16px;
+  background: linear-gradient(135deg, #fbfdfb, #f2f8ef);
 }
 
 .header h2 {
-  font-size: 1.25rem;
-  letter-spacing: -0.02em;
+  color: #1f2b21;
+  font-size: 1.125rem;
+  font-weight: 750;
+  letter-spacing: -0.025em;
 }
 
 .closeButton {
   display: grid;
-  width: 36px;
-  height: 36px;
-  padding: 3px;
-  border: 0;
-  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  padding: 4px;
+  border: 1px solid transparent;
+  border-radius: 10px;
   place-items: center;
   background: transparent;
   cursor: pointer;
 }
 
 .closeButton:hover:not(:disabled) {
-  background: var(--color-background);
+  border-color: #dce8d9;
+  background: #fff;
 }
 
 .closeButton:disabled {
@@ -54,27 +63,60 @@
 }
 
 .closeButton img {
-  width: 26px;
-  height: 26px;
+  width: 23px;
+  height: 23px;
 }
 
 .body {
-  padding: var(--space-3);
+  padding: 24px;
 }
 
 .footer {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  padding: 0 var(--space-3) var(--space-3);
+  padding: 16px 24px 20px;
+  border-top: 1px solid #edf1ec;
+  gap: 8px;
+  background: #fafcf9;
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
 }
 
 @media (max-width: 480px) {
   .backdrop {
-    padding: var(--space-2);
+    padding: 16px;
   }
 
   .dialog {
-    border-radius: var(--radius-medium);
+    border-radius: 16px;
+  }
+
+  .header,
+  .body {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .footer {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .dialog {
+    animation: none;
   }
 }

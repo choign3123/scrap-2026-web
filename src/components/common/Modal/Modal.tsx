@@ -43,13 +43,19 @@ function Modal({
     }
   }
 
+  function handleDialogClick(event: MouseEvent<HTMLElement>) {
+    // 팝업 내부 클릭은 배경까지 전달하지 않아 입력 중 팝업이 닫히지 않게 합니다.
+    event.stopPropagation();
+  }
+
   return createPortal(
-    <div className={styles.backdrop} onMouseDown={handleBackdropClick}>
+    <div className={styles.backdrop} onClick={handleBackdropClick}>
       <section
         className={styles.dialog}
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
+        onClick={handleDialogClick}
       >
         <header className={styles.header}>
           <h2 id="modal-title">{title}</h2>
