@@ -1,0 +1,91 @@
+.toolbar {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 4px;
+  border: 1px solid #e1e5e1;
+  border-radius: 13px;
+  gap: 3px;
+  background: #f8faf7;
+}
+
+.sortSelect select {
+  height: 32px;
+  padding: 0 27px 0 9px;
+  border: 0;
+  border-radius: 8px;
+  color: #536057;
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.sortSelect select:hover {
+  background: #fff;
+}
+
+.iconButton,
+.viewToggle button {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  padding: 5px;
+  border: 0;
+  border-radius: 8px;
+  place-items: center;
+  background: transparent;
+  cursor: pointer;
+}
+
+.iconButton:hover,
+.viewToggle button:hover {
+  background: #fff;
+}
+
+.iconButton img,
+.viewToggle img {
+  width: 21px;
+  height: 21px;
+}
+
+.divider {
+  width: 1px;
+  height: 22px;
+  margin: 0 2px;
+  background: #dde5db;
+}
+
+.viewToggle {
+  display: flex;
+  gap: 2px;
+}
+
+.viewToggle .activeView {
+  background: #e9ece9;
+  box-shadow: inset 0 0 0 1px #d5dbd6;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .toolbar {
+    width: 100%;
+  }
+
+  .sortSelect {
+    flex: 1;
+  }
+
+  .sortSelect select {
+    width: 100%;
+  }
+}

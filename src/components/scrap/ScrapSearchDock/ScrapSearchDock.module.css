@@ -1,0 +1,122 @@
+.dock {
+  position: absolute;
+  z-index: 15;
+  right: clamp(20px, 4vw, 56px);
+  bottom: 22px;
+  left: clamp(20px, 4vw, 56px);
+  display: flex;
+  align-items: center;
+  max-width: 920px;
+  margin: 0 auto;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.searchField,
+.addButton {
+  pointer-events: auto;
+  box-shadow: 0 14px 34px rgb(30 51 33 / 16%);
+}
+
+.searchField {
+  display: flex;
+  align-items: center;
+  height: 54px;
+  min-width: 0;
+  padding: 0 10px 0 17px;
+  border: 1px solid #dce6da;
+  border-radius: 17px;
+  flex: 1;
+  gap: 10px;
+  background: rgb(255 255 255 / 94%);
+  backdrop-filter: blur(10px);
+}
+
+.searchField > img {
+  width: 22px;
+  height: 22px;
+  opacity: 0.58;
+}
+
+.searchField input {
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  flex: 1;
+  color: #263029;
+  background: transparent;
+  font-size: 0.8125rem;
+  outline: 0;
+}
+
+.searchField input::placeholder {
+  color: #a0a8a1;
+}
+
+.searchField:focus-within {
+  border-color: #aeb8b0;
+  box-shadow: 0 14px 34px rgb(30 51 33 / 14%), 0 0 0 4px rgb(68 82 71 / 8%);
+}
+
+.clearButton {
+  height: 32px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 8px;
+  color: #758078;
+  background: #f1f5ef;
+  font-size: 0.6875rem;
+  cursor: pointer;
+}
+
+.addButton {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  padding: 0;
+  border: 1px solid #268738;
+  border-radius: 17px;
+  place-items: center;
+  background: var(--color-primary);
+  cursor: pointer;
+  transition: background 140ms ease, transform 140ms ease;
+}
+
+.addButton:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+}
+
+.addButton img {
+  width: 30px;
+  height: 30px;
+  filter: brightness(0) invert(1);
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .dock {
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+  }
+
+  .searchField,
+  .addButton {
+    height: 50px;
+  }
+
+  .addButton {
+    width: 50px;
+    flex: 0 0 50px;
+  }
+}

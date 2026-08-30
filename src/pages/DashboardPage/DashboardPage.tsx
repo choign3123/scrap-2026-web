@@ -1,8 +1,22 @@
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import sidebarOpenIcon from '../../assets/icons/sidebar-open.svg';
+import ScrapCard from '../../components/scrap/ScrapCard/ScrapCard';
+import ScrapListRow from '../../components/scrap/ScrapListRow/ScrapListRow';
+import ScrapSearchDock from '../../components/scrap/ScrapSearchDock/ScrapSearchDock';
+import ScrapToolbar, {
+  type ScrapViewMode,
+} from '../../components/scrap/ScrapToolbar/ScrapToolbar';
 import Sidebar from '../../components/layout/Sidebar/Sidebar';
 import { useCategoriesQuery } from '../../hooks/queries/useCategoriesQuery';
+import {
+  useScrapSearchQuery,
+  useScrapsInfiniteQuery,
+} from '../../hooks/queries/useScrapsQuery';
+import { useDebouncedValue } from '../../hooks/useDebouncedValue';
+import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
+import type { ScrapSort, SortDirection } from '../../types/api/scrap';
+import { toApiError } from '../../utils/apiError';
 import styles from './DashboardPage.module.css';
 
 /** URL에서 유효한 카테고리 ID만 숫자로 변환합니다. */
@@ -15,17 +29,40 @@ function parseCategoryId(categoryIdValue: string | null) {
   return Number.isFinite(categoryId) ? categoryId : null;
 }
 
-/** 사이드바와 이후 스크랩 목록이 함께 배치되는 대시보드 페이지입니다. */
+/** 로그인 후 카테고리·즐겨찾기 스크랩을 탐색하는 메인 화면입니다. */
 function DashboardPage() {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [isSidebarOpen, setIsSidebarOpen] = useState(() =>
     window.matchMedia('(min-width: 769px)').matches,
   );
+  const [sort, setSort] = useState<ScrapSort>('SCRAP_DATE');
+  const [direction, setDirection] = useState<SortDirection>('DESC');
+  const [viewMode, setViewMode] = useState<ScrapViewMode>('grid');
+  const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchTerm = useDebouncedValue(searchTerm.trim(), 300);
   const categoriesQuery = useCategoriesQuery();
   const isFavoritesSelected = searchParams.get('view') === 'favorites';
   const selectedCategoryId = isFavoritesSelected
     ? null
     : parseCategoryId(searchParams.get('category'));
+  const isSearching = debouncedSearchTerm.length > 0;
+
+  const scrapsQuery = useScrapsInfiniteQuery({
+    categoryId: selectedCategoryId,
+    isFavorites: isFavoritesSelected,
+    sort,
+    direction,
+    enabled: !isSearching,
+  });
+  const searchQuery = useScrapSearchQuery({
+    categoryId: selectedCategoryId,
+    isFavorites: isFavoritesSelected,
+    query: debouncedSearchTerm,
+    sort,
+    direction,
+    enabled: isSearching,
+  });
 
   useEffect(() => {
     if (isFavoritesSelected || selectedCategoryId !== null || !categoriesQuery.data) {
@@ -42,6 +79,38 @@ function DashboardPage() {
     }
   }, [categoriesQuery.data, isFavoritesSelected, selectedCategoryId, setSearchParams]);
 
+  useEffect(() => {
+    // 다른 카테고리로 이동하면 이전 범위의 검색어가 남지 않도록 초기화합니다.
+    setSearchTerm('');
+  }, [isFavoritesSelected, selectedCategoryId]);
+
+  const scraps = useMemo(
+    () =>
+      isSearching
+        ? (searchQuery.data?.scraps ?? [])
+        : (scrapsQuery.data?.pages.flatMap((page) => page.scraps) ?? []),
+    [isSearching, scrapsQuery.data?.pages, searchQuery.data?.scraps],
+  );
+  const totalScraps = isSearching
+    ? searchQuery.data?.total
+    : scrapsQuery.data?.pages[0]?.meta.totalElement;
+  const isInitialLoading = isSearching
+    ? searchQuery.isLoading
+    : scrapsQuery.isLoading;
+  const isError = isSearching ? searchQuery.isError : scrapsQuery.isError;
+  const currentError = isSearching ? searchQuery.error : scrapsQuery.error;
+  const { fetchNextPage, hasNextPage, isFetchingNextPage } = scrapsQuery;
+
+  const loadNextPage = useCallback(() => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+  const infiniteScrollRef = useInfiniteScroll({
+    enabled: !isSearching && Boolean(hasNextPage),
+    onLoadMore: loadNextPage,
+  });
+
   function closeMobileSidebarAfterSelection() {
     if (window.matchMedia('(max-width: 768px)').matches) {
       setIsSidebarOpen(false);
@@ -56,6 +125,19 @@ function DashboardPage() {
   function handleSelectFavorites() {
     setSearchParams({ view: 'favorites' });
     closeMobileSidebarAfterSelection();
+  }
+
+  function handleRetry() {
+    if (isSearching) {
+      searchQuery.refetch();
+    } else {
+      scrapsQuery.refetch();
+    }
+  }
+
+  function handleAddScrap() {
+    const categoryQuery = selectedCategoryId ? `?category=${selectedCategoryId}` : '';
+    navigate(`/scraps/new${categoryQuery}`);
   }
 
   const selectedCategory = categoriesQuery.data?.categories.find(
@@ -90,27 +172,113 @@ function DashboardPage() {
 
       <section className={styles.content} aria-labelledby="dashboard-heading">
         <header className={styles.contentHeader}>
-          {!isSidebarOpen && (
-            <button
-              type="button"
-              className={styles.openSidebarButton}
-              aria-label="사이드바 열기"
-              onClick={() => setIsSidebarOpen(true)}
-            >
-              <img src={sidebarOpenIcon} alt="" />
-            </button>
-          )}
-          <div>
-            <span>SCRAP COLLECTION</span>
-            <h1 id="dashboard-heading">{pageTitle}</h1>
+          <div className={styles.titleArea}>
+            {!isSidebarOpen && (
+              <button
+                type="button"
+                className={styles.openSidebarButton}
+                aria-label="사이드바 열기"
+                onClick={() => setIsSidebarOpen(true)}
+              >
+                <img src={sidebarOpenIcon} alt="" />
+              </button>
+            )}
+            <div>
+              <div className={styles.titleLine}>
+                <h1 id="dashboard-heading">{pageTitle}</h1>
+              </div>
+            </div>
           </div>
+
+          <ScrapToolbar
+            sort={sort}
+            direction={direction}
+            viewMode={viewMode}
+            onChangeSort={setSort}
+            onToggleDirection={() =>
+              setDirection((currentDirection) =>
+                currentDirection === 'ASC' ? 'DESC' : 'ASC',
+              )
+            }
+            onChangeViewMode={setViewMode}
+          />
         </header>
 
-        {/* 이번 단계는 사이드바 구현 범위이므로 목록 영역은 다음 작업을 위한 자리만 확보합니다. */}
-        <div className={styles.bodyPlaceholder}>
-          <span>사이드바 구성이 완료되었습니다</span>
-          <p>선택한 분류의 스크랩 목록은 다음 단계에서 이 영역에 표시됩니다.</p>
+        <div className={styles.listScroller}>
+          {isSearching && (
+            <div className={styles.searchSummary}>
+              <span>‘{debouncedSearchTerm}’ 검색 결과</span>
+              <strong>{totalScraps ?? 0}개</strong>
+            </div>
+          )}
+
+          {isInitialLoading && (
+            <div
+              className={viewMode === 'grid' ? styles.gridSkeleton : styles.listSkeleton}
+              aria-label="스크랩 목록 불러오는 중"
+            >
+              {Array.from({ length: viewMode === 'grid' ? 8 : 6 }, (_, index) => (
+                <span key={index} />
+              ))}
+            </div>
+          )}
+
+          {isError && (
+            <div className={styles.statePanel} role="alert">
+              <span className={styles.stateIcon}>!</span>
+              <h2>스크랩을 불러오지 못했습니다</h2>
+              <p>{toApiError(currentError).message}</p>
+              <button type="button" onClick={handleRetry}>
+                다시 시도
+              </button>
+            </div>
+          )}
+
+          {!isInitialLoading && !isError && scraps.length === 0 && (
+            <div className={styles.statePanel}>
+              <span className={styles.emptyIcon}>⌁</span>
+              <h2>{isSearching ? '검색 결과가 없습니다' : '아직 저장된 스크랩이 없습니다'}</h2>
+              <p>
+                {isSearching
+                  ? '다른 제목이나 URL로 다시 검색해 보세요.'
+                  : '아래 추가 버튼으로 첫 번째 링크를 저장해 보세요.'}
+              </p>
+            </div>
+          )}
+
+          {!isInitialLoading && !isError && scraps.length > 0 && viewMode === 'grid' && (
+            <div className={styles.scrapGrid}>
+              {scraps.map((scrap) => (
+                <ScrapCard key={scrap.scrapId} scrap={scrap} />
+              ))}
+            </div>
+          )}
+
+          {!isInitialLoading && !isError && scraps.length > 0 && viewMode === 'list' && (
+            <div className={styles.scrapList}>
+              <div className={styles.listHeader} aria-hidden="true">
+                <span>스크랩 날짜</span>
+                <span>제목</span>
+                <span>URL</span>
+                <span />
+              </div>
+              {scraps.map((scrap) => (
+                <ScrapListRow key={scrap.scrapId} scrap={scrap} />
+              ))}
+            </div>
+          )}
+
+          {!isSearching && <div ref={infiniteScrollRef} className={styles.scrollSentinel} />}
+          {isFetchingNextPage && (
+            <p className={styles.loadingMore}>스크랩을 더 불러오는 중...</p>
+          )}
         </div>
+
+        <ScrapSearchDock
+          value={searchTerm}
+          onChange={setSearchTerm}
+          onAddScrap={handleAddScrap}
+        />
       </section>
     </main>
   );

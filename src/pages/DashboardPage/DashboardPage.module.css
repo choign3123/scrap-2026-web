@@ -1,4 +1,3 @@
-/* PC에서는 사이드바와 본문을 나란히 두고 본문만 남은 공간을 사용합니다. */
 .page {
   display: flex;
   width: 100%;
@@ -15,44 +14,61 @@
 }
 
 .content {
+  position: relative;
+  display: flex;
   min-width: 0;
   height: 100dvh;
   min-height: 100dvh;
-  overflow-y: auto;
+  overflow: hidden;
   flex: 1;
-  background: var(--color-surface);
+  flex-direction: column;
+  background: #fbfcfb;
 }
 
 .contentHeader {
   display: flex;
   align-items: center;
-  height: 112px;
-  min-height: 112px;
-  padding: 16px clamp(28px, 4vw, 64px);
-  border-bottom: 1px solid var(--color-border);
-  gap: 16px;
+  justify-content: space-between;
+  min-height: 92px;
+  padding: 18px clamp(24px, 4vw, 56px);
+  border-bottom: 1px solid #e8ebe8;
+  gap: 24px;
+  background: rgb(255 255 255 / 88%);
+  backdrop-filter: blur(10px);
 }
 
-.contentHeader span {
-  color: var(--color-primary);
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+.titleArea {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 14px;
 }
 
-.contentHeader h1 {
-  margin-top: 5px;
-  font-size: clamp(1.75rem, 3vw, 2.35rem);
-  letter-spacing: -0.04em;
+.titleLine {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  margin-top: 0;
+  gap: 10px;
+}
+
+.titleLine h1 {
+  overflow: hidden;
+  color: #1b241d;
+  font-size: clamp(1.6rem, 2.7vw, 2.2rem);
+  letter-spacing: -0.045em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .openSidebarButton {
   display: grid;
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-medium);
+  border-radius: 11px;
+  flex: 0 0 40px;
   place-items: center;
   background: var(--color-surface);
   cursor: pointer;
@@ -64,34 +80,189 @@
 }
 
 .openSidebarButton img {
-  width: 27px;
-  height: 27px;
+  width: 24px;
+  height: 24px;
 }
 
-.bodyPlaceholder {
-  display: grid;
-  height: calc(100dvh - 112px);
+.listScroller {
   min-height: 0;
-  padding: var(--space-4);
-  place-content: center;
-  justify-items: center;
-  color: var(--color-text-secondary);
-  text-align: center;
+  overflow-y: auto;
+  padding: 26px clamp(24px, 4vw, 56px) 112px;
+  flex: 1;
+  scrollbar-color: #c9d4c8 transparent;
+  scrollbar-width: thin;
 }
 
-.bodyPlaceholder span {
-  color: var(--color-text-primary);
-  font-size: 1.125rem;
+.searchSummary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 520px;
+  padding: 10px 13px;
+  border: 1px solid #e2e6e2;
+  border-radius: 11px;
+  margin-bottom: 18px;
+  color: #68736a;
+  background: #fff;
+  font-size: 0.75rem;
+}
+
+.searchSummary strong {
+  color: #465049;
+}
+
+.scrapGrid,
+.gridSkeleton {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+}
+
+.scrapGrid {
+  align-items: start;
+}
+
+.scrapList {
+  overflow: hidden;
+  border: 1px solid #e5ebe3;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgb(31 58 35 / 5%);
+}
+
+.listHeader {
+  display: grid;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 18px;
+  border-bottom: 1px solid #dfe7dd;
+  column-gap: 18px;
+  grid-template-columns: 104px minmax(180px, 1.2fr) minmax(220px, 1fr) 36px;
+  color: #7c877f;
+  background: #f4f7f3;
+  font-size: 0.6875rem;
   font-weight: 700;
 }
 
-.bodyPlaceholder p {
-  margin-top: 8px;
-  line-height: 1.6;
+.gridSkeleton span {
+  aspect-ratio: 0.92;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #edf1ec 25%, #f8faf7 50%, #edf1ec 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.4s infinite linear;
+}
+
+.listSkeleton {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid #e5ebe3;
+  border-radius: 15px;
+  gap: 1px;
+}
+
+.listSkeleton span {
+  height: 58px;
+  background: linear-gradient(90deg, #edf1ec 25%, #f8faf7 50%, #edf1ec 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.4s infinite linear;
+}
+
+.statePanel {
+  display: grid;
+  min-height: 360px;
+  place-content: center;
+  justify-items: center;
+  color: #737e75;
+  text-align: center;
+}
+
+.stateIcon,
+.emptyIcon {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  border-radius: 17px;
+  margin-bottom: 15px;
+  place-items: center;
+  color: #59625b;
+  background: #ecefed;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.stateIcon {
+  color: var(--color-danger);
+  background: var(--color-danger-background);
+}
+
+.statePanel h2 {
+  color: #283129;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.statePanel p {
+  max-width: 420px;
+  margin-top: 7px;
+  font-size: 0.75rem;
+  line-height: 1.55;
+}
+
+.statePanel button {
+  height: 38px;
+  padding: 0 15px;
+  border: 1px solid #cfe1cb;
+  border-radius: 9px;
+  margin-top: 15px;
+  color: var(--color-primary-dark);
+  background: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.scrollSentinel {
+  height: 1px;
+}
+
+.loadingMore {
+  padding: 20px 0;
+  color: #7b867e;
+  font-size: 0.75rem;
+  text-align: center;
 }
 
 .mobileBackdrop {
   display: none;
+}
+
+@keyframes skeleton {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (min-width: 1680px) {
+  .scrapGrid,
+  .gridSkeleton {
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .contentHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .listHeader {
+    grid-template-columns: 90px minmax(0, 1fr);
+  }
+
+  .listHeader span:nth-child(n + 3) {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
@@ -112,14 +283,39 @@
   }
 
   .contentHeader {
-    height: 88px;
-    min-height: 88px;
+    min-height: 128px;
     padding: 16px;
   }
 
-  .bodyPlaceholder {
-    height: calc(100dvh - 88px);
-    min-height: 0;
-    padding: var(--space-3);
+  .listScroller {
+    padding: 18px 16px 92px;
+  }
+
+  .scrapGrid,
+  .gridSkeleton {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+@media (max-width: 500px) {
+  .scrapGrid,
+  .gridSkeleton {
+    grid-template-columns: 1fr;
+  }
+
+  .listHeader {
+    display: none;
+  }
+
+  .titleLine h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gridSkeleton span,
+  .listSkeleton span {
+    animation: none;
   }
 }

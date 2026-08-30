@@ -1,0 +1,127 @@
+.card {
+  overflow: hidden;
+  border: 1px solid #e5ebe3;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgb(31 58 35 / 7%);
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.card:hover {
+  border-color: #c8ddc5;
+  box-shadow: 0 14px 32px rgb(31 58 35 / 11%);
+  transform: translateY(-3px);
+}
+
+.thumbnailLink {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #edf2eb;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 220ms ease;
+}
+
+.thumbnailLink:hover .thumbnail {
+  transform: scale(1.035);
+}
+
+.imageFallback {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-content: center;
+  justify-items: center;
+  gap: 7px;
+  color: #8b958d;
+  background:
+    radial-gradient(circle at 20% 20%, rgb(150 224 112 / 18%), transparent 42%),
+    #f2f5f1;
+  font-size: 0.6875rem;
+}
+
+.imageFallback img {
+  width: 30px;
+  height: 30px;
+  opacity: 0.5;
+}
+
+.favoriteBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgb(255 255 255 / 85%);
+  border-radius: 10px;
+  place-items: center;
+  background: rgb(255 255 255 / 90%);
+  box-shadow: 0 5px 14px rgb(36 44 37 / 14%);
+  backdrop-filter: blur(4px);
+}
+
+.favoriteBadge img {
+  width: 20px;
+  height: 20px;
+}
+
+.content {
+  padding: 14px 15px 15px;
+}
+
+.categoryBadge {
+  display: inline-flex;
+  max-width: 100%;
+  padding: 4px 8px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 8px;
+  color: #5f6861;
+  background: #ecefed;
+  font-size: 0.625rem;
+  font-weight: 700;
+}
+
+.title {
+  display: -webkit-box;
+  overflow: hidden;
+  min-height: 42px;
+  color: #202821;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.url {
+  overflow: hidden;
+  margin-top: 10px;
+  color: #8a938c;
+  font-size: 0.6875rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.date {
+  display: block;
+  margin-top: 5px;
+  color: #5f6961;
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .thumbnail {
+    transition: none;
+  }
+}
