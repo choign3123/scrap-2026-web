@@ -27,3 +27,16 @@ export interface UpdateCategoryTitleRequest {
 export interface UpdateCategorySequenceRequest {
   categoryIdList: number[];
 }
+
+/** 스크랩 이동 팝업에 필요한 최소 카테고리 정보입니다. */
+export interface CategorySelectionItemDTO {
+  categoryId: number;
+  categoryTitle: string;
+}
+
+/** GET /auth/categories/selection API의 result 구조입니다. */
+export interface CategorySelectionDTO {
+  categories: CategorySelectionItemDTO[];
+  defaultCategory: number;
+  total: number;
+}

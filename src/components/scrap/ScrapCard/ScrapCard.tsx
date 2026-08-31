@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import scrapIcon from '../../../assets/icons/scrap-clip.svg';
 import starIcon from '../../../assets/icons/star-fill.svg';
 import type { ScrapListItem } from '../../../types/api/scrap';
@@ -6,6 +7,7 @@ import styles from './ScrapCard.module.css';
 
 interface ScrapCardProps {
   scrap: ScrapListItem;
+  detailHref: string;
 }
 
 /** 표시용 URL은 길고 복잡한 경로 대신 사용자가 출처를 알아볼 수 있는 호스트를 우선합니다. */
@@ -18,7 +20,7 @@ function getDisplayUrl(scrapURL: string) {
 }
 
 /** 격자 보기에서 이미지, 제목, URL, 저장일과 즐겨찾기 상태를 표시합니다. */
-function ScrapCard({ scrap }: ScrapCardProps) {
+function ScrapCard({ scrap, detailHref }: ScrapCardProps) {
   const [hasImageError, setHasImageError] = useState(false);
 
   useEffect(() => {
@@ -56,7 +58,8 @@ function ScrapCard({ scrap }: ScrapCardProps) {
         )}
       </a>
 
-      <div className={styles.content}>
+      {/* 이미지는 원문으로, 나머지 카드 영역은 상세 화면으로 연결합니다. */}
+      <Link className={styles.content} to={detailHref}>
         {scrap.categoryTitle && (
           <span className={styles.categoryBadge}>{scrap.categoryTitle}</span>
         )}
@@ -69,7 +72,7 @@ function ScrapCard({ scrap }: ScrapCardProps) {
         <time className={styles.date} dateTime={scrap.scrapDate}>
           {scrap.scrapDate}
         </time>
-      </div>
+      </Link>
     </article>
   );
 }

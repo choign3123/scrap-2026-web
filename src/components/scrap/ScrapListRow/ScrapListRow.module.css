@@ -33,14 +33,20 @@
   flex: 0 0 17px;
 }
 
-.titleCell > span {
+.detailLink {
   overflow: hidden;
   min-width: 0;
   color: #283029;
   font-size: 0.8125rem;
   font-weight: 650;
+  text-decoration: none;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.detailLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .category {

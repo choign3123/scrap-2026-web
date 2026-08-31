@@ -1,0 +1,134 @@
+.editorShell {
+  overflow: hidden;
+  border: 1px solid #dedede;
+  border-radius: 13px;
+  background: #fff;
+  transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.editorShell:focus-within {
+  border-color: #a7a7a7;
+  box-shadow: 0 0 0 3px rgb(0 0 0 / 4%);
+}
+
+.editorContent :global(.tiptap) {
+  min-height: 220px;
+  padding: 18px 20px;
+  outline: none;
+  color: #343434;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+}
+
+/* Placeholder extension이 빈 첫 문단에 표시할 안내 문구입니다. */
+.editorContent :global(.tiptap p.is-editor-empty:first-child::before) {
+  height: 0;
+  color: #a0a0a0;
+  content: attr(data-placeholder);
+  float: left;
+  pointer-events: none;
+}
+
+.editorContent :global(.tiptap h1),
+.editorContent :global(.tiptap h2),
+.editorContent :global(.tiptap h3),
+.editorContent :global(.tiptap p),
+.editorContent :global(.tiptap ul),
+.editorContent :global(.tiptap ol),
+.editorContent :global(.tiptap blockquote) {
+  margin: 0 0 12px;
+}
+
+.editorContent :global(.tiptap h1) {
+  font-size: 1.75rem;
+}
+
+.editorContent :global(.tiptap h2) {
+  font-size: 1.5rem;
+}
+
+.editorContent :global(.tiptap h3) {
+  font-size: 1.25rem;
+}
+
+.editorContent :global(.tiptap h1),
+.editorContent :global(.tiptap h2),
+.editorContent :global(.tiptap h3) {
+  color: #252525;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  line-height: 1.4;
+}
+
+.editorContent :global(.tiptap ul),
+.editorContent :global(.tiptap ol) {
+  padding-left: 25px;
+}
+
+/* 글머리표와 번호 목록의 행 높이를 동일하게 맞추고 항목 사이를 조밀하게 유지합니다. */
+.editorContent :global(.tiptap ul li > p),
+.editorContent :global(.tiptap ol li > p) {
+  margin-bottom: 3px;
+  line-height: 1.55;
+}
+
+.editorContent :global(.tiptap ul li:last-child > p),
+.editorContent :global(.tiptap ol li:last-child > p) {
+  margin-bottom: 0;
+}
+
+.editorContent :global(.tiptap blockquote) {
+  display: flex;
+  min-height: 28px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1px 0 1px 13px;
+  border-left: 3px solid #bdbdbd;
+  color: #626262;
+}
+
+/* 전역 paragraph 여백이 인용문 높이를 키우지 않도록 내부 문단만 별도로 정렬합니다. */
+.editorContent :global(.tiptap blockquote > p) {
+  margin-bottom: 3px;
+  line-height: 1.55;
+}
+
+.editorContent :global(.tiptap blockquote > p:last-child) {
+  margin-bottom: 0;
+}
+
+.editorContent :global(.tiptap code) {
+  padding: 2px 5px;
+  border-radius: 5px;
+  color: #393939;
+  background: #f0f0f0;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.875rem;
+}
+
+.editorContent :global(.tiptap a) {
+  color: #3569a8;
+  cursor: text;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.shortcutHint {
+  padding: 10px 18px;
+  border-top: 1px solid #ececec;
+  color: #909090;
+  background: #fafafa;
+  font-size: 0.6875rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .editorContent :global(.tiptap) {
+    min-height: 190px;
+    padding: 15px 16px;
+  }
+
+  .shortcutHint {
+    display: none;
+  }
+}

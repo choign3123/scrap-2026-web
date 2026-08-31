@@ -4,6 +4,7 @@ import {
   getFavoriteScraps,
   searchCategoryScraps,
   searchFavoriteScraps,
+  getScrapDetails,
 } from '../../services/api/scrapService';
 import type { ScrapSort, SortDirection } from '../../types/api/scrap';
 
@@ -28,6 +29,7 @@ export const scrapQueryKeys = {
     [...scrapQueryKeys.all, 'list', options] as const,
   search: (options: Omit<ScrapSearchQueryOptions, 'enabled'>) =>
     [...scrapQueryKeys.all, 'search', options] as const,
+  detail: (scrapId: number) => [...scrapQueryKeys.all, 'detail', scrapId] as const,
 };
 
 /** 일반 목록은 서버 페이지 정보를 이용해 끝까지 무한 스크롤합니다. */
@@ -55,6 +57,15 @@ export function useScrapsInfiniteQuery({
     getNextPageParam: (lastPage, allPages) =>
       lastPage.meta.isEnd ? undefined : allPages.length,
     enabled: enabled && (isFavorites || categoryId !== null),
+  });
+}
+
+/** URL의 스크랩 ID가 유효할 때만 상세 정보를 조회합니다. */
+export function useScrapDetailsQuery(scrapId: number | null) {
+  return useQuery({
+    queryKey: scrapQueryKeys.detail(scrapId ?? 0),
+    queryFn: () => getScrapDetails(scrapId as number),
+    enabled: scrapId !== null,
   });
 }
 

@@ -1,5 +1,6 @@
 import type {
   CategoryListDTO,
+  CategorySelectionDTO,
   CreateCategoryRequest,
   UpdateCategorySequenceRequest,
   UpdateCategoryTitleRequest,
@@ -10,6 +11,14 @@ import { apiClient } from './apiClient';
 /** 로그인 사용자의 카테고리 전체 목록을 조회합니다. */
 export async function getCategories() {
   const response = await apiClient.get<ApiResponse<CategoryListDTO>>('/auth/categories');
+  return response.data.result;
+}
+
+/** 스크랩 이동 팝업에서 사용할 간단한 카테고리 목록을 조회합니다. */
+export async function getCategorySelection() {
+  const response = await apiClient.get<ApiResponse<CategorySelectionDTO>>(
+    '/auth/categories/selection',
+  );
   return response.data.result;
 }
 

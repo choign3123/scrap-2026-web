@@ -73,7 +73,15 @@
 }
 
 .content {
+  display: block;
   padding: 14px 15px 15px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.content:focus-visible {
+  outline: 3px solid rgb(41 151 59 / 25%);
+  outline-offset: -3px;
 }
 
 .categoryBadge {

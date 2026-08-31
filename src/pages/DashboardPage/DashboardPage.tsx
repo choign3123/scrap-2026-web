@@ -146,6 +146,9 @@ function DashboardPage() {
   const pageTitle = isFavoritesSelected
     ? '즐겨찾기'
     : selectedCategory?.categoryTitle ?? '스크랩';
+  const detailSource = isFavoritesSelected
+    ? 'from=favorites'
+    : `fromCategory=${selectedCategoryId ?? ''}`;
 
   return (
     <main className={styles.page}>
@@ -249,7 +252,11 @@ function DashboardPage() {
           {!isInitialLoading && !isError && scraps.length > 0 && viewMode === 'grid' && (
             <div className={styles.scrapGrid}>
               {scraps.map((scrap) => (
-                <ScrapCard key={scrap.scrapId} scrap={scrap} />
+                <ScrapCard
+                  key={scrap.scrapId}
+                  scrap={scrap}
+                  detailHref={`/scraps/${scrap.scrapId}?${detailSource}`}
+                />
               ))}
             </div>
           )}
@@ -263,7 +270,11 @@ function DashboardPage() {
                 <span />
               </div>
               {scraps.map((scrap) => (
-                <ScrapListRow key={scrap.scrapId} scrap={scrap} />
+                <ScrapListRow
+                  key={scrap.scrapId}
+                  scrap={scrap}
+                  detailHref={`/scraps/${scrap.scrapId}?${detailSource}`}
+                />
               ))}
             </div>
           )}

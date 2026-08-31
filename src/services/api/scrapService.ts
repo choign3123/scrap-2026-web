@@ -8,6 +8,10 @@ import type {
   ScrapSearchRequest,
   ScrapSearchResult,
   ScrapSearchResultDTO,
+  ScrapDetailsDTO,
+  UpdateScrapFavoriteDTO,
+  UpdateScrapMemoRequest,
+  MoveScrapRequest,
 } from '../../types/api/scrap';
 import { apiClient } from './apiClient';
 
@@ -100,4 +104,40 @@ export async function searchFavoriteScraps({
     total: response.data.result.total,
     scraps: response.data.result.scraps.map(toScrapListItem),
   };
+}
+
+/** 스크랩 상세 화면에 필요한 원문 정보와 메모를 조회합니다. */
+export async function getScrapDetails(scrapId: number) {
+  const response = await apiClient.get<ApiResponse<ScrapDetailsDTO>>(
+    `/auth/scraps/${scrapId}`,
+  );
+  return response.data.result;
+}
+
+/** 사용자가 편집한 메모를 명시적인 저장 버튼으로 반영합니다. */
+export async function updateScrapMemo(scrapId: number, memo: string) {
+  const requestBody: UpdateScrapMemoRequest = { memo };
+  await apiClient.patch<ApiResponse<UpdateScrapMemoRequest>>(
+    `/auth/scraps/${scrapId}/memo`,
+    requestBody,
+  );
+}
+
+/** 현재 즐겨찾기 상태를 반대로 전환합니다. */
+export async function toggleScrapFavorite(scrapId: number) {
+  const response = await apiClient.patch<ApiResponse<UpdateScrapFavoriteDTO>>(
+    `/auth/scraps/${scrapId}/favorite`,
+  );
+  return response.data.result;
+}
+
+/** 선택한 카테고리로 스크랩을 이동합니다. */
+export async function moveScrap(scrapId: number, moveCategoryId: number) {
+  const requestBody: MoveScrapRequest = { moveCategoryId };
+  await apiClient.patch<ApiResponse<null>>(`/auth/scraps/${scrapId}/move`, requestBody);
+}
+
+/** 상세 화면의 삭제 동작은 서버의 휴지통 이동 API를 호출합니다. */
+export async function deleteScrap(scrapId: number) {
+  await apiClient.patch<ApiResponse<null>>(`/auth/scraps/${scrapId}/trash`);
 }

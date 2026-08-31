@@ -5,6 +5,8 @@
   --color-primary-soft: #e3fbd7;
   --color-primary-light: #96e070;
   --color-background: #fcfcfc;
+  /* 대시보드 목록과 상세 화면의 공통 배경입니다. 이 값만 바꾸면 두 화면이 함께 변경됩니다. */
+  --color-workspace-background: #f7f7f8;
   --color-surface: #ffffff;
   --color-text-primary: #202521;
   --color-text-secondary: #687069;

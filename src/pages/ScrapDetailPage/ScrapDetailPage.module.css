@@ -1,0 +1,630 @@
+.page {
+  display: flex;
+  width: 100%;
+  min-width: 320px;
+  min-height: 100dvh;
+  overflow: hidden;
+  /* 대시보드 본문과 공통 중립 배경 변수를 사용합니다. */
+  background: var(--color-workspace-background);
+}
+
+.sidebarLayer {
+  position: relative;
+  z-index: 20;
+  flex: 0 0 auto;
+}
+
+.content {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  height: 100dvh;
+  flex: 1;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  min-height: 92px;
+  padding: 14px clamp(24px, 4vw, 56px);
+  border-bottom: 1px solid #e5e9e5;
+  gap: 14px;
+  background: rgb(255 255 255 / 92%);
+  backdrop-filter: blur(10px);
+}
+
+.iconButton,
+.backButton {
+  height: 40px;
+  border: 1px solid #dfe4df;
+  border-radius: 11px;
+  color: #586159;
+  background: #fff;
+  cursor: pointer;
+}
+
+.iconButton {
+  display: grid;
+  width: 40px;
+  padding: 0;
+  flex: 0 0 40px;
+  place-items: center;
+}
+
+.iconButton img {
+  width: 23px;
+  height: 23px;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  padding: 0 13px;
+  flex: 0 0 auto;
+  gap: 7px;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.backButton span {
+  font-size: 1rem;
+}
+
+.iconButton:hover,
+.backButton:hover {
+  border-color: #c6cec7;
+  background: #f8faf8;
+}
+
+.headerTitle {
+  display: flex;
+  overflow: hidden;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.titleViewport {
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  color: #1f2720;
+  white-space: nowrap;
+}
+
+.titleViewport h1,
+.marqueeTrack {
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.3;
+}
+
+.titleMeasurement {
+  position: absolute;
+  visibility: hidden;
+  font: inherit;
+  pointer-events: none;
+}
+
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  animation: marquee 16s linear infinite;
+}
+
+.marqueeTrack span {
+  padding-right: 64px;
+}
+
+.scroller {
+  min-height: 0;
+  overflow-y: auto;
+  padding: clamp(24px, 3vw, 42px) clamp(24px, 4vw, 56px) 128px;
+  flex: 1;
+  scrollbar-color: #cbd2cc transparent;
+  scrollbar-width: thin;
+}
+
+.detailContainer {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(330px, 0.95fr) minmax(360px, 1.05fr);
+  gap: clamp(22px, 3vw, 40px);
+}
+
+.imagePanel {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  min-height: 330px;
+  border: 1px solid #e1e6e1;
+  border-radius: 22px;
+  color: inherit;
+  background: #eff2ef;
+  box-shadow: 0 14px 36px rgb(39 52 41 / 8%);
+  text-decoration: none;
+}
+
+.imagePanel > img {
+  width: 100%;
+  height: 100%;
+  min-height: 330px;
+  object-fit: cover;
+  transition: transform 220ms ease;
+}
+
+.imagePanel:hover > img {
+  transform: scale(1.025);
+}
+
+.imageFallback {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  min-height: 330px;
+  place-content: center;
+  justify-items: center;
+  gap: 8px;
+  color: #717b73;
+  background:
+    radial-gradient(circle at 30% 20%, rgb(150 224 112 / 13%), transparent 40%),
+    #f1f4f1;
+}
+
+.imageFallback img {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 5px;
+  opacity: 0.45;
+}
+
+.imageFallback strong {
+  font-size: 0.875rem;
+}
+
+.imageFallback small {
+  font-size: 0.6875rem;
+}
+
+.openLabel {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 8px 11px;
+  border: 1px solid rgb(255 255 255 / 80%);
+  border-radius: 10px;
+  color: #283029;
+  background: rgb(255 255 255 / 90%);
+  box-shadow: 0 5px 16px rgb(28 36 29 / 12%);
+  font-size: 0.8125rem;
+  font-weight: 750;
+  backdrop-filter: blur(5px);
+}
+
+.informationPanel {
+  display: flex;
+  min-width: 0;
+  padding: 7px 0;
+  flex-direction: column;
+}
+
+.sectionHeading h2,
+.memoHeader h2 {
+  color: #222b24;
+  font-size: 1.45rem;
+  letter-spacing: -0.035em;
+}
+
+.urlBox {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #e2e7e2;
+  border-radius: 14px;
+  margin-top: 24px;
+  gap: 12px;
+  background: #fff;
+}
+
+.urlBox > div {
+  display: flex;
+  overflow: hidden;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.urlBox span,
+.descriptionBox > span {
+  color: #8a938b;
+  font-size: 0.75rem;
+  font-weight: 750;
+}
+
+.urlBox a {
+  overflow: hidden;
+  color: #35413a;
+  font-size: 0.875rem;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.urlBox a:hover {
+  text-decoration: underline;
+}
+
+.urlBox button {
+  display: flex;
+  align-items: center;
+  height: 34px;
+  width: 38px;
+  padding: 0;
+  border: 1px solid #dde3dd;
+  border-radius: 9px;
+  flex: 0 0 auto;
+  justify-content: center;
+  color: #586159;
+  background: #f8faf8;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.urlBox button img {
+  width: 18px;
+  height: 18px;
+}
+
+.descriptionBox {
+  padding: 19px 18px;
+  border: 1px solid #e7ebe7;
+  border-radius: 14px;
+  margin-top: 12px;
+  flex: 1;
+  background: #fbfcfb;
+}
+
+.descriptionBox p {
+  margin-top: 10px;
+  color: #515b53;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  white-space: pre-wrap;
+}
+
+.memoSection {
+  overflow: hidden;
+  border: 1px solid #e2e7e2;
+  border-radius: 20px;
+  margin-top: 34px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgb(39 52 41 / 5%);
+}
+
+.memoHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 21px 23px;
+  border-bottom: 1px solid #e8ece8;
+  gap: 20px;
+}
+
+.memoHeader p {
+  margin-top: 5px;
+  color: #818a82;
+  font-size: 0.8125rem;
+}
+
+.saveArea {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 10px;
+}
+
+.saveArea > span {
+  color: #387244;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.saveArea button {
+  height: 39px;
+  padding: 0 15px;
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  background: #2e803b;
+  font-size: 0.875rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.saveArea button:disabled {
+  color: #929a93;
+  background: #e8ece8;
+  cursor: not-allowed;
+}
+
+.memoWorkspace {
+  min-height: 260px;
+  padding: 20px 22px 24px;
+  background: #fafafa;
+}
+
+.actionError {
+  padding: 12px 14px;
+  border: 1px solid #f0d2d2;
+  border-radius: 11px;
+  margin-top: 14px;
+  color: #b83c3c;
+  background: #fff7f7;
+  font-size: 0.75rem;
+}
+
+.actionDock {
+  position: absolute;
+  z-index: 10;
+  right: clamp(24px, 4vw, 56px);
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  padding: 7px;
+  border: 1px solid #dde3dd;
+  border-radius: 17px;
+  gap: 4px;
+  background: rgb(255 255 255 / 94%);
+  box-shadow: 0 13px 35px rgb(38 49 40 / 15%);
+  backdrop-filter: blur(10px);
+}
+
+.actionDock button {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 11px;
+  gap: 7px;
+  color: #4f5951;
+  background: transparent;
+  font-size: 0.875rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.actionDock button:hover {
+  background: #f2f5f2;
+}
+
+.actionDock button:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+.actionDock button img {
+  width: 19px;
+  height: 19px;
+  opacity: 0.72;
+}
+
+.actionDock .deleteAction {
+  color: #b33d3d;
+}
+
+.actionDock .favoriteAction {
+  color: #276d33;
+  background: #eef7ec;
+}
+
+.actionDivider {
+  width: 1px;
+  height: 24px;
+  margin: 0 3px;
+  background: #e0e5e0;
+}
+
+.detailSkeleton {
+  display: grid;
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+}
+
+.detailSkeleton span,
+.detailSkeleton > div {
+  border-radius: 18px;
+  background: linear-gradient(90deg, #edf0ed, #f8faf8, #edf0ed);
+  background-size: 200% 100%;
+  animation: shimmer 1.3s infinite;
+}
+
+.imageSkeleton {
+  min-height: 340px;
+}
+
+.detailSkeleton > div {
+  display: grid;
+  padding: 32px;
+  background: transparent;
+  gap: 15px;
+}
+
+.detailSkeleton > div span {
+  display: block;
+  height: 54px;
+}
+
+.statePanel {
+  display: grid;
+  min-height: 420px;
+  place-content: center;
+  justify-items: center;
+  color: #747d75;
+  text-align: center;
+}
+
+.statePanel > span {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  place-items: center;
+  color: #bc4141;
+  background: #fff0f0;
+  font-weight: 850;
+}
+
+.statePanel h1 {
+  color: #2b332c;
+  font-size: 1rem;
+}
+
+.statePanel p {
+  margin-top: 8px;
+  font-size: 0.75rem;
+}
+
+.statePanel button {
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid #dce2dc;
+  border-radius: 9px;
+  margin-top: 15px;
+  color: #455047;
+  background: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mobileBackdrop {
+  display: none;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 980px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .imagePanel,
+  .imagePanel > img,
+  .imageFallback {
+    min-height: 280px;
+    max-height: 430px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebarLayer {
+    position: fixed;
+    z-index: 50;
+    inset: 0 auto 0 0;
+  }
+
+  .mobileBackdrop {
+    position: fixed;
+    z-index: 40;
+    inset: 0;
+    display: block;
+    padding: 0;
+    border: 0;
+    background: rgb(20 25 21 / 32%);
+  }
+
+  .header {
+    min-height: 82px;
+    padding: 12px 16px;
+  }
+
+  .backButton {
+    width: 40px;
+    padding: 0;
+    justify-content: center;
+    font-size: 0;
+  }
+
+  .backButton span {
+    font-size: 1.1rem;
+  }
+
+  .scroller {
+    padding: 20px 16px 112px;
+  }
+
+  .memoHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .saveArea {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .actionDock {
+    right: 16px;
+    bottom: 15px;
+    left: 16px;
+    justify-content: stretch;
+  }
+
+  .actionDock button {
+    padding: 0 9px;
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroGrid {
+    gap: 20px;
+  }
+
+  .imagePanel,
+  .imagePanel > img,
+  .imageFallback {
+    min-height: 220px;
+  }
+
+  .actionDock button {
+    font-size: 0.8125rem;
+  }
+
+  .actionDock button img {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marqueeTrack,
+  .detailSkeleton span,
+  .detailSkeleton > div {
+    animation: none;
+  }
+}

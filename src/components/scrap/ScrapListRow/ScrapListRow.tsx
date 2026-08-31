@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import copyIcon from '../../../assets/icons/copy.svg';
 import starIcon from '../../../assets/icons/star-fill.svg';
 import type { ScrapListItem } from '../../../types/api/scrap';
@@ -6,10 +7,11 @@ import styles from './ScrapListRow.module.css';
 
 interface ScrapListRowProps {
   scrap: ScrapListItem;
+  detailHref: string;
 }
 
 /** 목록 보기는 선택 박스 없이 날짜, 제목, URL을 빠르게 비교하도록 구성합니다. */
-function ScrapListRow({ scrap }: ScrapListRowProps) {
+function ScrapListRow({ scrap, detailHref }: ScrapListRowProps) {
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>('idle');
   const resetTimerRef = useRef<number | null>(null);
 
@@ -43,7 +45,9 @@ function ScrapListRow({ scrap }: ScrapListRowProps) {
       </time>
       <div className={styles.titleCell}>
         {scrap.isFavorite && <img src={starIcon} alt="즐겨찾기" />}
-        <span title={scrap.title}>{scrap.title || '제목 없음'}</span>
+        <Link className={styles.detailLink} to={detailHref} title={scrap.title}>
+          {scrap.title || '제목 없음'}
+        </Link>
         {scrap.categoryTitle && (
           <small className={styles.category}>{scrap.categoryTitle}</small>
         )}

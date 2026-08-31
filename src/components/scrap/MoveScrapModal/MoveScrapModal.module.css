@@ -1,0 +1,145 @@
+.description {
+  margin-bottom: 18px;
+  color: #6d756e;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.categoryList {
+  display: grid;
+  overflow-y: auto;
+  max-height: 300px;
+  gap: 8px;
+}
+
+.categoryOption {
+  display: grid;
+  align-items: center;
+  min-height: 58px;
+  padding: 8px 12px;
+  border: 1px solid #e4e8e4;
+  border-radius: 13px;
+  grid-template-columns: 0 38px 1fr 18px;
+  gap: 10px;
+  color: #343b35;
+  background: #fff;
+  font-size: 0.875rem;
+  font-weight: 650;
+  cursor: pointer;
+  transition: border-color 140ms ease, background 140ms ease;
+}
+
+.categoryOption:hover {
+  border-color: #c8d3c9;
+  background: #fafcfa;
+}
+
+.categoryOption input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.folderBox {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  place-items: center;
+  background: #f0f3f0;
+}
+
+.folderBox img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.72;
+}
+
+.categoryOption i {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #c5ccc6;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.selected {
+  border-color: #75b47f;
+  background: #f5faf4;
+}
+
+.selected i {
+  border: 5px solid #358d43;
+}
+
+.skeleton {
+  display: grid;
+  gap: 8px;
+}
+
+.skeleton span {
+  height: 58px;
+  border-radius: 13px;
+  background: linear-gradient(90deg, #f1f3f1, #fafafa, #f1f3f1);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+}
+
+.error,
+.empty {
+  padding: 28px 16px;
+  border-radius: 13px;
+  color: #737b74;
+  background: #f7f8f7;
+  text-align: center;
+  font-size: 0.8125rem;
+}
+
+.error button {
+  margin-top: 10px;
+  border: 0;
+  color: #2e753a;
+  background: transparent;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.operationError {
+  margin-top: 12px;
+  color: var(--color-danger);
+  font-size: 0.75rem;
+}
+
+.secondaryButton,
+.primaryButton {
+  min-width: 94px;
+  height: 42px;
+  border-radius: 11px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.secondaryButton {
+  border: 1px solid #dde2dd;
+  color: #586159;
+  background: #fff;
+}
+
+.primaryButton {
+  border: 0;
+  color: #fff;
+  background: #2f853d;
+}
+
+.secondaryButton:disabled,
+.primaryButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}

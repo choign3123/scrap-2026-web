@@ -22,7 +22,7 @@
   overflow: hidden;
   flex: 1;
   flex-direction: column;
-  background: #fbfcfb;
+  background: var(--color-workspace-background);
 }
 
 .contentHeader {
