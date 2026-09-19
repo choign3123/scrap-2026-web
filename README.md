@@ -14,6 +14,8 @@ npm.cmd run dev
 Vite가 출력한 로컬 주소를 브라우저에서 열면 됩니다. Vite에서는 Create React App의
 `npm start` 대신 `npm run dev`를 사용합니다.
 
+Linux 서버에 운영 배포할 때는 [서버 배포 및 기동 문서](docs/server-deployment.md)를 참고합니다.
+
 ## 검사 명령
 
 ```powershell
