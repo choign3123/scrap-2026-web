@@ -19,6 +19,9 @@ import type { ScrapSort, SortDirection } from '../../types/api/scrap';
 import { toApiError } from '../../utils/apiError';
 import styles from './DashboardPage.module.css';
 
+/** 사용자가 마지막으로 선택한 스크랩 보기 방식을 브라우저에 저장할 때 사용하는 키입니다. */
+const SCRAP_VIEW_MODE_STORAGE_KEY = 'scrap.dashboard.viewMode';
+
 /** URL에서 유효한 카테고리 ID만 숫자로 변환합니다. */
 function parseCategoryId(categoryIdValue: string | null) {
   if (!categoryIdValue) {
@@ -27,6 +30,17 @@ function parseCategoryId(categoryIdValue: string | null) {
 
   const categoryId = Number(categoryIdValue);
   return Number.isFinite(categoryId) ? categoryId : null;
+}
+
+/** 저장값이 유효할 때만 사용하고, 처음 방문했거나 값이 손상됐으면 격자형을 사용합니다. */
+function getInitialViewMode(): ScrapViewMode {
+  try {
+    const savedViewMode = window.localStorage.getItem(SCRAP_VIEW_MODE_STORAGE_KEY);
+    return savedViewMode === 'list' || savedViewMode === 'grid' ? savedViewMode : 'grid';
+  } catch {
+    // 브라우저 설정으로 저장소를 사용할 수 없는 경우에도 화면은 정상 동작해야 합니다.
+    return 'grid';
+  }
 }
 
 /** 로그인 후 카테고리·즐겨찾기 스크랩을 탐색하는 메인 화면입니다. */
@@ -38,7 +52,7 @@ function DashboardPage() {
   );
   const [sort, setSort] = useState<ScrapSort>('SCRAP_DATE');
   const [direction, setDirection] = useState<SortDirection>('DESC');
-  const [viewMode, setViewMode] = useState<ScrapViewMode>('grid');
+  const [viewMode, setViewMode] = useState<ScrapViewMode>(getInitialViewMode);
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebouncedValue(searchTerm.trim(), 300);
   const categoriesQuery = useCategoriesQuery();
@@ -83,6 +97,15 @@ function DashboardPage() {
     // 다른 카테고리로 이동하면 이전 범위의 검색어가 남지 않도록 초기화합니다.
     setSearchTerm('');
   }, [isFavoritesSelected, selectedCategoryId]);
+
+  useEffect(() => {
+    try {
+      // 상세 화면을 다녀오거나 페이지를 새로 열어도 마지막 보기 방식을 유지합니다.
+      window.localStorage.setItem(SCRAP_VIEW_MODE_STORAGE_KEY, viewMode);
+    } catch {
+      // 저장소 접근 실패는 목록 탐색 자체를 막을 오류가 아니므로 현재 상태만 유지합니다.
+    }
+  }, [viewMode]);
 
   const scraps = useMemo(
     () =>

@@ -40,14 +40,20 @@ function ScrapListRow({ scrap, detailHref }: ScrapListRowProps) {
 
   return (
     <article className={styles.row}>
+      {/* 행 전체를 덮는 링크를 두어 날짜나 제목 주변을 눌러도 상세 화면으로 이동합니다. */}
+      <Link
+        className={styles.rowLink}
+        to={detailHref}
+        aria-label={`${scrap.title || '제목 없음'} 상세 보기`}
+      />
       <time className={styles.date} dateTime={scrap.scrapDate}>
         {scrap.scrapDate}
       </time>
       <div className={styles.titleCell}>
         {scrap.isFavorite && <img src={starIcon} alt="즐겨찾기" />}
-        <Link className={styles.detailLink} to={detailHref} title={scrap.title}>
+        <span className={styles.detailTitle} title={scrap.title}>
           {scrap.title || '제목 없음'}
-        </Link>
+        </span>
         {scrap.categoryTitle && (
           <small className={styles.category}>{scrap.categoryTitle}</small>
         )}
@@ -61,6 +67,7 @@ function ScrapListRow({ scrap, detailHref }: ScrapListRowProps) {
       >
         {scrap.scrapURL}
       </a>
+      {/* 복사 버튼은 행 링크 위에 있으므로 클릭해도 상세 화면으로 이동하지 않습니다. */}
       <button
         type="button"
         className={`${styles.copyButton} ${copyState !== 'idle' ? styles.copyResult : ''}`}
