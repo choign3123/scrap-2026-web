@@ -89,8 +89,7 @@ VITE_API_BASE_URL=https://dev.teamscrap.co.kr
 프로젝트에 포함된 설정 파일을 Nginx 설정 디렉터리로 복사합니다.
 
 ```bash
-sudo cp deploy/nginx/scrap-web.conf /etc/nginx/sites-available/scrap-web
-sudo ln -sfn /etc/nginx/sites-available/scrap-web /etc/nginx/sites-enabled/scrap-web
+sudo cp deploy/nginx/scrap-web.conf /etc/nginx/conf.d/scrap-web.conf
 ```
 
 `deploy/nginx/scrap-web.conf`에서 다음 값을 서버에 맞게 수정합니다.

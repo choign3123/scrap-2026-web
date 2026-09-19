@@ -11,7 +11,6 @@ WEB_ROOT="${WEB_ROOT:-/var/www/scrap-web}"
 ENV_FILE="${ENV_FILE:-${PROJECT_DIR}/.env.production.local}"
 VITE_ENV_FILE="${PROJECT_DIR}/.env.production.local"
 BUILD_DIR="${PROJECT_DIR}/dist"
-NGINX_SITE_CONFIG="${NGINX_SITE_CONFIG:-/etc/nginx/sites-enabled/scrap-web}"
 MIN_NODE_MAJOR=20
 MIN_NODE_MINOR=19
 
@@ -46,8 +45,6 @@ fi
 
 [[ -f "${ENV_FILE}" ]] || fail \
   "운영 환경변수 파일이 없습니다: ${ENV_FILE} (.env.production.example을 참고해 작성해 주세요.)"
-[[ -e "${NGINX_SITE_CONFIG}" ]] || fail \
-  "Nginx 사이트 설정이 활성화되지 않았습니다: ${NGINX_SITE_CONFIG} (배포 문서 4번을 먼저 진행해 주세요.)"
 
 cd "${PROJECT_DIR}"
 
