@@ -35,6 +35,7 @@ function ScrapSearchDock({ value, onChange, onAddScrap }: ScrapSearchDockProps) 
         onClick={onAddScrap}
       >
         <img src={addIcon} alt="" />
+        <span>새 스크랩</span>
       </button>
     </div>
   );

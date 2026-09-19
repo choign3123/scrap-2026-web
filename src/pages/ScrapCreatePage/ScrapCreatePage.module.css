@@ -1,0 +1,709 @@
+/* 페이지 전체는 기존 대시보드처럼 왼쪽 사이드바와 오른쪽 작업 영역으로 나눕니다. */
+.page {
+  display: flex;
+  width: 100%;
+  min-width: 320px;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: var(--color-background);
+}
+
+.sidebarLayer {
+  position: relative;
+  z-index: 30;
+  flex: 0 0 auto;
+}
+
+.content {
+  display: flex;
+  min-width: 0;
+  height: 100dvh;
+  overflow: hidden;
+  flex: 1;
+  flex-direction: column;
+  background: var(--color-workspace-background);
+}
+
+.header {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  min-height: 92px;
+  padding: 15px clamp(24px, 4vw, 56px);
+  border-bottom: 1px solid #e7e7e9;
+  align-items: center;
+  grid-template-columns: 1fr auto 1fr;
+  background: rgb(255 255 255 / 90%);
+  backdrop-filter: blur(12px);
+}
+
+.headerStart {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.iconButton,
+.backButton {
+  height: 40px;
+  border: 1px solid #dedfe1;
+  border-radius: 11px;
+  color: #4d5150;
+  background: #fff;
+  cursor: pointer;
+}
+
+.iconButton {
+  display: grid;
+  width: 40px;
+  padding: 0;
+  place-items: center;
+}
+
+.iconButton img {
+  width: 23px;
+  height: 23px;
+}
+
+.backButton {
+  display: flex;
+  padding: 0 13px;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.backButton span {
+  font-size: 1rem;
+}
+
+.iconButton:hover,
+.backButton:hover {
+  border-color: #c7c9cb;
+  background: #f8f8f9;
+}
+
+.headerTitle {
+  text-align: center;
+}
+
+.headerTitle span {
+  color: #8b8e8c;
+  font-size: 0.625rem;
+  font-weight: 750;
+  letter-spacing: 0.09em;
+}
+
+.headerTitle h1 {
+  margin-top: 2px;
+  color: #252827;
+  font-size: 1.45rem;
+  letter-spacing: -0.04em;
+}
+
+.form {
+  display: flex;
+  min-height: 0;
+  overflow: hidden;
+  flex: 1;
+  flex-direction: column;
+}
+
+.formBody {
+  min-height: 0;
+  padding: 34px clamp(24px, 5vw, 72px) 42px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* 각 입력 단계는 최대 너비를 통일해 넓은 PC에서도 시선이 과하게 퍼지지 않게 합니다. */
+.urlSection,
+.previewSection,
+.optionSection {
+  max-width: 1040px;
+  margin: 0 auto 34px;
+}
+
+.sectionHeading {
+  display: flex;
+  margin-bottom: 15px;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.stepNumber {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  border: 1px solid #d9dcda;
+  border-radius: 9px;
+  flex: 0 0 28px;
+  place-items: center;
+  color: #555c57;
+  background: #fff;
+  font-size: 0.6875rem;
+  font-weight: 800;
+}
+
+.sectionHeading h2 {
+  color: #292c2a;
+  font-size: 1rem;
+  letter-spacing: -0.025em;
+}
+
+.sectionHeading p {
+  margin-top: 3px;
+  color: #858987;
+  font-size: 0.71875rem;
+  line-height: 1.5;
+}
+
+.urlField {
+  display: flex;
+  height: 62px;
+  padding: 0 17px;
+  border: 1px solid #d9dbdd;
+  border-radius: 16px;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgb(33 38 35 / 4%);
+  transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.urlField:focus-within {
+  border-color: #989a9e;
+  box-shadow: 0 0 0 4px rgb(39 40 44 / 7%);
+}
+
+.urlField > span:first-child {
+  padding-right: 14px;
+  border-right: 1px solid #e6e7e8;
+  color: #555a57;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.urlField input {
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  flex: 1;
+  color: #252927;
+  background: transparent;
+  font-size: 0.875rem;
+  outline: 0;
+}
+
+.urlField input::placeholder {
+  color: #a8abaa;
+}
+
+.fieldLoader {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e2e4e2;
+  border-top-color: #555d57;
+  border-radius: 50%;
+  animation: spin 700ms linear infinite;
+}
+
+.fieldError,
+.metadataWarning,
+.metadataSuccess,
+.metadataDefault {
+  margin: 9px 4px 0;
+  font-size: 0.71875rem;
+  line-height: 1.5;
+}
+
+.fieldError {
+  color: var(--color-danger);
+}
+
+.metadataWarning {
+  color: #8a6429;
+}
+
+.metadataSuccess {
+  color: #367342;
+}
+
+.metadataDefault {
+  color: #686d6a;
+}
+
+/* OG 이미지와 읽기 전용 제목·설명을 하나의 미리보기 카드로 구성합니다. */
+.previewCard {
+  display: grid;
+  min-height: 260px;
+  overflow: hidden;
+  border: 1px solid #e0e1e2;
+  border-radius: 20px;
+  grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.15fr);
+  background: #fff;
+  box-shadow: 0 12px 34px rgb(34 40 36 / 5%);
+}
+
+.previewImage {
+  display: grid;
+  min-height: 260px;
+  overflow: hidden;
+  place-items: center;
+  background: #eef0f1;
+}
+
+.previewImage > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.previewImage > span {
+  display: grid;
+  padding: 24px;
+  justify-items: center;
+  gap: 10px;
+  color: #858987;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.previewImage span img {
+  width: 42px;
+  height: 42px;
+  opacity: 0.42;
+}
+
+.previewInformation {
+  display: flex;
+  min-width: 0;
+  padding: 28px 30px;
+  flex-direction: column;
+}
+
+.previewLabel {
+  margin-bottom: 6px;
+  color: #969997;
+  font-size: 0.625rem;
+  font-weight: 750;
+  letter-spacing: 0.05em;
+}
+
+.titleField {
+  display: flex;
+  margin-bottom: 20px;
+  flex-direction: column;
+}
+
+.titleField .previewLabel {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.titleField em {
+  padding: 2px 6px;
+  border-radius: 999px;
+  color: #69706b;
+  background: #eef0ef;
+  font-size: 0.5625rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.titleField input {
+  width: 100%;
+  min-height: 43px;
+  padding: 8px 11px;
+  border: 1px solid #dfe2e0;
+  border-radius: 10px;
+  color: #262a27;
+  background: #fafbfa;
+  font-size: 1.125rem;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  line-height: 1.45;
+  outline: 0;
+  transition: border-color 140ms ease, box-shadow 140ms ease, background 140ms ease;
+}
+
+.titleField input:hover:not(:disabled) {
+  border-color: #c1c6c2;
+  background: #fff;
+}
+
+.titleField input:focus {
+  border-color: #989a9e;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgb(48 58 51 / 7%);
+}
+
+.titleField input:disabled {
+  color: #929793;
+  cursor: wait;
+}
+
+.previewInformation p {
+  display: -webkit-box;
+  overflow: hidden;
+  color: #606562;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.previewInformation small {
+  overflow: hidden;
+  margin-top: auto;
+  padding-top: 20px;
+  color: #969a97;
+  font-size: 0.6875rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.optionGrid {
+  display: grid;
+  margin-bottom: 18px;
+  gap: 14px;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* 즐겨찾기는 현재 상태를 한눈에 확인할 수 있는 토글 버튼으로 표시합니다. */
+.categoryField,
+.favoriteToggle {
+  min-height: 76px;
+  border: 1px solid #dedfe1;
+  border-radius: 15px;
+  background: #fff;
+}
+
+.categoryField {
+  display: flex;
+  padding: 12px 16px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.categoryField > span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #4c514e;
+  font-size: 0.75rem;
+  font-weight: 750;
+}
+
+.categoryField img,
+.favoriteToggle img {
+  width: 22px;
+  height: 22px;
+}
+
+.favoriteToggle {
+  display: flex;
+  padding: 12px 16px;
+  align-items: center;
+  gap: 11px;
+  color: #424744;
+  cursor: pointer;
+  text-align: left;
+}
+
+.favoriteToggle > span {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.favoriteToggle strong {
+  font-size: 0.75rem;
+}
+
+.favoriteToggle small {
+  overflow: hidden;
+  color: #8b8f8c;
+  font-size: 0.65625rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.favoriteToggle i {
+  position: relative;
+  width: 36px;
+  height: 21px;
+  border-radius: 999px;
+  flex: 0 0 36px;
+  background: #dfe2e0;
+  transition: background 140ms ease;
+}
+
+.favoriteToggle i::after {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 16%);
+  content: '';
+  transition: transform 140ms ease;
+}
+
+.favoriteToggle.active {
+  border-color: #ded8b8;
+  background: #fffdf5;
+}
+
+.favoriteToggle.active i {
+  background: #d8b936;
+}
+
+.favoriteToggle.active i::after {
+  transform: translateX(15px);
+}
+
+.categoryError {
+  display: flex;
+  padding: 10px 13px;
+  border-radius: 10px;
+  margin: -6px 0 16px;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-danger);
+  background: var(--color-danger-background);
+  font-size: 0.71875rem;
+}
+
+.categoryError button {
+  border: 0;
+  color: var(--color-danger);
+  background: transparent;
+  font-size: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.memoField > div:first-child {
+  display: flex;
+  margin-bottom: 9px;
+  align-items: baseline;
+  gap: 9px;
+}
+
+.memoField > div:first-child span {
+  color: #353a37;
+  font-size: 0.8125rem;
+  font-weight: 800;
+}
+
+.memoField > div:first-child small {
+  color: #939693;
+  font-size: 0.6875rem;
+}
+
+.saveError {
+  max-width: 1040px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-danger-soft);
+  border-radius: 11px;
+  margin: 0 auto;
+  color: var(--color-danger);
+  background: var(--color-danger-background);
+  font-size: 0.75rem;
+}
+
+/* 저장·취소 버튼은 스크롤과 무관하게 화면 아래에서 항상 접근할 수 있습니다. */
+.actionBar {
+  z-index: 10;
+  display: flex;
+  min-height: 78px;
+  padding: 12px clamp(24px, 5vw, 72px);
+  border-top: 1px solid #e1e2e3;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  background: rgb(255 255 255 / 94%);
+  box-shadow: 0 -8px 26px rgb(28 33 30 / 4%);
+  backdrop-filter: blur(12px);
+}
+
+.actionBar > div {
+  display: flex;
+  margin-right: auto;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.actionBar > div span {
+  color: #9a9d9b;
+  font-size: 0.625rem;
+}
+
+.actionBar > div strong {
+  color: #434845;
+  font-size: 0.75rem;
+}
+
+.cancelButton,
+.saveButton {
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 11px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cancelButton {
+  border: 1px solid #d9dbdc;
+  color: #555a57;
+  background: #fff;
+}
+
+.saveButton {
+  min-width: 118px;
+  border: 1px solid #282d29;
+  color: #fff;
+  background: #282d29;
+}
+
+.saveButton:hover:not(:disabled) {
+  background: #171a18;
+}
+
+.saveButton:disabled {
+  border-color: #b8bcba;
+  background: #b8bcba;
+  cursor: wait;
+}
+
+.mobileBackdrop {
+  display: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 900px) {
+  /* 태블릿 이하에서는 미리보기와 옵션을 한 열로 쌓습니다. */
+  .header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .headerTitle {
+    justify-self: end;
+  }
+
+  .headerBalance {
+    display: none;
+  }
+
+  .previewCard {
+    grid-template-columns: 1fr;
+  }
+
+  .previewImage {
+    min-height: 220px;
+    max-height: 320px;
+  }
+
+  .optionGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebarLayer {
+    position: fixed;
+    z-index: 50;
+    inset: 0 auto 0 0;
+  }
+
+  .mobileBackdrop {
+    position: fixed;
+    z-index: 40;
+    inset: 0;
+    display: block;
+    padding: 0;
+    border: 0;
+    background: rgb(20 25 21 / 32%);
+  }
+
+  .header {
+    min-height: 76px;
+    padding: 12px 16px;
+  }
+
+  .headerTitle span {
+    display: none;
+  }
+
+  .headerTitle h1 {
+    font-size: 1.2rem;
+  }
+
+  .formBody {
+    padding: 24px 16px 30px;
+  }
+
+  .actionBar {
+    padding: 10px 16px;
+  }
+}
+
+@media (max-width: 540px) {
+  .backButton {
+    width: 40px;
+    padding: 0;
+    justify-content: center;
+    font-size: 0;
+  }
+
+  .backButton span {
+    font-size: 1rem;
+  }
+
+  .urlField {
+    padding: 0 13px;
+  }
+
+  .urlField > span:first-child {
+    display: none;
+  }
+
+  .previewInformation {
+    padding: 22px 20px;
+  }
+
+  .categoryField {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .actionBar > div {
+    display: none;
+  }
+
+  .cancelButton,
+  .saveButton {
+    flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fieldLoader {
+    animation: none;
+  }
+}

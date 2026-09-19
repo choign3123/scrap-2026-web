@@ -14,7 +14,7 @@
   width: var(--sidebar-width);
   height: 100dvh;
   min-height: 0;
-  border-right: 1px solid #dfe8dd;
+  border-right: 1px solid #dfe0e2;
   flex: 0 0 var(--sidebar-width);
   flex-direction: column;
   color: #1f2921;
@@ -88,7 +88,7 @@
 .collapseButton {
   width: 34px;
   height: 34px;
-  border: 1px solid #e1e9df;
+  border: 1px solid #e1e2e4;
   border-radius: 10px;
   background: rgb(255 255 255 / 76%);
   transition: border-color 140ms ease, background 140ms ease;
@@ -96,7 +96,7 @@
 
 .collapseButton:hover,
 .addCategoryButton:hover {
-  border-color: #b9dab7;
+  border-color: #bfc1c5;
   background: var(--color-primary-soft);
 }
 
@@ -110,7 +110,7 @@
   display: grid;
   min-height: 70px;
   padding: 12px;
-  border: 1px solid #e1e5e1;
+  border: 1px solid #e1e1e4;
   border-radius: 16px;
   margin: 0 var(--sidebar-inline) 14px;
   column-gap: 8px;
@@ -354,7 +354,7 @@
   left: 7px;
   width: 148px;
   overflow: hidden;
-  border: 1px solid #dfe7dd;
+  border: 1px solid #dfe0e2;
   border-radius: 10px;
   background: var(--color-surface);
   box-shadow: 0 14px 32px rgb(31 48 34 / 16%);
@@ -376,7 +376,7 @@
 }
 
 .categoryMenu button + button {
-  border-top: 1px solid #edf0ec;
+  border-top: 1px solid #ededf0;
 }
 
 .categoryMenu button img {
@@ -481,7 +481,7 @@
 .categoryError button {
   margin-top: 7px;
   padding: 6px 10px;
-  border: 1px solid #dce5da;
+  border: 1px solid #dcdde0;
   border-radius: 8px;
   background: var(--color-surface);
   cursor: pointer;
@@ -530,7 +530,7 @@
   min-width: 0;
   min-height: 36px;
   padding: 0 8px;
-  border: 1px solid #dbe5d8;
+  border: 1px solid #dcdde0;
   border-radius: 9px;
   color: #465049;
   background: rgb(255 255 255 / 70%);
@@ -540,7 +540,7 @@
 }
 
 .memberActions > button:hover:not(:disabled) {
-  border-color: #b8d5b5;
+  border-color: #bfc1c5;
   color: var(--sidebar-green-dark);
   background: #fff;
 }

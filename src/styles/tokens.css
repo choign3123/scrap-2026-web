@@ -10,8 +10,9 @@
   --color-surface: #ffffff;
   --color-text-primary: #202521;
   --color-text-secondary: #687069;
-  --color-border: #e6ebe6;
-  --color-border-strong: #cfd5cf;
+  /* 테두리는 브랜드색과 분리해 입력창과 카드가 과하게 초록색으로 보이지 않게 합니다. */
+  --color-border: #e3e4e6;
+  --color-border-strong: #c9cbce;
   --color-danger: #d84343;
   --color-danger-soft: #f1b8b8;
   --color-danger-background: #fff7f7;
@@ -30,5 +31,5 @@
   --radius-medium: 12px;
   --radius-large: 24px;
   --radius-pill: 999px;
-  --shadow-card: 0 18px 50px rgb(41 151 59 / 10%);
+  --shadow-card: 0 18px 50px rgb(31 33 36 / 10%);
 }

@@ -31,7 +31,7 @@
   justify-content: space-between;
   min-height: 92px;
   padding: 18px clamp(24px, 4vw, 56px);
-  border-bottom: 1px solid #e8ebe8;
+  border-bottom: 1px solid #e8e8ea;
   gap: 24px;
   background: rgb(255 255 255 / 88%);
   backdrop-filter: blur(10px);
@@ -75,7 +75,7 @@
 }
 
 .openSidebarButton:hover {
-  border-color: var(--color-primary-light);
+  border-color: #bfc1c5;
   background: var(--color-primary-soft);
 }
 
@@ -99,7 +99,7 @@
   justify-content: space-between;
   max-width: 520px;
   padding: 10px 13px;
-  border: 1px solid #e2e6e2;
+  border: 1px solid #e2e2e4;
   border-radius: 11px;
   margin-bottom: 18px;
   color: #68736a;
@@ -124,7 +124,7 @@
 
 .scrapList {
   overflow: hidden;
-  border: 1px solid #e5ebe3;
+  border: 1px solid #e5e5e7;
   border-radius: 15px;
   background: #fff;
   box-shadow: 0 8px 24px rgb(31 58 35 / 5%);
@@ -135,7 +135,7 @@
   align-items: center;
   min-height: 40px;
   padding: 0 18px;
-  border-bottom: 1px solid #dfe7dd;
+  border-bottom: 1px solid #dfe0e2;
   column-gap: 18px;
   grid-template-columns: 104px minmax(180px, 1.2fr) minmax(220px, 1fr) 36px;
   color: #7c877f;
@@ -155,7 +155,7 @@
 .listSkeleton {
   display: grid;
   overflow: hidden;
-  border: 1px solid #e5ebe3;
+  border: 1px solid #e5e5e7;
   border-radius: 15px;
   gap: 1px;
 }
@@ -211,7 +211,7 @@
 .statePanel button {
   height: 38px;
   padding: 0 15px;
-  border: 1px solid #cfe1cb;
+  border: 1px solid #cfd0d3;
   border-radius: 9px;
   margin-top: 15px;
   color: var(--color-primary-dark);

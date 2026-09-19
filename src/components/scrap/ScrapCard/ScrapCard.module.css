@@ -1,15 +1,15 @@
 .card {
   overflow: hidden;
-  border: 1px solid #e5ebe3;
+  border: 1px solid #e4e4e6;
   border-radius: 16px;
   background: #fff;
-  box-shadow: 0 8px 24px rgb(31 58 35 / 7%);
+  box-shadow: 0 8px 24px rgb(31 33 36 / 7%);
   transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
 .card:hover {
-  border-color: #c8ddc5;
-  box-shadow: 0 14px 32px rgb(31 58 35 / 11%);
+  border-color: #c8c9cc;
+  box-shadow: 0 14px 32px rgb(31 33 36 / 11%);
   transform: translateY(-3px);
 }
 
@@ -80,7 +80,7 @@
 }
 
 .content:focus-visible {
-  outline: 3px solid rgb(41 151 59 / 25%);
+  outline: 3px solid rgb(68 70 74 / 24%);
   outline-offset: -3px;
 }
 

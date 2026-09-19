@@ -15,7 +15,7 @@
 .searchField,
 .addButton {
   pointer-events: auto;
-  box-shadow: 0 14px 34px rgb(30 51 33 / 16%);
+  box-shadow: 0 14px 34px rgb(30 31 34 / 16%);
 }
 
 .searchField {
@@ -24,7 +24,7 @@
   height: 54px;
   min-width: 0;
   padding: 0 10px 0 17px;
-  border: 1px solid #dce6da;
+  border: 1px solid #dedfe1;
   border-radius: 17px;
   flex: 1;
   gap: 10px;
@@ -54,8 +54,8 @@
 }
 
 .searchField:focus-within {
-  border-color: #aeb8b0;
-  box-shadow: 0 14px 34px rgb(30 51 33 / 14%), 0 0 0 4px rgb(68 82 71 / 8%);
+  border-color: #aeb0b4;
+  box-shadow: 0 14px 34px rgb(30 31 34 / 14%), 0 0 0 4px rgb(68 70 74 / 8%);
 }
 
 .clearButton {
@@ -70,26 +70,38 @@
 }
 
 .addButton {
-  display: grid;
-  width: 54px;
+  position: relative;
+  display: flex;
   height: 54px;
-  padding: 0;
-  border: 1px solid #268738;
+  padding: 0 19px 0 14px;
+  border: 1px solid #252b27;
   border-radius: 17px;
-  place-items: center;
-  background: var(--color-primary);
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #fff;
+  background: #252b27;
   cursor: pointer;
-  transition: background 140ms ease, transform 140ms ease;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+  transition: background 140ms ease, box-shadow 140ms ease, transform 140ms ease;
 }
 
 .addButton:hover {
-  background: var(--color-primary-dark);
+  background: #151916;
+  box-shadow: 0 16px 34px rgb(24 31 26 / 22%);
   transform: translateY(-2px);
 }
 
+.addButton:active {
+  transform: translateY(0);
+}
+
 .addButton img {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   filter: brightness(0) invert(1);
 }
 
@@ -117,6 +129,11 @@
 
   .addButton {
     width: 50px;
+    padding: 0;
     flex: 0 0 50px;
+  }
+
+  .addButton span {
+    display: none;
   }
 }

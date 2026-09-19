@@ -12,6 +12,7 @@ import type {
   UpdateScrapFavoriteDTO,
   UpdateScrapMemoRequest,
   MoveScrapRequest,
+  CreateScrapRequest,
 } from '../../types/api/scrap';
 import { apiClient } from './apiClient';
 
@@ -140,4 +141,13 @@ export async function moveScrap(scrapId: number, moveCategoryId: number) {
 /** 상세 화면의 삭제 동작은 서버의 휴지통 이동 API를 호출합니다. */
 export async function deleteScrap(scrapId: number) {
   await apiClient.patch<ApiResponse<null>>(`/auth/scraps/${scrapId}/trash`);
+}
+
+/** 선택한 카테고리에 새 스크랩을 저장합니다. */
+export async function createScrap(categoryId: number, requestBody: CreateScrapRequest) {
+  const response = await apiClient.post<ApiResponse<CreateScrapRequest>>(
+    `/auth/scraps/${categoryId}`,
+    requestBody,
+  );
+  return response.data.result;
 }

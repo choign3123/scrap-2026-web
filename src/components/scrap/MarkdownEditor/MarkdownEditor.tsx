@@ -44,7 +44,7 @@ function MarkdownEditor({ initialMarkdown, onChange }: MarkdownEditorProps) {
         // 서버 Markdown을 Tiptap document로 parse하고 저장 시 다시 serialize합니다.
         Markdown,
         Placeholder.configure({
-          placeholder: '메모를 작성해 주세요.  / 없이 Markdown 단축 문법을 사용할 수 있습니다.',
+          placeholder: '메모를 작성해 주세요.',
         }),
       ],
       // DB의 표준 Markdown 구조를 유지한 채 Tiptap document로 불러옵니다.
@@ -69,9 +69,6 @@ function MarkdownEditor({ initialMarkdown, onChange }: MarkdownEditorProps) {
   return (
     <div className={styles.editorShell}>
       <EditorContent editor={editor} className={styles.editorContent} />
-      <p className={styles.shortcutHint} aria-hidden="true">
-        # 제목 1&nbsp;&nbsp; ## 제목 2&nbsp;&nbsp; ### 제목 3&nbsp;&nbsp; - 목록&nbsp;&nbsp; &gt; 인용
-      </p>
     </div>
   );
 }

@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
+  createScrap,
   deleteScrap,
   moveScrap,
   toggleScrapFavorite,
   updateScrapMemo,
 } from '../../services/api/scrapService';
-import type { ScrapDetailsDTO } from '../../types/api/scrap';
+import type { CreateScrapRequest, ScrapDetailsDTO } from '../../types/api/scrap';
 import { categoryQueryKeys } from '../queries/useCategoriesQuery';
 import { memberQueryKeys } from '../queries/useMyPageQuery';
 import { scrapQueryKeys } from '../queries/useScrapsQuery';
@@ -18,6 +19,28 @@ interface UpdateMemoVariables {
 interface MoveScrapVariables {
   scrapId: number;
   moveCategoryId: number;
+}
+
+interface CreateScrapVariables {
+  categoryId: number;
+  requestBody: CreateScrapRequest;
+}
+
+/** 스크랩 생성 후 목록·카테고리 개수·회원 통계를 함께 새로 조회합니다. */
+export function useCreateScrapMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ categoryId, requestBody }: CreateScrapVariables) =>
+      createScrap(categoryId, requestBody),
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: scrapQueryKeys.all }),
+        queryClient.invalidateQueries({ queryKey: categoryQueryKeys.all }),
+        queryClient.invalidateQueries({ queryKey: memberQueryKeys.myPage() }),
+      ]);
+    },
+  });
 }
 
 /** 메모 저장 후 상세 캐시의 메모도 즉시 맞춰 화면을 안정적으로 유지합니다. */

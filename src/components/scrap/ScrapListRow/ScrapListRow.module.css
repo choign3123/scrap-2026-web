@@ -3,7 +3,7 @@
   align-items: center;
   min-height: 58px;
   padding: 0 18px;
-  border-bottom: 1px solid #edf1ec;
+  border-bottom: 1px solid #ededf0;
   column-gap: 18px;
   grid-template-columns: 104px minmax(180px, 1.2fr) minmax(220px, 1fr) 36px;
   background: #fff;
@@ -82,7 +82,7 @@
   width: 32px;
   height: 32px;
   padding: 6px;
-  border: 1px solid #e0e5e0;
+  border: 1px solid #e0e0e3;
   border-radius: 9px;
   place-items: center;
   color: #566058;
@@ -93,7 +93,7 @@
 }
 
 .copyButton:hover {
-  border-color: #cbd3cc;
+  border-color: #cbccd0;
   background: #fff;
 }
 

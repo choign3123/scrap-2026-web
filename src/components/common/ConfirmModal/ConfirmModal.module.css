@@ -57,13 +57,13 @@
 }
 
 .secondaryButton {
-  border: 1px solid #dce4da;
+  border: 1px solid #dcdde0;
   color: #526055;
   background: #fff;
 }
 
 .secondaryButton:hover:not(:disabled) {
-  border-color: #bdcdbb;
+  border-color: #bfc1c5;
   background: #f6f9f5;
 }
 

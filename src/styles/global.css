@@ -24,6 +24,6 @@ a {
 
 /* 키보드 사용자가 현재 선택된 요소를 분명히 알 수 있게 합니다. */
 :focus-visible {
-  outline: 3px solid rgb(41 151 59 / 35%);
+  outline: 3px solid rgb(68 70 74 / 32%);
   outline-offset: 3px;
 }

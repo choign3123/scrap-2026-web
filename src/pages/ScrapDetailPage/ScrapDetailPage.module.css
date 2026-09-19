@@ -28,7 +28,7 @@
   align-items: center;
   min-height: 92px;
   padding: 14px clamp(24px, 4vw, 56px);
-  border-bottom: 1px solid #e5e9e5;
+  border-bottom: 1px solid #e5e5e7;
   gap: 14px;
   background: rgb(255 255 255 / 92%);
   backdrop-filter: blur(10px);
@@ -37,7 +37,7 @@
 .iconButton,
 .backButton {
   height: 40px;
-  border: 1px solid #dfe4df;
+  border: 1px solid #dedfe2;
   border-radius: 11px;
   color: #586159;
   background: #fff;
@@ -73,8 +73,8 @@
 
 .iconButton:hover,
 .backButton:hover {
-  border-color: #c6cec7;
-  background: #f8faf8;
+  border-color: #c5c7ca;
+  background: #f8f8f9;
 }
 
 .headerTitle {
@@ -142,40 +142,63 @@
 .imagePanel {
   position: relative;
   display: block;
+  height: 360px;
   overflow: hidden;
-  min-height: 330px;
-  border: 1px solid #e1e6e1;
+  border: 1px solid #e1e1e3;
   border-radius: 22px;
   color: inherit;
-  background: #eff2ef;
-  box-shadow: 0 14px 36px rgb(39 52 41 / 8%);
+  background: #eeeeef;
+  box-shadow: 0 14px 36px rgb(35 35 38 / 8%);
   text-decoration: none;
 }
 
-.imagePanel > img {
+/* 원본 이미지를 확대한 복사본이 빈 공간에 자연스러운 대표 색감과 블러를 만듭니다. */
+.imageBackdrop {
+  position: absolute;
+  z-index: 0;
+  inset: -28px;
+  overflow: hidden;
+  background: #e8e8ea;
+}
+
+.imageBackdrop::after {
+  position: absolute;
+  inset: 0;
+  background: rgb(20 20 22 / 14%);
+  content: '';
+}
+
+.imageBackdrop img {
   width: 100%;
   height: 100%;
-  min-height: 330px;
   object-fit: cover;
+  filter: blur(26px) saturate(0.82);
+  opacity: 0.72;
+  transform: scale(1.12);
+}
+
+.imageContent {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   transition: transform 220ms ease;
 }
 
-.imagePanel:hover > img {
-  transform: scale(1.025);
+.imagePanel:hover .imageContent {
+  transform: scale(1.018);
 }
 
 .imageFallback {
   display: grid;
   width: 100%;
   height: 100%;
-  min-height: 330px;
   place-content: center;
   justify-items: center;
   gap: 8px;
   color: #717b73;
-  background:
-    radial-gradient(circle at 30% 20%, rgb(150 224 112 / 13%), transparent 40%),
-    #f1f4f1;
+  background: radial-gradient(circle at 30% 20%, #fff, transparent 42%), #eeeeef;
 }
 
 .imageFallback img {
@@ -195,6 +218,7 @@
 
 .openLabel {
   position: absolute;
+  z-index: 2;
   right: 14px;
   bottom: 14px;
   padding: 8px 11px;
@@ -202,7 +226,7 @@
   border-radius: 10px;
   color: #283029;
   background: rgb(255 255 255 / 90%);
-  box-shadow: 0 5px 16px rgb(28 36 29 / 12%);
+  box-shadow: 0 5px 16px rgb(28 28 31 / 12%);
   font-size: 0.8125rem;
   font-weight: 750;
   backdrop-filter: blur(5px);
@@ -227,7 +251,7 @@
   align-items: center;
   min-width: 0;
   padding: 14px;
-  border: 1px solid #e2e7e2;
+  border: 1px solid #e2e2e4;
   border-radius: 14px;
   margin-top: 24px;
   gap: 12px;
@@ -269,12 +293,12 @@
   height: 34px;
   width: 38px;
   padding: 0;
-  border: 1px solid #dde3dd;
+  border: 1px solid #dedee1;
   border-radius: 9px;
   flex: 0 0 auto;
   justify-content: center;
   color: #586159;
-  background: #f8faf8;
+  background: #f8f8f9;
   font-size: 0.875rem;
   font-weight: 700;
   cursor: pointer;
@@ -287,11 +311,11 @@
 
 .descriptionBox {
   padding: 19px 18px;
-  border: 1px solid #e7ebe7;
+  border: 1px solid #e7e7e9;
   border-radius: 14px;
   margin-top: 12px;
   flex: 1;
-  background: #fbfcfb;
+  background: #fbfbfc;
 }
 
 .descriptionBox p {
@@ -304,11 +328,11 @@
 
 .memoSection {
   overflow: hidden;
-  border: 1px solid #e2e7e2;
+  border: 1px solid #e2e2e4;
   border-radius: 20px;
   margin-top: 34px;
   background: #fff;
-  box-shadow: 0 10px 30px rgb(39 52 41 / 5%);
+  box-shadow: 0 10px 30px rgb(35 35 38 / 5%);
 }
 
 .memoHeader {
@@ -316,14 +340,8 @@
   align-items: flex-end;
   justify-content: space-between;
   padding: 21px 23px;
-  border-bottom: 1px solid #e8ece8;
+  border-bottom: 1px solid #e8e8ea;
   gap: 20px;
-}
-
-.memoHeader p {
-  margin-top: 5px;
-  color: #818a82;
-  font-size: 0.8125rem;
 }
 
 .saveArea {
@@ -381,11 +399,11 @@
   display: flex;
   align-items: center;
   padding: 7px;
-  border: 1px solid #dde3dd;
+  border: 1px solid #dedee1;
   border-radius: 17px;
   gap: 4px;
   background: rgb(255 255 255 / 94%);
-  box-shadow: 0 13px 35px rgb(38 49 40 / 15%);
+  box-shadow: 0 13px 35px rgb(33 33 36 / 15%);
   backdrop-filter: blur(10px);
 }
 
@@ -405,7 +423,7 @@
 }
 
 .actionDock button:hover {
-  background: #f2f5f2;
+  background: #f2f2f3;
 }
 
 .actionDock button:disabled {
@@ -424,15 +442,16 @@
 }
 
 .actionDock .favoriteAction {
-  color: #276d33;
-  background: #eef7ec;
+  /* 즐겨찾기는 전체 앱에서 사용하는 노란색 의미를 그대로 유지합니다. */
+  color: #765f13;
+  background: #fff8da;
 }
 
 .actionDivider {
   width: 1px;
   height: 24px;
   margin: 0 3px;
-  background: #e0e5e0;
+  background: #e0e0e2;
 }
 
 .detailSkeleton {
@@ -501,7 +520,7 @@
 .statePanel button {
   height: 38px;
   padding: 0 14px;
-  border: 1px solid #dce2dc;
+  border: 1px solid #dddde0;
   border-radius: 9px;
   margin-top: 15px;
   color: #455047;
@@ -532,11 +551,8 @@
     grid-template-columns: 1fr;
   }
 
-  .imagePanel,
-  .imagePanel > img,
-  .imageFallback {
-    min-height: 280px;
-    max-height: 430px;
+  .imagePanel {
+    height: 340px;
   }
 }
 
@@ -606,10 +622,8 @@
     gap: 20px;
   }
 
-  .imagePanel,
-  .imagePanel > img,
-  .imageFallback {
-    min-height: 220px;
+  .imagePanel {
+    height: 250px;
   }
 
   .actionDock button {

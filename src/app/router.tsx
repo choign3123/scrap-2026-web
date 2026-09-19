@@ -10,6 +10,9 @@ import PublicOnlyRoute from '../routes/PublicOnlyRoute';
 const ScrapDetailPage = lazy(
   () => import('../pages/ScrapDetailPage/ScrapDetailPage'),
 );
+const ScrapCreatePage = lazy(
+  () => import('../pages/ScrapCreatePage/ScrapCreatePage'),
+);
 
 /** URL과 페이지 컴포넌트의 관계를 한곳에서 관리합니다. */
 export const router = createBrowserRouter([
@@ -38,6 +41,14 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<FullPageLoader message="에디터를 준비하고 있습니다." />}>
             <ScrapDetailPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/scraps/new',
+        element: (
+          <Suspense fallback={<FullPageLoader message="스크랩 추가 화면을 준비하고 있습니다." />}>
+            <ScrapCreatePage />
           </Suspense>
         ),
       },

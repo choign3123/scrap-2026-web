@@ -101,3 +101,13 @@ export interface UpdateScrapFavoriteDTO {
 export interface MoveScrapRequest {
   moveCategoryId: number;
 }
+
+/** POST /auth/scraps/{category-id} 요청 본문입니다. */
+export interface CreateScrapRequest {
+  scrapURL: string;
+  imageURL: string | null;
+  title: string;
+  description: string;
+  memo: string;
+  isFavorite: boolean;
+}

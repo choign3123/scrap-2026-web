@@ -1,0 +1,179 @@
+.root {
+  position: relative;
+  min-width: 190px;
+  max-width: 60%;
+  flex: 0 1 250px;
+}
+
+/* 선택된 카테고리를 표시하는 영역은 장식을 줄이고 목록창에 시선이 집중되게 합니다. */
+.trigger {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  overflow: hidden;
+  border: 1px solid #dfe0e2;
+  border-radius: 11px;
+  color: #303633;
+  background: #f8f9f8;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 750;
+  outline: 0;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: border-color 140ms ease, background 140ms ease, box-shadow 140ms ease;
+}
+
+.trigger:hover:not(:disabled),
+.trigger.open {
+  border-color: #b9bbbf;
+  background: #fff;
+}
+
+.trigger:focus-visible {
+  border-color: #93959a;
+  box-shadow: 0 0 0 4px rgb(48 49 53 / 7%);
+}
+
+.trigger:disabled {
+  color: #999e9b;
+  cursor: wait;
+}
+
+/* 펼쳐지는 목록창은 네이티브 select와 달리 각 항목과 선택 상태를 직접 디자인합니다. */
+.menu {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 8px);
+  right: 0;
+  width: min(310px, 78vw);
+  overflow: hidden;
+  border: 1px solid #dfe0e2;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 18px 48px rgb(28 35 30 / 16%);
+  animation: open-menu 120ms ease-out;
+  transform-origin: top right;
+}
+
+.menuHeader {
+  display: flex;
+  min-height: 45px;
+  padding: 0 14px;
+  border-bottom: 1px solid #eceeed;
+  align-items: center;
+  justify-content: space-between;
+  background: #fafbfa;
+}
+
+.menuHeader strong {
+  color: #454b47;
+  font-size: 0.71875rem;
+}
+
+.menuHeader span {
+  color: #969b98;
+  font-size: 0.625rem;
+}
+
+.optionList {
+  max-height: 250px;
+  padding: 6px;
+  overflow-y: auto;
+  scrollbar-color: #ced3cf transparent;
+  scrollbar-width: thin;
+}
+
+.option {
+  display: flex;
+  width: 100%;
+  min-height: 43px;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 9px;
+  align-items: center;
+  justify-content: space-between;
+  color: #444a46;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.option.highlighted {
+  background: #f1f3f1;
+}
+
+.option.selected {
+  color: #234e2b;
+  background: #eef7ed;
+}
+
+.optionText {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+}
+
+.optionText strong {
+  overflow: hidden;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.optionText small {
+  padding: 2px 6px;
+  border-radius: 999px;
+  color: #6f756f;
+  background: #e5e8e5;
+  font-size: 0.5625rem;
+  font-weight: 750;
+}
+
+.check {
+  display: grid;
+  width: 21px;
+  height: 21px;
+  border-radius: 7px;
+  flex: 0 0 21px;
+  place-items: center;
+  color: #fff;
+  background: #3b7846;
+  font-size: 0.6875rem;
+  font-weight: 900;
+}
+
+@keyframes open-menu {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 540px) {
+  .root {
+    width: 100%;
+    max-width: none;
+    flex-basis: auto;
+  }
+
+  .menu {
+    right: auto;
+    left: 0;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu {
+    animation: none;
+  }
+}

@@ -277,11 +277,18 @@ function ScrapDetailPage() {
                   aria-label="스크랩 원본 링크 열기"
                 >
                   {scrap.imageURL && !hasImageError ? (
-                    <img
-                      src={scrap.imageURL}
-                      alt=""
-                      onError={() => setHasImageError(true)}
-                    />
+                    <>
+                      {/* 같은 이미지를 확대한 블러 배경으로 사용해 여백을 원본 색감으로 채웁니다. */}
+                      <span className={styles.imageBackdrop} aria-hidden="true">
+                        <img src={scrap.imageURL} alt="" />
+                      </span>
+                      <img
+                        className={styles.imageContent}
+                        src={scrap.imageURL}
+                        alt=""
+                        onError={() => setHasImageError(true)}
+                      />
+                    </>
                   ) : (
                     <span className={styles.imageFallback}>
                       <img src={scrapIcon} alt="" />
@@ -327,7 +334,6 @@ function ScrapDetailPage() {
                 <div className={styles.memoHeader}>
                   <div>
                     <h2>메모</h2>
-                    <p>간단한 Markdown 문법을 사용할 수 있습니다.</p>
                   </div>
                   <div className={styles.saveArea}>
                     {isMemoSaved && !isMemoDirty && <span>저장되었습니다</span>}
