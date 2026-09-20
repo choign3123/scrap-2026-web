@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import folderIcon from '../../assets/icons/folder.svg';
 import scrapIcon from '../../assets/icons/scrap-clip.svg';
-import sidebarOpenIcon from '../../assets/icons/sidebar-open.svg';
+import sidebarOpenIcon from '../../assets/icons/expand-right-double.svg';
 import starFillIcon from '../../assets/icons/star-fill.svg';
 import starOutlineIcon from '../../assets/icons/star-outline.svg';
 import Sidebar from '../../components/layout/Sidebar/Sidebar';

@@ -36,45 +36,44 @@
 
 .iconButton,
 .backButton {
-  height: 40px;
-  border: 1px solid #dedfe2;
-  border-radius: 11px;
+  height: 44px;
+  border: 0;
+  border-radius: 12px;
   color: #586159;
-  background: #fff;
+  background: transparent;
   cursor: pointer;
+  transition: background 140ms ease;
 }
 
 .iconButton {
   display: grid;
-  width: 40px;
+  width: 44px;
   padding: 0;
-  flex: 0 0 40px;
+  flex: 0 0 44px;
   place-items: center;
 }
 
 .iconButton img {
-  width: 23px;
-  height: 23px;
+  width: 27px;
+  height: 27px;
 }
 
 .backButton {
-  display: flex;
-  align-items: center;
-  padding: 0 13px;
-  flex: 0 0 auto;
-  gap: 7px;
-  font-size: 0.875rem;
-  font-weight: 700;
+  display: grid;
+  width: 44px;
+  padding: 0;
+  flex: 0 0 44px;
+  place-items: center;
 }
 
-.backButton span {
-  font-size: 1rem;
+.backButton img {
+  width: 25px;
+  height: 25px;
 }
 
 .iconButton:hover,
 .backButton:hover {
-  border-color: #c5c7ca;
-  background: #f8f8f9;
+  background: #eceef0;
 }
 
 .headerTitle {
@@ -579,14 +578,8 @@
   }
 
   .backButton {
-    width: 40px;
+    width: 44px;
     padding: 0;
-    justify-content: center;
-    font-size: 0;
-  }
-
-  .backButton span {
-    font-size: 1.1rem;
   }
 
   .scroller {

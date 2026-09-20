@@ -1,14 +1,14 @@
 .editorShell {
   overflow: hidden;
-  border: 1px solid #dedede;
+  /* 메모는 읽기·작성 중 모두 테두리 없이 본문 영역처럼 보이게 합니다. */
+  border: 1px solid transparent;
   border-radius: 13px;
   background: #fff;
-  transition: border-color 140ms ease, box-shadow 140ms ease;
 }
 
 .editorShell:focus-within {
-  border-color: #a7a7a7;
-  box-shadow: 0 0 0 3px rgb(0 0 0 / 4%);
+  border-color: transparent;
+  box-shadow: none;
 }
 
 .editorContent :global(.tiptap) {

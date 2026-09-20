@@ -86,23 +86,25 @@
 }
 
 .collapseButton {
-  width: 34px;
-  height: 34px;
-  border: 1px solid #e1e2e4;
-  border-radius: 10px;
-  background: rgb(255 255 255 / 76%);
-  transition: border-color 140ms ease, background 140ms ease;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: transparent;
+  transition: background 140ms ease;
 }
 
-.collapseButton:hover,
+.collapseButton:hover {
+  background: #eceef0;
+}
+
 .addCategoryButton:hover {
   border-color: #bfc1c5;
   background: var(--color-primary-soft);
 }
 
 .collapseButton img {
-  width: 22px;
-  height: 22px;
+  width: 25px;
+  height: 25px;
 }
 
 /* 두 통계를 하나의 요약 패널 안에 가로형 정보 블록으로 표현합니다. */

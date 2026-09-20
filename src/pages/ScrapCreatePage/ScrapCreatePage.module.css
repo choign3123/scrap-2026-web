@@ -55,14 +55,19 @@
 
 .iconButton {
   display: grid;
-  width: 40px;
+  width: 44px;
+  height: 44px;
   padding: 0;
+  border: 0;
+  border-radius: 12px;
   place-items: center;
+  background: transparent;
+  transition: background 140ms ease;
 }
 
 .iconButton img {
-  width: 23px;
-  height: 23px;
+  width: 27px;
+  height: 27px;
 }
 
 .backButton {
@@ -78,7 +83,10 @@
   font-size: 1rem;
 }
 
-.iconButton:hover,
+.iconButton:hover {
+  background: #eceef0;
+}
+
 .backButton:hover {
   border-color: #c7c9cb;
   background: #f8f8f9;

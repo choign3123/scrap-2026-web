@@ -3,7 +3,8 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import copyIcon from '../../assets/icons/copy.svg';
 import folderIcon from '../../assets/icons/folder.svg';
 import scrapIcon from '../../assets/icons/scrap-clip.svg';
-import sidebarOpenIcon from '../../assets/icons/sidebar-open.svg';
+import backIcon from '../../assets/icons/expand-left-single.svg';
+import sidebarOpenIcon from '../../assets/icons/expand-right-double.svg';
 import starFillIcon from '../../assets/icons/star-fill.svg';
 import starOutlineIcon from '../../assets/icons/star-outline.svg';
 import trashIcon from '../../assets/icons/trash.svg';
@@ -231,10 +232,10 @@ function ScrapDetailPage() {
           <button
             type="button"
             className={styles.backButton}
+            aria-label="목록으로 돌아가기"
             onClick={() => navigate(dashboardDestination)}
           >
-            <span aria-hidden="true">←</span>
-            목록으로
+            <img src={backIcon} alt="" />
           </button>
           <div className={styles.headerTitle}>
             {scrap && <SlidingTitle title={scrap.title || '제목 없음'} />}

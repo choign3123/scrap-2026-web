@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import sidebarOpenIcon from '../../assets/icons/sidebar-open.svg';
+import sidebarOpenIcon from '../../assets/icons/expand-right-double.svg';
 import ScrapCard from '../../components/scrap/ScrapCard/ScrapCard';
 import ScrapListRow from '../../components/scrap/ScrapListRow/ScrapListRow';
 import ScrapSearchDock from '../../components/scrap/ScrapSearchDock/ScrapSearchDock';
