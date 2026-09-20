@@ -54,8 +54,8 @@
 }
 
 .searchField:focus-within {
-  border-color: #aeb0b4;
-  box-shadow: 0 14px 34px rgb(30 31 34 / 14%), 0 0 0 4px rgb(68 70 74 / 8%);
+  border-color: #b7dbaa;
+  box-shadow: 0 14px 34px rgb(30 31 34 / 14%), 0 0 0 2px rgb(150 224 112 / 18%);
 }
 
 .clearButton {

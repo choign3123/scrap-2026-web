@@ -31,9 +31,16 @@
 }
 
 .input:focus {
-  border-color: #8f9297;
+  /* 카테고리 이름 입력은 Modal 안에서 별도 focus 테두리를 표시하지 않습니다. */
+  border-color: #d9dadd;
   background: #fff;
-  box-shadow: 0 0 0 4px rgb(45 47 52 / 10%);
+  box-shadow: none;
+}
+
+/* global.css의 키보드 focus outline보다 우선해, 스크린샷의 이중 테두리가 생기지 않게 합니다. */
+.input:focus-visible {
+  outline: none;
+  outline-offset: 0;
 }
 
 .input:disabled {

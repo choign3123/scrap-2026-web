@@ -18,7 +18,7 @@ function ScrapSearchDock({ value, onChange, onAddScrap }: ScrapSearchDockProps) 
         <input
           type="search"
           value={value}
-          placeholder="제목, URL로 현재 목록 검색"
+          placeholder="제목, 본문내용, 메모, URL로 검색하기"
           onChange={(event) => onChange(event.target.value)}
         />
         {value && (

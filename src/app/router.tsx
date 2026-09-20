@@ -3,6 +3,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import FullPageLoader from '../components/common/FullPageLoader/FullPageLoader';
 import DashboardPage from '../pages/DashboardPage/DashboardPage';
 import LoginPage from '../pages/LoginPage/LoginPage';
+import KakaoCallbackPage from '../pages/KakaoCallbackPage/KakaoCallbackPage';
 import ProtectedRoute from '../routes/ProtectedRoute';
 import PublicOnlyRoute from '../routes/PublicOnlyRoute';
 
@@ -19,6 +20,11 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <Navigate to="/dashboard" replace />,
+  },
+  {
+    // 로그인 완료 처리는 인증 상태 전환 중에도 항상 렌더링되어야 하므로 PublicOnlyRoute 밖에 둡니다.
+    path: '/auth/kakao/callback',
+    element: <KakaoCallbackPage />,
   },
   {
     element: <PublicOnlyRoute />,

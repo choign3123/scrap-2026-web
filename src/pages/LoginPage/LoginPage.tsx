@@ -4,6 +4,7 @@ import SocialLoginButton from '../../components/common/SocialLoginButton/SocialL
 import { useAuth } from '../../hooks/useAuth';
 import type { SocialProvider } from '../../types/api/auth';
 import { toApiError } from '../../utils/apiError';
+import { startKakaoLogin } from '../../services/kakaoAuthService';
 import scrapLogo from '../../assets/login/scrap-logo.png';
 import styles from './LoginPage.module.css';
 
@@ -24,6 +25,17 @@ function LoginPage() {
     setErrorMessage(null);
 
     try {
+      if (provider === 'kakao') {
+        // 카카오 버튼은 SDK 인증 화면으로 이동하며 callback 페이지에서 로그인을 마무리합니다.
+        const locationState = location.state as LoginLocationState | null;
+        const from = locationState?.from;
+        const returnPath = from
+          ? `${from.pathname}${from.search}${from.hash}`
+          : '/dashboard';
+        await startKakaoLogin(returnPath);
+        return;
+      }
+
       await login(provider);
 
       // 보호 페이지에서 넘어왔다면 원래 주소로, 직접 로그인했다면 대시보드로 이동합니다.

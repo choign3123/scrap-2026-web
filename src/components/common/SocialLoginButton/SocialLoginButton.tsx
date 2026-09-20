@@ -1,4 +1,6 @@
 import type { SocialProvider } from '../../../types/api/auth';
+import kakaoLoginImage from '../../../assets/social-login/kakao_login_large_narrow.png';
+import naverLoginImage from '../../../assets/social-login/NAVER_login_Dark_KR_green_narrow_H56.png';
 import styles from './SocialLoginButton.module.css';
 
 interface SocialLoginButtonProps {
@@ -28,22 +30,16 @@ function SocialLoginButton({
       className={`${styles.button} ${styles[provider]}`}
       disabled={disabled}
       aria-busy={isLoading}
+      aria-label={`${providerLabel} 로그인`}
       onClick={() => onClick(provider)}
     >
-      <span className={styles.icon} aria-hidden="true">
-        {provider === 'kakao' ? <KakaoIcon /> : 'N'}
-      </span>
-      <span>{isLoading ? '로그인 중...' : `${providerLabel} 로그인`}</span>
+      <img
+        className={styles.buttonImage}
+        src={provider === 'kakao' ? kakaoLoginImage : naverLoginImage}
+        alt={`${providerLabel} 로그인`}
+      />
+      {isLoading && <span className={styles.loadingText}>로그인 중...</span>}
     </button>
-  );
-}
-
-/** 외부 아이콘 라이브러리 없이 카카오 말풍선 모양을 표현합니다. */
-function KakaoIcon() {
-  return (
-    <svg viewBox="0 0 28 26" role="presentation">
-      <path d="M14 2C7.37 2 2 6.25 2 11.5c0 3.38 2.23 6.35 5.58 8.04l-1.1 4.05c-.1.36.31.65.63.44l4.84-3.14c.67.08 1.36.11 2.05.11 6.63 0 12-4.25 12-9.5S20.63 2 14 2Z" />
-    </svg>
   );
 }
 

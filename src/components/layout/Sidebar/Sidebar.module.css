@@ -244,6 +244,12 @@
   background: transparent;
 }
 
+/* Modal의 닫기 버튼과 같은 절제된 무채색 hover로 카테고리 추가를 보조 동작으로 표현합니다. */
+.addCategoryButton:hover {
+  border-color: #dedfe2;
+  background: #fff;
+}
+
 .addCategoryButton img {
   width: 21px;
   height: 21px;
@@ -552,6 +558,13 @@
 
 .memberActions .signoutButton {
   color: #9a5757;
+}
+
+/* 회원탈퇴는 되돌릴 수 없는 동작이므로 일반 메뉴와 다른 위험 상태를 명확히 표시합니다. */
+.memberActions .signoutButton:hover:not(:disabled) {
+  border-color: #c64b4b;
+  color: #fff;
+  background: #c64b4b;
 }
 
 .contactInformation {

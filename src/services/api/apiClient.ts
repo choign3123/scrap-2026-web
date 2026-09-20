@@ -1,9 +1,9 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios';
-import { clearTokens, getAccessToken, getRefreshToken, saveTokens } from '../tokenStorage';
+import { clearTokens, getAccessToken, saveAccessToken } from '../tokenStorage';
 import { notifySessionExpired } from '../authEvents';
-import type { TokenDTO } from '../../types/api/auth';
+import type { AccessTokenDTO } from '../../types/api/auth';
 import { publicApiClient } from './httpClient';
-import { reissueTokens } from './tokenService';
+import { requestWebSession } from './tokenService';
 
 interface ErrorResponseBody {
   code?: string;
@@ -19,27 +19,23 @@ interface RetryableRequestConfig extends InternalAxiosRequestConfig {
 export const apiClient = axios.create({
   baseURL: publicApiClient.defaults.baseURL,
   timeout: publicApiClient.defaults.timeout,
+  withCredentials: true,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    'X-Scrap-Web-Client': 'scrap-web',
   },
 });
 
-let tokenRefreshPromise: Promise<TokenDTO> | null = null;
+let tokenRefreshPromise: Promise<AccessTokenDTO> | null = null;
 
 /** 동시에 여러 API가 만료돼도 재발급 API는 한 번만 호출합니다. */
 export function refreshSessionTokens() {
-  const refreshToken = getRefreshToken();
-
-  if (!refreshToken) {
-    return Promise.reject(new Error('저장된 refresh token이 없습니다.'));
-  }
-
   if (!tokenRefreshPromise) {
-    tokenRefreshPromise = reissueTokens(refreshToken)
-      .then((tokens) => {
-        saveTokens(tokens);
-        return tokens;
+    tokenRefreshPromise = requestWebSession()
+      .then((session) => {
+        saveAccessToken(session.accessToken);
+        return session;
       })
       .finally(() => {
         tokenRefreshPromise = null;
@@ -64,8 +60,10 @@ apiClient.interceptors.response.use(
   async (error: AxiosError<ErrorResponseBody>) => {
     const requestConfig = error.config as RetryableRequestConfig | undefined;
     const isExpiredToken =
-      error.response?.status === 406 &&
-      error.response.data?.code === 'Authorization002';
+      (error.response?.status === 401 &&
+        error.response.data?.code === 'Authorization000') ||
+      (error.response?.status === 406 &&
+        error.response.data?.code === 'Authorization002');
 
     if (!requestConfig || !isExpiredToken || requestConfig.hasRetriedAfterRefresh) {
       return Promise.reject(error);
@@ -74,8 +72,8 @@ apiClient.interceptors.response.use(
     requestConfig.hasRetriedAfterRefresh = true;
 
     try {
-      const tokens = await refreshSessionTokens();
-      requestConfig.headers.Authorization = `Bearer ${tokens.accessToken}`;
+      const session = await refreshSessionTokens();
+      requestConfig.headers.Authorization = `Bearer ${session.accessToken}`;
 
       // 원래 실패했던 API를 새 access token으로 한 번만 다시 실행합니다.
       return apiClient.request(requestConfig);

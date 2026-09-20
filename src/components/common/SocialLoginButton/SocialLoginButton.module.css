@@ -4,15 +4,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  min-height: 58px;
-  padding: 0 var(--space-5);
+  max-width: 100%;
+  min-height: 0;
+  padding: 0;
   border: 0;
   border-radius: 8px;
-  font-size: 1.125rem;
-  font-weight: 700;
+  overflow: hidden;
+  background: transparent;
   cursor: pointer;
   transition: filter 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+}
+
+/* 공식 narrow 이미지의 권장 표시 크기를 유지해 저해상도 이미지가 과하게 확대되지 않게 합니다. */
+.kakao,
+.naver {
+  width: 230px;
+  height: 56px;
 }
 
 .button:hover:not(:disabled) {
@@ -31,31 +38,23 @@
   opacity: 0.65;
 }
 
-.kakao {
-  color: #191919;
-  background: #fee500;
+.buttonImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
 }
 
-.naver {
-  color: #ffffff;
-  background: #03c75a;
-}
-
-.icon {
+/* 이미지 위에 표시되는 상태 문구는 시각적으로도 확인할 수 있게 합니다. */
+.loadingText {
   position: absolute;
-  left: var(--space-4);
-  display: grid;
-  width: 28px;
-  height: 28px;
-  place-items: center;
-  font-size: 1.65rem;
-  font-weight: 900;
-  line-height: 1;
-}
-
-.icon svg {
-  width: 27px;
-  fill: currentcolor;
+  right: 14px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  color: #fff;
+  background: rgb(0 0 0 / 52%);
+  font-size: 0.6875rem;
+  font-weight: 700;
 }
 
 @media (prefers-reduced-motion: reduce) {

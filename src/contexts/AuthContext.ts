@@ -8,6 +8,7 @@ export interface AuthContextValue {
   authStatus: AuthStatus;
   isAuthenticated: boolean;
   login: (provider: SocialProvider) => Promise<void>;
+  completeKakaoLogin: () => Promise<void>;
   logout: () => Promise<void>;
   signout: () => Promise<void>;
 }
