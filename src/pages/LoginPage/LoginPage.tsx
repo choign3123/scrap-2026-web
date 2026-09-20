@@ -5,6 +5,7 @@ import type { SocialProvider } from '../../types/api/auth';
 import { toApiError } from '../../utils/apiError';
 import { startKakaoLogin } from '../../services/kakaoAuthService';
 import { startNaverLogin } from '../../services/naverAuthService';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import scrapLogo from '../../assets/login/scrap-logo.png';
 import styles from './LoginPage.module.css';
 
@@ -15,6 +16,7 @@ interface LoginLocationState {
 /** 소셜 버튼을 통해 인증을 시작하는 로그인 페이지입니다. */
 function LoginPage() {
   const location = useLocation();
+  useDocumentTitle('로그인 | 스크랩');
   const [loadingProvider, setLoadingProvider] = useState<SocialProvider | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 

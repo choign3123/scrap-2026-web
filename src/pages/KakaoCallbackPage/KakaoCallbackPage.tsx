@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { consumeSocialReturnPath } from '../../services/socialLoginStorage';
 import { toApiError } from '../../utils/apiError';
 import styles from './KakaoCallbackPage.module.css';
@@ -16,6 +17,7 @@ function KakaoCallbackPage({ provider }: SocialCallbackPageProps) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const hasStartedRef = useRef(false);
   const providerLabel = provider === 'kakao' ? '카카오' : '네이버';
+  useDocumentTitle(`${providerLabel} 로그인 | 스크랩`);
 
   useEffect(() => {
     // 개발 환경의 StrictMode가 effect를 두 번 실행해도 인가 코드를 한 번만 교환합니다.

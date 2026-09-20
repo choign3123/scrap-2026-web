@@ -18,6 +18,7 @@ import {
   useUpdateScrapMemoMutation,
 } from '../../hooks/mutations/useScrapMutations';
 import { useScrapDetailsQuery } from '../../hooks/queries/useScrapsQuery';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { toApiError } from '../../utils/apiError';
 import styles from './ScrapDetailPage.module.css';
 
@@ -109,6 +110,9 @@ function ScrapDetailPage() {
   const dashboardDestination = getDashboardDestination(searchParams);
   const sourceCategoryId = Number(searchParams.get('fromCategory')) || null;
   const isFromFavorites = searchParams.get('from') === 'favorites';
+
+  // 상세 화면은 스크랩 제목을 탭 제목으로 사용해 여러 탭을 구분하기 쉽게 합니다.
+  useDocumentTitle(detailQuery.data?.title ?? '스크랩 상세');
 
   useEffect(() => {
     if (detailQuery.data) {

@@ -14,6 +14,7 @@ import {
   useScrapsInfiniteQuery,
 } from '../../hooks/queries/useScrapsQuery';
 import { useDebouncedValue } from '../../hooks/useDebouncedValue';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
 import type { ScrapSort, SortDirection } from '../../types/api/scrap';
 import { toApiError } from '../../utils/apiError';
@@ -169,6 +170,8 @@ function DashboardPage() {
   const pageTitle = isFavoritesSelected
     ? '즐겨찾기'
     : selectedCategory?.categoryTitle ?? '스크랩';
+  // 대시보드에서는 사용자가 현재 보고 있는 카테고리 이름을 그대로 탭에 표시합니다.
+  useDocumentTitle(pageTitle);
   const detailSource = isFavoritesSelected
     ? 'from=favorites'
     : `fromCategory=${selectedCategoryId ?? ''}`;

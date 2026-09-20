@@ -10,6 +10,7 @@ import CategorySelect from '../../components/scrap/CategorySelect/CategorySelect
 import MarkdownEditor from '../../components/scrap/MarkdownEditor/MarkdownEditor';
 import { useCreateScrapMutation } from '../../hooks/mutations/useScrapMutations';
 import { useCategoriesQuery } from '../../hooks/queries/useCategoriesQuery';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { getUrlMetadata } from '../../services/api/urlMetadataService';
 import type { UrlMetadataDTO } from '../../types/api/urlMetadata';
 import { toApiError } from '../../utils/apiError';
@@ -36,6 +37,7 @@ function getFetchableURL(value: string) {
 /** URL 입력, OG 미리보기, 메모와 즐겨찾기를 한 번에 저장하는 화면입니다. */
 function ScrapCreatePage() {
   const navigate = useNavigate();
+  useDocumentTitle('스크랩 추가 | 스크랩');
   const [searchParams] = useSearchParams();
   const requestedCategoryId = Number(searchParams.get('category')) || null;
   const categoriesQuery = useCategoriesQuery();
