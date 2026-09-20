@@ -24,7 +24,11 @@ export const router = createBrowserRouter([
   {
     // 로그인 완료 처리는 인증 상태 전환 중에도 항상 렌더링되어야 하므로 PublicOnlyRoute 밖에 둡니다.
     path: '/auth/kakao/callback',
-    element: <KakaoCallbackPage />,
+    element: <KakaoCallbackPage provider="kakao" />,
+  },
+  {
+    path: '/auth/naver/callback',
+    element: <KakaoCallbackPage provider="naver" />,
   },
   {
     element: <PublicOnlyRoute />,

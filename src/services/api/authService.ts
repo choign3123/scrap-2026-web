@@ -1,5 +1,5 @@
 import type { ApiResponse } from '../../types/api/common';
-import type { KakaoLoginPrepareDTO } from '../../types/api/auth';
+import type { KakaoLoginPrepareDTO, NaverLoginPrepareDTO } from '../../types/api/auth';
 import { apiClient } from './apiClient';
 import { publicApiClient } from './httpClient';
 
@@ -22,6 +22,15 @@ export async function requestSignout() {
 export async function prepareKakaoLogin() {
   const response = await publicApiClient.post<ApiResponse<KakaoLoginPrepareDTO>>(
     '/oauth/web/kakao/prepare',
+  );
+
+  return response.data.result;
+}
+
+/** 백엔드에서 네이버 인증 화면 URL과 state를 받아옵니다. */
+export async function prepareNaverLogin() {
+  const response = await publicApiClient.post<ApiResponse<NaverLoginPrepareDTO>>(
+    '/oauth/web/naver/prepare',
   );
 
   return response.data.result;

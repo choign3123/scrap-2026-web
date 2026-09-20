@@ -1,16 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { consumeKakaoReturnPath } from '../../services/kakaoAuthService';
+import { consumeSocialReturnPath } from '../../services/socialLoginStorage';
 import { toApiError } from '../../utils/apiError';
 import styles from './KakaoCallbackPage.module.css';
 
-/** 백엔드의 카카오 callback 처리가 끝난 뒤 HttpOnly 쿠키로 웹 세션을 완성합니다. */
-function KakaoCallbackPage() {
-  const { completeKakaoLogin } = useAuth();
+interface SocialCallbackPageProps {
+  provider: 'kakao' | 'naver';
+}
+
+/** 백엔드 소셜 callback 처리가 끝난 뒤 HttpOnly 쿠키로 웹 세션을 완성합니다. */
+function KakaoCallbackPage({ provider }: SocialCallbackPageProps) {
+  const { completeSocialLogin } = useAuth();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const hasStartedRef = useRef(false);
+  const providerLabel = provider === 'kakao' ? '카카오' : '네이버';
 
   useEffect(() => {
     // 개발 환경의 StrictMode가 effect를 두 번 실행해도 인가 코드를 한 번만 교환합니다.
@@ -28,31 +33,31 @@ function KakaoCallbackPage() {
       window.history.replaceState(
         window.history.state,
         document.title,
-        '/auth/kakao/callback',
+        `/auth/${provider}/callback`,
       );
 
       if (result !== 'success') {
         if (reason === 'cancelled') {
-          throw new Error('카카오 로그인이 취소되었습니다.');
+          throw new Error(`${providerLabel} 로그인이 취소되었습니다.`);
         }
-        throw new Error('카카오 로그인에 실패했습니다. 다시 시도해 주세요.');
+        throw new Error(`${providerLabel} 로그인에 실패했습니다. 다시 시도해 주세요.`);
       }
 
-      await completeKakaoLogin();
-      navigate(consumeKakaoReturnPath(), { replace: true });
+      await completeSocialLogin();
+      navigate(consumeSocialReturnPath(), { replace: true });
     }
 
     void completeLogin().catch((error: unknown) => {
       setErrorMessage(toApiError(error).message);
     });
-  }, [completeKakaoLogin, navigate]);
+  }, [completeSocialLogin, navigate, provider, providerLabel]);
 
   return (
     <main className={styles.page}>
       <section className={styles.panel} aria-live="polite">
         {errorMessage ? (
           <>
-            <strong>카카오 로그인에 실패했습니다.</strong>
+            <strong>{providerLabel} 로그인에 실패했습니다.</strong>
             <p>{errorMessage}</p>
             <button type="button" onClick={() => navigate('/login', { replace: true })}>
               로그인 화면으로 돌아가기
@@ -61,7 +66,7 @@ function KakaoCallbackPage() {
         ) : (
           <>
             <span className={styles.spinner} aria-hidden="true" />
-            <strong>카카오 로그인 처리 중입니다.</strong>
+            <strong>{providerLabel} 로그인 처리 중입니다.</strong>
             <p>잠시만 기다려 주세요.</p>
           </>
         )}

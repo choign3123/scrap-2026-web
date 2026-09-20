@@ -42,7 +42,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     async function restoreSession() {
       // 카카오 callback 화면은 자체적으로 세션을 한 번만 생성해야 refresh token 중복 회전을 피할 수 있습니다.
-      if (window.location.pathname === '/auth/kakao/callback') {
+      if (
+        window.location.pathname === '/auth/kakao/callback' ||
+        window.location.pathname === '/auth/naver/callback'
+      ) {
         setAuthStatus('unauthenticated');
         return;
       }
@@ -83,7 +86,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setAuthStatus('authenticated');
   }, []);
 
-  const completeKakaoLogin = useCallback(async () => {
+  const completeSocialLogin = useCallback(async () => {
     // 백엔드 callback이 설정한 HttpOnly 쿠키로 access token만 받아 메모리에 보관합니다.
     const session = await requestWebSession();
     saveAccessToken(session.accessToken);
@@ -112,11 +115,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
       authStatus,
       isAuthenticated: authStatus === 'authenticated',
       login,
-      completeKakaoLogin,
+      completeSocialLogin,
       logout,
       signout,
     }),
-    [authStatus, completeKakaoLogin, login, logout, signout],
+    [authStatus, completeSocialLogin, login, logout, signout],
   );
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;

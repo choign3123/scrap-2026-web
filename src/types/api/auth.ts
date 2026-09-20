@@ -15,5 +15,11 @@ export interface KakaoLoginPrepareDTO {
   redirectUri: string;
 }
 
-/** 화면에서 지원하는 로그인 제공자입니다. 현재 두 버튼 모두 개발용 토큰을 발급합니다. */
+/** 네이버 로그인 시작에 필요한 state와 네이버 인증 화면 URL입니다. */
+export interface NaverLoginPrepareDTO {
+  state: string;
+  authorizationUrl: string;
+}
+
+/** 화면에서 지원하는 소셜 로그인 제공자입니다. */
 export type SocialProvider = 'kakao' | 'naver';
