@@ -212,20 +212,8 @@ git pull
 ## 8. Nginx 운영 명령
 
 ```bash
-# 현재 상태 확인
-sudo systemctl status nginx
-
-# 시작
-sudo systemctl start nginx
-
-# 중지
-sudo systemctl stop nginx
-
-# 설정을 다시 읽기
 sudo systemctl reload nginx
-
-# 부팅할 때 자동 시작
-sudo systemctl enable nginx
+sudo nginx -s reload
 ```
 
 ## 9. 로그 확인과 문제 해결

@@ -6,7 +6,7 @@
   padding: 0 18px;
   border-bottom: 1px solid #ededf0;
   column-gap: 18px;
-  grid-template-columns: 104px minmax(180px, 1.2fr) minmax(220px, 1fr) 36px;
+  grid-template-columns: 104px minmax(180px, 1.2fr) minmax(220px, 1fr) 44px;
   background: #fff;
   cursor: pointer;
   transition: background 140ms ease;
@@ -98,33 +98,32 @@
   position: relative;
   z-index: 2;
   display: grid;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   padding: 6px;
-  border: 1px solid #e0e0e3;
+  border: 0;
   border-radius: 9px;
   place-items: center;
   color: #566058;
-  background: #f7f9f7;
+  background: transparent;
   font-size: 0.75rem;
   font-weight: 800;
   cursor: pointer;
 }
 
 .copyButton:hover {
-  border-color: #cbccd0;
-  background: #fff;
+  background: #eceef0;
 }
 
 .copyButton img {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   opacity: 0.68;
 }
 
 .copyResult {
   color: #2f6d3a;
-  background: #eef5ec;
+  background: transparent;
 }
 
 @media (max-width: 900px) {
