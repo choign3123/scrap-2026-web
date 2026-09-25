@@ -6,8 +6,11 @@ import type { InquiryStatus } from '../../types/api/inquiry';
 export const inquiryQueryKeys = {
   all: ['inquiries'] as const,
   mine: () => [...inquiryQueryKeys.all, 'mine'] as const,
-  admin: (page: number, status: InquiryStatus | 'ALL') =>
-    [...inquiryQueryKeys.all, 'admin', { page, status }] as const,
+  admin: (
+    page: number,
+    status: InquiryStatus | 'ALL',
+    direction: 'ASC' | 'DESC',
+  ) => [...inquiryQueryKeys.all, 'admin', { page, status, direction }] as const,
 };
 
 /** 내 문의 목록을 조회하고 React Query 캐시에 보관합니다. */
@@ -18,19 +21,20 @@ export function useInquiriesQuery() {
   });
 }
 
-/** 관리자 권한 확인 후 최신순으로 10개씩 문의 목록을 조회합니다. */
+/** 관리자 권한 확인 후 선택한 정렬 방향으로 문의를 10개씩 조회합니다. */
 export function useAdminInquiriesQuery(
   page: number,
   status: InquiryStatus | 'ALL',
+  direction: 'ASC' | 'DESC',
   enabled: boolean,
 ) {
   return useQuery({
-    queryKey: inquiryQueryKeys.admin(page, status),
+    queryKey: inquiryQueryKeys.admin(page, status, direction),
     queryFn: () =>
       getAdminInquiries({
         page,
         size: 10,
-        direction: 'DESC',
+        direction,
         status: status === 'ALL' ? undefined : status,
       }),
     enabled,

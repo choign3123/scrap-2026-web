@@ -2,7 +2,7 @@
 .page {
   display: flex;
   min-width: 320px;
-  min-height: 100dvh;
+  height: 100dvh;
   overflow: hidden;
   background: #f4f5f4;
 }
@@ -10,7 +10,9 @@
 .content {
   display: flex;
   min-width: 0;
-  min-height: 100dvh;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
   flex: 1;
   flex-direction: column;
 }
@@ -23,6 +25,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+  flex: 0 0 auto;
   background: #fff;
 }
 
@@ -38,12 +41,41 @@
   font-size: 0.8125rem;
 }
 
+.headerControls {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
 .filter { width: 180px; flex: 0 0 auto; }
+
+.directionButton {
+  display: inline-flex;
+  min-width: 106px;
+  min-height: 46px;
+  padding: 0 13px;
+  border: 1px solid #dfe2e0;
+  border-radius: 11px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: #3f4742;
+  background: #fafbfa;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.directionButton:hover { background: #f0f2f1; }
+.directionButton:focus,
+.directionButton:focus-visible { border-color: #dfe2e0; outline: none; box-shadow: none; }
+.directionButton img { width: 20px; height: 20px; opacity: 0.78; }
 
 .workspace {
   min-height: 0;
   padding: 28px clamp(24px, 4vw, 56px) 48px;
   overflow-y: auto;
+  overscroll-behavior: contain;
   flex: 1;
 }
 
@@ -198,9 +230,11 @@
 
 .secondaryAction:disabled,
 .primaryAction:disabled,
-.pagination button:disabled,
 .cancelButton:disabled,
 .submitButton:disabled { opacity: 0.5; cursor: wait; }
+
+/* 페이지 조회 중에는 버튼만 잠그고 대기 커서를 노출하지 않습니다. */
+.pagination button:disabled { opacity: 0.5; cursor: default; }
 
 .stateCard {
   display: flex;
@@ -392,8 +426,8 @@
 @keyframes spin { to { transform: rotate(360deg); } }
 
 @media (max-width: 720px) {
-  .page { overflow: auto; flex-direction: column; }
-  .content { min-height: auto; }
+  .page { flex-direction: column; }
+  .content { height: auto; min-height: 0; }
   .header { min-height: 96px; padding: 18px 16px; }
   .header p { display: none; }
   .header h1 { font-size: 1.35rem; }
@@ -404,7 +438,9 @@
 
 @media (max-width: 480px) {
   .header { align-items: flex-start; flex-direction: column; }
-  .filter { width: 100%; }
+  .headerControls { width: 100%; }
+  .filter { width: auto; flex: 1; }
+  .directionButton { min-width: 102px; }
   .cardTop { align-items: flex-start; flex-direction: column; }
   .cardTop > time { align-self: flex-end; }
   .modalBackdrop { padding: 12px; }

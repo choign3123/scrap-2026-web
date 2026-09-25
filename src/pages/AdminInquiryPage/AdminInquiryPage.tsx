@@ -2,6 +2,8 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import closeIcon from '../../assets/icons/close-round.svg';
+import sortDownIcon from '../../assets/icons/sort-down.svg';
+import sortUpIcon from '../../assets/icons/sort-up.svg';
 import AdminSidebar from '../../components/layout/AdminSidebar/AdminSidebar';
 import SelectMenu from '../../components/common/SelectMenu/SelectMenu';
 import {
@@ -13,6 +15,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { checkAdminAuthority } from '../../services/api/authService';
 import type {
+  AdminInquiryQuery,
   InquiryDTO,
   InquiryStatus,
   InquiryType,
@@ -61,6 +64,7 @@ function AdminInquiryPage() {
   const { logout } = useAuth();
   const [page, setPage] = useState(0);
   const [status, setStatus] = useState<AdminStatusFilter>('ALL');
+  const [direction, setDirection] = useState<AdminInquiryQuery['direction']>('DESC');
   const [answerTarget, setAnswerTarget] = useState<InquiryDTO | null>(null);
   const [answer, setAnswer] = useState('');
   const [actionError, setActionError] = useState('');
@@ -73,7 +77,12 @@ function AdminInquiryPage() {
     staleTime: 0,
     refetchOnMount: 'always',
   });
-  const inquiriesQuery = useAdminInquiriesQuery(page, status, adminCheckQuery.isSuccess);
+  const inquiriesQuery = useAdminInquiriesQuery(
+    page,
+    status,
+    direction,
+    adminCheckQuery.isSuccess,
+  );
   const confirmMutation = useConfirmInquiryMutation();
   const answerMutation = useAnswerInquiryMutation();
 
@@ -191,17 +200,32 @@ function AdminInquiryPage() {
             <h1>고객센터 관리</h1>
             <p>사용자가 등록한 문의를 확인하고 답변할 수 있습니다.</p>
           </div>
-          <div className={styles.filter}>
-            <SelectMenu
-              label="문의 상태 필터"
-              value={status}
-              options={STATUS_OPTIONS}
-              onChange={(nextStatus) => {
-                setStatus(nextStatus);
+          <div className={styles.headerControls}>
+            <div className={styles.filter}>
+              <SelectMenu
+                label="문의 상태 필터"
+                value={status}
+                options={STATUS_OPTIONS}
+                onChange={(nextStatus) => {
+                  setStatus(nextStatus);
+                  setPage(0);
+                  setActionError('');
+                }}
+              />
+            </div>
+            <button
+              type="button"
+              className={styles.directionButton}
+              aria-label={direction === 'DESC' ? '최신순, 오래된순으로 변경' : '오래된순, 최신순으로 변경'}
+              title={direction === 'DESC' ? '최신순' : '오래된순'}
+              onClick={() => {
+                setDirection((current) => (current === 'DESC' ? 'ASC' : 'DESC'));
                 setPage(0);
-                setActionError('');
               }}
-            />
+            >
+              <img src={direction === 'DESC' ? sortDownIcon : sortUpIcon} alt="" />
+              <span>{direction === 'DESC' ? '최신순' : '오래된순'}</span>
+            </button>
           </div>
         </header>
 
