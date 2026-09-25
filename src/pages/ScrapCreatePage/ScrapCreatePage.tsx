@@ -291,6 +291,8 @@ function ScrapCreatePage() {
                     <img
                       src={metadata.imageURL}
                       alt=""
+                      // 네이버 등 외부 삽입을 제한하는 이미지 서버에 현재 웹 주소를 전달하지 않습니다.
+                      referrerPolicy="no-referrer"
                       onError={() => setHasImageError(true)}
                     />
                   ) : (

@@ -285,12 +285,18 @@ function ScrapDetailPage() {
                     <>
                       {/* 같은 이미지를 확대한 블러 배경으로 사용해 여백을 원본 색감으로 채웁니다. */}
                       <span className={styles.imageBackdrop} aria-hidden="true">
-                        <img src={scrap.imageURL} alt="" />
+                        <img
+                          src={scrap.imageURL}
+                          alt=""
+                          referrerPolicy="no-referrer"
+                        />
                       </span>
                       <img
                         className={styles.imageContent}
                         src={scrap.imageURL}
                         alt=""
+                        // 외부 이미지 서버에 현재 서비스 주소를 Referer로 보내지 않습니다.
+                        referrerPolicy="no-referrer"
                         onError={() => setHasImageError(true)}
                       />
                     </>

@@ -43,6 +43,8 @@ function ScrapCard({ scrap, detailHref }: ScrapCardProps) {
             className={styles.thumbnail}
             src={scrap.imageURL ?? undefined}
             alt=""
+            // 원격 이미지 서버가 Referer를 기준으로 요청을 차단하는 문제를 방지합니다.
+            referrerPolicy="no-referrer"
             onError={() => setHasImageError(true)}
           />
         ) : (
