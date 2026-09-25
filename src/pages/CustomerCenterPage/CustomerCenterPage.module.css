@@ -1,0 +1,405 @@
+/* 고객센터 본문은 대시보드와 동일한 2열 앱 프레임과 중립 배경을 사용합니다. */
+.page {
+  display: flex;
+  width: 100%;
+  min-width: 320px;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--color-background);
+}
+
+.sidebarLayer {
+  height: 100%;
+  flex: 0 0 auto;
+}
+
+.content {
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  flex: 1;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  min-height: 112px;
+  padding: 24px clamp(24px, 4vw, 56px);
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e6e7;
+  gap: 20px;
+  flex: 0 0 auto;
+  background: #fff;
+}
+
+.header h1 {
+  color: #222824;
+  font-size: clamp(1.45rem, 2.6vw, 2rem);
+  letter-spacing: -0.045em;
+}
+
+.createButton,
+.submitButton {
+  display: inline-flex;
+  min-height: 42px;
+  padding: 0 17px;
+  border: 0;
+  border-radius: 12px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: #fff;
+  background: #2e803b;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 140ms ease, transform 140ms ease;
+}
+
+.createButton:hover,
+.submitButton:hover:not(:disabled) {
+  background: #246d31;
+  transform: translateY(-1px);
+}
+
+/* 좌우 패딩을 같은 값으로 고정해 버튼 양쪽 여백이 균등하게 보이도록 합니다. */
+.createButton {
+  display: inline-flex;
+  padding-right: 14px;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+
+.createButton .iconSwap {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+.iconSwap {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+}
+
+.iconSwap img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  grid-area: 1 / 1;
+}
+
+.hoverIcon { display: none !important; }
+
+.createButton:hover .defaultIcon,
+.modalHeader > button:hover:not(:disabled) .defaultIcon { display: none; }
+
+.createButton:hover .hoverIcon,
+.modalHeader > button:hover:not(:disabled) .hoverIcon { display: block !important; }
+
+.listArea {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 28px clamp(24px, 4vw, 56px) 48px;
+  flex: 1;
+}
+
+.inquiryList {
+  display: grid;
+  width: min(920px, 100%);
+  margin: 0 auto;
+  gap: 14px;
+}
+
+.inquiryCard {
+  padding: 20px 22px;
+  border: 1px solid #e2e4e3;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 5px 18px rgb(30 37 32 / 4%);
+}
+
+.cardHeading,
+.badges {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.badges { justify-content: flex-start; }
+
+.typeBadge,
+.statusBadge {
+  display: inline-flex;
+  min-height: 26px;
+  padding: 0 9px;
+  border-radius: 999px;
+  align-items: center;
+  color: #525a55;
+  background: #f0f2f1;
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+.statusBadge.received { color: #5c6260; background: #f0f1f2; }
+.statusBadge.processing { color: #815d19; background: #fbf3df; }
+.statusBadge.answered { color: #286b35; background: #eaf4e9; }
+
+.date,
+.answerContent time {
+  color: #858b87;
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.inquiryContent {
+  margin-top: 16px;
+  color: #303733;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.contentToggleButton {
+  padding: 3px 0;
+  border: 0;
+  margin-top: 7px;
+  color: #626b65;
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.contentToggleButton:hover { color: #27302a; text-decoration: underline; }
+
+.answerArea {
+  padding-top: 14px;
+  border-top: 1px solid #eceeed;
+  margin-top: 16px;
+}
+
+.answerArea > button {
+  display: flex;
+  padding: 4px 0;
+  border: 0;
+  align-items: center;
+  gap: 8px;
+  color: #39433c;
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.answerArea > button:hover { color: #246d31; }
+.answerArea > button span { font-size: 1rem; }
+
+.answerContent {
+  padding: 14px 16px;
+  border-radius: 12px;
+  margin-top: 10px;
+  background: #f7f8f7;
+}
+
+.answerContent p {
+  margin-top: 8px;
+  color: #3e4641;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.stateCard,
+.emptyState {
+  display: flex;
+  width: min(600px, 100%);
+  min-height: 180px;
+  padding: 28px;
+  border: 1px solid #e2e4e3;
+  border-radius: 18px;
+  margin: 24px auto;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  color: #67706a;
+  background: #fff;
+  text-align: center;
+}
+
+.emptyState > span {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: #68716b;
+  background: #f0f2f1;
+  place-items: center;
+}
+
+.emptyState > span img { width: 24px; height: 24px; opacity: 0.68; }
+
+.emptyState h2 { color: #2d342f; font-size: 1rem; }
+.emptyState p { max-width: 360px; font-size: 0.8125rem; line-height: 1.6; }
+.errorState { color: #a83e3e; }
+
+.errorState button {
+  padding: 8px 12px;
+  border: 1px solid #dedfe1;
+  border-radius: 9px;
+  color: #454c47;
+  background: #fff;
+  cursor: pointer;
+}
+
+.modalBackdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  padding: 20px;
+  place-items: center;
+  background: rgb(26 31 27 / 42%);
+  backdrop-filter: blur(3px);
+}
+
+.modal {
+  width: min(520px, 100%);
+  overflow: hidden;
+  border: 1px solid #e0e3e0;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgb(20 27 22 / 22%);
+}
+
+.modalHeader {
+  display: flex;
+  min-height: 78px;
+  padding: 18px 22px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #eaedeb;
+  background: #f8faf8;
+}
+
+.modalHeader h2 { color: #26302a; font-size: 1.125rem; }
+
+.modalHeader > button {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.modalHeader > button:hover { background: #eceef0; }
+.modalHeader > button .iconSwap { margin: auto; }
+
+.inquiryForm {
+  display: grid;
+  padding: 22px;
+  gap: 10px;
+}
+
+.inquiryForm label { margin-top: 4px; color: #39423d; font-size: 0.75rem; font-weight: 700; }
+
+.inquiryForm textarea {
+  width: 100%;
+  padding: 12px 13px;
+  border: 1px solid #dfe2e0;
+  border-radius: 10px;
+  color: #303733;
+  background: #fff;
+  font: inherit;
+  font-size: 0.8125rem;
+}
+
+.inquiryForm textarea:focus {
+  border-color: #dfe2e0;
+  outline: none;
+  box-shadow: none;
+}
+
+.inquiryForm textarea { min-height: 180px; resize: vertical; line-height: 1.6; }
+.inquiryForm textarea:focus-visible { outline: none; }
+
+.formError { color: #b33b3b; font-size: 0.75rem; line-height: 1.5; }
+
+.modalActions {
+  display: flex;
+  padding-top: 12px;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+.cancelButton,
+.submitButton {
+  min-width: 90px;
+  min-height: 40px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cancelButton {
+  border: 1px solid #dedfe1;
+  color: #48504b;
+  background: #fff;
+}
+
+.cancelButton:hover { background: #f3f4f4; }
+.cancelButton:disabled,
+.submitButton:disabled { opacity: 0.6; cursor: wait; }
+
+.submitButton { border: 0; }
+
+.openSidebarButton {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  place-items: center;
+}
+
+.openSidebarButton:hover { background: #eceef0; }
+.openSidebarButton img { width: 27px; height: 27px; }
+.mobileBackdrop { display: none; }
+
+@media (max-width: 768px) {
+  .sidebarLayer { position: fixed; z-index: 50; inset: 0 auto 0 0; }
+  .mobileBackdrop {
+    position: fixed;
+    z-index: 40;
+    inset: 0;
+    display: block;
+    padding: 0;
+    border: 0;
+    background: rgb(20 25 21 / 32%);
+  }
+  .header { min-height: 86px; padding: 16px; gap: 10px; }
+  .header h1 { flex: 1; }
+  .createButton { min-height: 40px; padding: 0 12px; font-size: 0.75rem; }
+  .listArea { padding: 18px 14px 32px; }
+  .inquiryCard { padding: 16px; }
+}
+
+@media (max-width: 480px) {
+  .cardHeading { align-items: flex-start; flex-direction: column; }
+  .date { align-self: flex-end; }
+  .modalBackdrop { padding: 12px; }
+  .inquiryForm { padding: 18px; }
+}

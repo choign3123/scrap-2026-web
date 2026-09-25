@@ -14,6 +14,12 @@ const ScrapDetailPage = lazy(
 const ScrapCreatePage = lazy(
   () => import('../pages/ScrapCreatePage/ScrapCreatePage'),
 );
+const CustomerCenterPage = lazy(
+  () => import('../pages/CustomerCenterPage/CustomerCenterPage'),
+);
+const AdminInquiryPage = lazy(
+  () => import('../pages/AdminInquiryPage/AdminInquiryPage'),
+);
 
 /** URL과 페이지 컴포넌트의 관계를 한곳에서 관리합니다. */
 export const router = createBrowserRouter([
@@ -59,6 +65,22 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<FullPageLoader message="스크랩 추가 화면을 준비하고 있습니다." />}>
             <ScrapCreatePage />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/customer-center',
+        element: (
+          <Suspense fallback={<FullPageLoader message="고객센터를 준비하고 있습니다." />}>
+            <CustomerCenterPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/admin',
+        element: (
+          <Suspense fallback={<FullPageLoader message="관리자 화면을 준비하고 있습니다." />}>
+            <AdminInquiryPage />
           </Suspense>
         ),
       },

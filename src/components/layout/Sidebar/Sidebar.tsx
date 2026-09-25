@@ -1,6 +1,8 @@
-import { useMemo, useState, type MouseEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, type MouseEvent, type PointerEvent } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import categoryAddIcon from '../../../assets/icons/category-add.svg';
 import folderIcon from '../../../assets/icons/folder.svg';
+import questionIcon from '../../../assets/icons/question-duotone-line.svg';
 import scrapIcon from '../../../assets/icons/scrap-clip.svg';
 import sidebarCollapseIcon from '../../../assets/icons/sidebar-collapse.svg';
 import starIcon from '../../../assets/icons/star-fill.svg';
@@ -16,6 +18,7 @@ import {
 import { useCategoriesQuery } from '../../../hooks/queries/useCategoriesQuery';
 import { useMyPageQuery } from '../../../hooks/queries/useMyPageQuery';
 import { useAuth } from '../../../hooks/useAuth';
+import { checkAdminAuthority } from '../../../services/api/authService';
 import type { CategoryDTO } from '../../../types/api/category';
 import { toApiError } from '../../../utils/apiError';
 import CategoryList from './CategoryList';
@@ -48,6 +51,8 @@ function Sidebar({
   onCollapse,
 }: SidebarProps) {
   const { logout, signout } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   const myPageQuery = useMyPageQuery();
   const categoriesQuery = useCategoriesQuery();
   const createCategoryMutation = useCreateCategoryMutation();
@@ -57,7 +62,17 @@ function Sidebar({
   const [activeModal, setActiveModal] = useState<ActiveModal>(null);
   const [isCategoryListExpanded, setIsCategoryListExpanded] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [isCheckingAdmin, setIsCheckingAdmin] = useState(false);
   const [operationError, setOperationError] = useState<string | null>(null);
+  const adminHoldTimerRef = useRef<number | null>(null);
+  const didTriggerAdminHoldRef = useRef(false);
+
+  useEffect(() => () => {
+    // 사이드바가 화면에서 사라질 때 아직 대기 중인 길게 누르기 타이머를 정리합니다.
+    if (adminHoldTimerRef.current !== null) {
+      window.clearTimeout(adminHoldTimerRef.current);
+    }
+  }, []);
 
   const sortedCategories = useMemo(
     () =>
@@ -155,6 +170,60 @@ function Sidebar({
     await logout();
   }
 
+  /** 버튼을 5초 누르면 관리자 권한을 서버에 확인하고 관리자 화면으로 이동합니다. */
+  function handleLogoutPointerDown(event: PointerEvent<HTMLButtonElement>) {
+    if (isLoggingOut || isCheckingAdmin || event.button !== 0) {
+      return;
+    }
+
+    didTriggerAdminHoldRef.current = false;
+    adminHoldTimerRef.current = window.setTimeout(() => {
+      didTriggerAdminHoldRef.current = true;
+      setIsCheckingAdmin(true);
+      setOperationError(null);
+
+      void checkAdminAuthority()
+        .then(() => navigate('/admin'))
+        .catch(() => {
+          // 숨겨진 관리자 진입 기능이므로 일반 사용자에게 권한 오류를 노출하지 않습니다.
+        })
+        .finally(() => setIsCheckingAdmin(false));
+    }, 5000);
+  }
+
+  /** 버튼에서 포인터가 벗어나거나 손을 떼면 관리자 대기 타이머를 취소합니다. */
+  function clearAdminHoldTimer() {
+    if (adminHoldTimerRef.current !== null) {
+      window.clearTimeout(adminHoldTimerRef.current);
+      adminHoldTimerRef.current = null;
+    }
+  }
+
+  /** 길게 누른 뒤 발생하는 click만 삼키고, 브라우저에서 click이 생략되면 다음 동작을 복구합니다. */
+  function handleLogoutPointerUp() {
+    clearAdminHoldTimer();
+    // 버튼이 확인 중 비활성화되어 click이 생략되는 브라우저에서도 다음 클릭이 막히지 않게 정리합니다.
+    window.setTimeout(() => {
+      didTriggerAdminHoldRef.current = false;
+    }, 0);
+  }
+
+  /** 취소된 포인터 입력은 다음 로그아웃 클릭에 영향을 주지 않도록 상태를 초기화합니다. */
+  function handleLogoutPointerCancel() {
+    clearAdminHoldTimer();
+    didTriggerAdminHoldRef.current = false;
+  }
+
+  /** 길게 눌러 관리자 확인을 시작한 뒤 발생하는 click은 로그아웃으로 처리하지 않습니다. */
+  function handleLogoutClick() {
+    if (didTriggerAdminHoldRef.current) {
+      didTriggerAdminHoldRef.current = false;
+      return;
+    }
+
+    void handleLogout();
+  }
+
   async function handleSignout() {
     await signout();
     closeModal();
@@ -226,6 +295,16 @@ function Sidebar({
         >
           <img src={starIcon} alt="" />
           <span>즐겨찾기</span>
+        </button>
+
+        <button
+          type="button"
+          className={`${styles.favoriteButton} ${location.pathname.startsWith('/customer-center') ? styles.selectedNavigation : ''}`}
+          aria-current={location.pathname.startsWith('/customer-center') ? 'page' : undefined}
+          onClick={() => navigate('/customer-center')}
+        >
+          <img className={styles.supportIcon} src={questionIcon} alt="" />
+          <span>고객센터</span>
         </button>
 
         <div className={styles.categoryHeader}>
@@ -300,8 +379,17 @@ function Sidebar({
           <img src={userIcon} alt="" />
           <span>회원설정</span>
         </div>
-        <button type="button" disabled={isLoggingOut} onClick={handleLogout}>
-          {isLoggingOut ? '로그아웃 중...' : '로그아웃'}
+        <button
+          type="button"
+          disabled={isLoggingOut || isCheckingAdmin}
+          onPointerDown={handleLogoutPointerDown}
+          onPointerUp={handleLogoutPointerUp}
+          onPointerLeave={clearAdminHoldTimer}
+          onPointerCancel={handleLogoutPointerCancel}
+          onClick={handleLogoutClick}
+          onContextMenu={(event) => event.preventDefault()}
+        >
+          {isLoggingOut ? '로그아웃 중...' : isCheckingAdmin ? '관리자 확인 중...' : '로그아웃'}
         </button>
         <button
           type="button"

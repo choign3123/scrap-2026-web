@@ -1,0 +1,138 @@
+.sidebar {
+  display: flex;
+  width: 260px;
+  height: 100dvh;
+  padding: 22px 14px 16px;
+  border-right: 1px solid #e0e2e1;
+  flex: 0 0 260px;
+  flex-direction: column;
+  color: #252c27;
+  background: #f7f8f7;
+}
+
+.header {
+  display: flex;
+  min-height: 68px;
+  padding: 4px 8px 18px;
+  align-items: center;
+  gap: 11px;
+}
+
+.logoMark {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  color: #fff;
+  background: #2d3430;
+  font-size: 1rem;
+  font-weight: 800;
+  place-items: center;
+}
+
+.header div { display: flex; flex-direction: column; gap: 3px; }
+.header strong { font-size: 0.9375rem; letter-spacing: -0.025em; }
+.header div span { color: #7d8580; font-size: 0.625rem; }
+
+.navigation {
+  display: flex;
+  min-height: 0;
+  padding-top: 14px;
+  border-top: 1px solid #e3e5e4;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.navigation button {
+  display: grid;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 11px;
+  column-gap: 10px;
+  grid-template-columns: 23px minmax(0, 1fr) auto;
+  color: #4a534d;
+  background: transparent;
+  font-size: 0.8125rem;
+  font-weight: 650;
+  text-align: left;
+  cursor: pointer;
+}
+
+.navigation button:hover:not(:disabled) { background: #ecefed; }
+.navigation button:disabled { color: #a0a6a2; cursor: not-allowed; }
+.navigation button img { width: 22px; height: 22px; opacity: 0.72; }
+.navigation button:disabled img { opacity: 0.3; }
+.navigation small { color: #9ca29e; font-size: 0.5625rem; font-weight: 600; }
+
+.navigation .activeMenu {
+  color: #fff;
+  background: #303733;
+}
+
+.navigation .activeMenu:hover { background: #272d29; }
+.navigation .activeMenu img { filter: brightness(0) invert(1); opacity: 1; }
+
+.footer {
+  display: grid;
+  padding-top: 14px;
+  border-top: 1px solid #e3e5e4;
+  gap: 6px;
+}
+
+.footer button {
+  min-height: 40px;
+  padding: 0 11px;
+  border: 0;
+  border-radius: 9px;
+  color: #59615c;
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 650;
+  text-align: left;
+  cursor: pointer;
+}
+
+.footer button:hover:not(:disabled) { background: #e9ecea; }
+.footer button:disabled { opacity: 0.55; cursor: wait; }
+
+@media (max-width: 720px) {
+  /* 작은 화면에서는 사이드바를 상단 메뉴로 바꿔 본문 너비를 확보합니다. */
+  .sidebar {
+    width: 100%;
+    height: auto;
+    padding: 10px 12px;
+    border-right: 0;
+    border-bottom: 1px solid #e0e2e1;
+    flex-basis: auto;
+  }
+
+  .header { min-height: 50px; padding: 0 4px 9px; }
+  .logoMark { width: 34px; height: 34px; }
+
+  .navigation {
+    display: grid;
+    padding-top: 9px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .navigation button {
+    min-height: 42px;
+    padding: 0 8px;
+    grid-template-columns: 20px minmax(0, 1fr);
+    font-size: 0.75rem;
+  }
+
+  .navigation button img { width: 19px; height: 19px; }
+  .navigation small { display: none; }
+
+  .footer {
+    display: grid;
+    padding-top: 8px;
+    grid-template-columns: 1fr auto;
+  }
+
+  .footer button { min-height: 36px; }
+}

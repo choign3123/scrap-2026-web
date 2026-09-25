@@ -1,0 +1,416 @@
+/* 관리자 화면은 일반 사용자 화면과 구분되도록 차분한 무채색 중심으로 구성합니다. */
+.page {
+  display: flex;
+  min-width: 320px;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: #f4f5f4;
+}
+
+.content {
+  display: flex;
+  min-width: 0;
+  min-height: 100dvh;
+  flex: 1;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  min-height: 112px;
+  padding: 22px clamp(24px, 4vw, 56px);
+  border-bottom: 1px solid #e2e4e3;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: #fff;
+}
+
+.header h1 {
+  color: #222824;
+  font-size: clamp(1.45rem, 2.6vw, 2rem);
+  letter-spacing: -0.045em;
+}
+
+.header p {
+  margin-top: 7px;
+  color: #737b76;
+  font-size: 0.8125rem;
+}
+
+.filter { width: 180px; flex: 0 0 auto; }
+
+.workspace {
+  min-height: 0;
+  padding: 28px clamp(24px, 4vw, 56px) 48px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.listSummary,
+.inquiryList,
+.pagination,
+.actionError {
+  width: min(980px, 100%);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.listSummary {
+  display: flex;
+  min-height: 32px;
+  align-items: center;
+  gap: 8px;
+  color: #6d7570;
+  font-size: 0.8125rem;
+}
+
+.listSummary strong { color: #303733; font-size: 0.8125rem; }
+
+.actionError {
+  padding: 11px 14px;
+  border-radius: 10px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  color: #9f3838;
+  background: #fff0f0;
+  font-size: 0.75rem;
+}
+
+.inquiryList { display: grid; margin-top: 8px; gap: 14px; }
+
+.inquiryCard {
+  padding: 20px 22px;
+  border: 1px solid #e0e3e1;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 5px 18px rgb(30 37 32 / 4%);
+}
+
+.cardTop,
+.badges,
+.cardActions,
+.savedAnswer > div {
+  display: flex;
+  align-items: center;
+}
+
+.cardTop { justify-content: space-between; gap: 12px; }
+.badges { gap: 7px; }
+
+.typeBadge,
+.statusBadge {
+  display: inline-flex;
+  min-height: 27px;
+  padding: 0 9px;
+  border-radius: 999px;
+  align-items: center;
+  color: #515a54;
+  background: #eff1f0;
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+.statusBadge.received { color: #5b6360; background: #eef0f1; }
+.statusBadge.processing { color: #805d1b; background: #fbf1d8; }
+.statusBadge.answered { color: #286b35; background: #e9f3e8; }
+
+.cardTop > time,
+.savedAnswer time {
+  color: #868d89;
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.inquiryContent {
+  margin-top: 16px;
+  color: #303733;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.savedAnswer {
+  padding: 15px 16px;
+  border: 1px solid #e7e9e8;
+  border-radius: 12px;
+  margin-top: 17px;
+  background: #f7f8f7;
+}
+
+.savedAnswer > div { justify-content: space-between; gap: 12px; }
+.savedAnswer strong { color: #3c443f; font-size: 0.75rem; }
+
+.savedAnswer p {
+  margin-top: 9px;
+  color: #3e4641;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.cardActions {
+  padding-top: 15px;
+  border-top: 1px solid #eceeed;
+  margin-top: 17px;
+  justify-content: flex-end;
+}
+
+.secondaryAction,
+.primaryAction,
+.pagination button,
+.stateCard button,
+.cancelButton,
+.submitButton {
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.secondaryAction,
+.pagination button,
+.stateCard button,
+.cancelButton {
+  border: 1px solid #dadeDC;
+  color: #48504b;
+  background: #fff;
+}
+
+.secondaryAction:hover:not(:disabled),
+.pagination button:hover:not(:disabled),
+.stateCard button:hover,
+.cancelButton:hover:not(:disabled) { background: #f0f2f1; }
+
+.primaryAction,
+.submitButton {
+  border: 0;
+  color: #fff;
+  background: #303733;
+}
+
+.primaryAction:hover,
+.submitButton:hover:not(:disabled) { background: #202622; }
+
+.secondaryAction:disabled,
+.primaryAction:disabled,
+.pagination button:disabled,
+.cancelButton:disabled,
+.submitButton:disabled { opacity: 0.5; cursor: wait; }
+
+.stateCard {
+  display: flex;
+  width: min(620px, 100%);
+  min-height: 210px;
+  padding: 28px;
+  border: 1px solid #e0e3e1;
+  border-radius: 18px;
+  margin: 38px auto;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 11px;
+  color: #6b746e;
+  background: #fff;
+  text-align: center;
+}
+
+.stateCard strong { color: #303733; font-size: 0.9375rem; }
+.stateCard p { font-size: 0.8125rem; line-height: 1.6; }
+.errorState { color: #9e3c3c; }
+
+.pagination {
+  display: flex;
+  padding-top: 24px;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.pagination span { color: #727a75; font-size: 0.75rem; }
+.pagination span strong { color: #303733; }
+
+.modalBackdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  padding: 20px;
+  background: rgb(25 30 27 / 44%);
+  backdrop-filter: blur(3px);
+  place-items: center;
+}
+
+.modal {
+  width: min(560px, 100%);
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  border: 1px solid #dfe2e0;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgb(20 27 22 / 24%);
+}
+
+.modalHeader {
+  display: flex;
+  min-height: 78px;
+  padding: 17px 22px;
+  border-bottom: 1px solid #e9ecea;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: #f8f9f8;
+}
+
+.modalHeader h2 { color: #252c27; font-size: 1.0625rem; }
+.modalHeader p { margin-top: 5px; color: #7d8580; font-size: 0.6875rem; }
+
+.modalHeader button {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  place-items: center;
+}
+
+.modalHeader button:hover:not(:disabled) { background: #e9ecea; }
+.modalHeader button img { width: 23px; height: 23px; }
+
+.answerForm { display: grid; padding: 22px; gap: 10px; }
+
+.originalInquiry {
+  max-height: 160px;
+  padding: 14px 15px;
+  border-radius: 11px;
+  margin-bottom: 5px;
+  overflow-y: auto;
+  background: #f5f6f5;
+}
+
+.originalInquiry strong,
+.answerForm label { color: #414944; font-size: 0.75rem; font-weight: 700; }
+
+.originalInquiry p {
+  margin-top: 8px;
+  color: #515954;
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.answerForm label { margin-top: 3px; }
+
+.answerForm textarea {
+  width: 100%;
+  min-height: 180px;
+  padding: 13px 14px;
+  border: 1px solid #dfe2e0;
+  border-radius: 11px;
+  resize: vertical;
+  color: #303733;
+  background: #fff;
+  font: inherit;
+  font-size: 0.8125rem;
+  line-height: 1.65;
+}
+
+/* 프로젝트 규칙에 따라 입력 중에도 두꺼운 강조 테두리를 표시하지 않습니다. */
+.answerForm textarea:focus,
+.answerForm textarea:focus-visible {
+  border-color: #dfe2e0;
+  outline: none;
+  box-shadow: none;
+}
+
+.formError { color: #aa3939; font-size: 0.75rem; line-height: 1.5; }
+
+.modalActions {
+  display: flex;
+  padding-top: 10px;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+.cancelButton,
+.submitButton { min-width: 90px; }
+
+.accessPage {
+  display: flex;
+  min-width: 320px;
+  min-height: 100dvh;
+  padding: 24px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  color: #68716b;
+  background: #f4f5f4;
+  text-align: center;
+}
+
+.accessPage h1 { color: #252c27; font-size: 1.125rem; }
+.accessPage p { font-size: 0.8125rem; line-height: 1.6; }
+
+.accessPage > button {
+  min-height: 40px;
+  padding: 0 15px;
+  border: 0;
+  border-radius: 10px;
+  margin-top: 6px;
+  color: #fff;
+  background: #343b36;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.spinner,
+.deniedIcon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  place-items: center;
+}
+
+.spinner {
+  border: 3px solid #e1e4e2;
+  border-top-color: #4c5550;
+  animation: spin 800ms linear infinite;
+}
+
+.deniedIcon { color: #a43b3b; background: #fff0f0; font-weight: 800; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 720px) {
+  .page { overflow: auto; flex-direction: column; }
+  .content { min-height: auto; }
+  .header { min-height: 96px; padding: 18px 16px; }
+  .header p { display: none; }
+  .header h1 { font-size: 1.35rem; }
+  .filter { width: 150px; }
+  .workspace { overflow: visible; padding: 18px 14px 34px; }
+  .inquiryCard { padding: 17px 16px; }
+}
+
+@media (max-width: 480px) {
+  .header { align-items: flex-start; flex-direction: column; }
+  .filter { width: 100%; }
+  .cardTop { align-items: flex-start; flex-direction: column; }
+  .cardTop > time { align-self: flex-end; }
+  .modalBackdrop { padding: 12px; }
+  .answerForm { padding: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation-duration: 2s; }
+}

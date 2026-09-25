@@ -205,6 +205,17 @@
   height: 23px;
 }
 
+/* 고객센터는 Figma에서 제공한 물음표 아이콘을 사용합니다. */
+.supportIcon {
+  width: 23px;
+  height: 23px;
+  flex: 0 0 23px;
+}
+
+.selectedNavigation .supportIcon {
+  filter: brightness(0) invert(1);
+}
+
 .favoriteButton.selectedNavigation {
   color: #fff;
   background: var(--sidebar-green);
