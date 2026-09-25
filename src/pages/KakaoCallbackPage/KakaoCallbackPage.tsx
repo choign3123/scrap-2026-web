@@ -2,7 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
-import { consumeSocialReturnPath } from '../../services/socialLoginStorage';
+import {
+  consumeSocialReturnPath,
+  saveLastSocialProvider,
+} from '../../services/socialLoginStorage';
 import { toApiError } from '../../utils/apiError';
 import styles from './KakaoCallbackPage.module.css';
 
@@ -46,6 +49,8 @@ function KakaoCallbackPage({ provider }: SocialCallbackPageProps) {
       }
 
       await completeSocialLogin();
+      // 웹 세션 발급까지 성공한 SNS만 다음 방문의 최근 로그인으로 표시합니다.
+      saveLastSocialProvider(provider);
       navigate(consumeSocialReturnPath(), { replace: true });
     }
 

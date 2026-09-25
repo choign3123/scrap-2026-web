@@ -7,6 +7,7 @@ interface SocialLoginButtonProps {
   provider: SocialProvider;
   isLoading: boolean;
   disabled: boolean;
+  isMostRecentLogin: boolean;
   onClick: (provider: SocialProvider) => void;
 }
 
@@ -20,26 +21,30 @@ function SocialLoginButton({
   provider,
   isLoading,
   disabled,
+  isMostRecentLogin,
   onClick,
 }: SocialLoginButtonProps) {
   const providerLabel = PROVIDER_LABEL[provider];
 
   return (
-    <button
-      type="button"
-      className={`${styles.button} ${styles[provider]}`}
-      disabled={disabled}
-      aria-busy={isLoading}
-      aria-label={`${providerLabel} 로그인`}
-      onClick={() => onClick(provider)}
-    >
-      <img
-        className={styles.buttonImage}
-        src={provider === 'kakao' ? kakaoLoginImage : naverLoginImage}
-        alt={`${providerLabel} 로그인`}
-      />
-      {isLoading && <span className={styles.loadingText}>로그인 중...</span>}
-    </button>
+    <div className={styles.buttonWrapper}>
+      <button
+        type="button"
+        className={`${styles.button} ${styles[provider]}`}
+        disabled={disabled}
+        aria-busy={isLoading}
+        aria-label={`${providerLabel} 로그인${isMostRecentLogin ? ', 최근 로그인' : ''}`}
+        onClick={() => onClick(provider)}
+      >
+        <img
+          className={styles.buttonImage}
+          src={provider === 'kakao' ? kakaoLoginImage : naverLoginImage}
+          alt=""
+        />
+        {isLoading && <span className={styles.loadingText}>로그인 중...</span>}
+      </button>
+      {isMostRecentLogin && <span className={styles.recentBadge}>최근 로그인</span>}
+    </div>
   );
 }
 

@@ -1,4 +1,10 @@
 /* 두 로그인 버튼은 크기와 배치를 공유하고 브랜드 색상만 다르게 사용합니다. */
+.buttonWrapper {
+  position: relative;
+  width: 230px;
+  height: 64px;
+}
+
 .button {
   position: relative;
   display: flex;
@@ -20,6 +26,22 @@
 .naver {
   width: 230px;
   height: 56px;
+}
+
+.recentBadge {
+  position: absolute;
+  z-index: 1;
+  top: -2px;
+  right: 7px;
+  padding: 3px 8px;
+  border: 1px solid #d9ddd9;
+  border-radius: 999px;
+  color: #48534a;
+  background: #fff;
+  box-shadow: 0 2px 6px rgb(31 38 32 / 10%);
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .button:hover:not(:disabled) {

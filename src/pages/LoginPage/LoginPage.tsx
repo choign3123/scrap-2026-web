@@ -5,6 +5,7 @@ import type { SocialProvider } from '../../types/api/auth';
 import { toApiError } from '../../utils/apiError';
 import { startKakaoLogin } from '../../services/kakaoAuthService';
 import { startNaverLogin } from '../../services/naverAuthService';
+import { getLastSocialProvider } from '../../services/socialLoginStorage';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import scrapLogo from '../../assets/login/scrap-logo.png';
 import styles from './LoginPage.module.css';
@@ -70,12 +71,14 @@ function LoginPage() {
               provider="kakao"
               isLoading={loadingProvider === 'kakao'}
               disabled={isSubmitting}
+              isMostRecentLogin={getLastSocialProvider() === 'kakao'}
               onClick={handleLogin}
             />
             <SocialLoginButton
               provider="naver"
               isLoading={loadingProvider === 'naver'}
               disabled={isSubmitting}
+              isMostRecentLogin={getLastSocialProvider() === 'naver'}
               onClick={handleLogin}
             />
           </div>
