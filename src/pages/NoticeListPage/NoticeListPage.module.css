@@ -1,0 +1,81 @@
+/* 공지 목록은 사이드바와 헤더를 고정하고 목록 영역만 스크롤하도록 구성합니다. */
+.page { display: flex; min-width: 320px; height: 100dvh; overflow: hidden; background: #f4f5f4; }
+.sidebarLayer { height: 100%; flex: 0 0 auto; }
+.content { display: flex; min-width: 0; min-height: 0; overflow: hidden; flex: 1; flex-direction: column; }
+
+.header {
+  display: flex;
+  min-height: 112px;
+  padding: 22px clamp(24px, 4vw, 56px);
+  border-bottom: 1px solid #e2e4e3;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex: 0 0 auto;
+  background: #fff;
+}
+
+.header h1 { color: #222824; font-size: clamp(1.45rem, 2.6vw, 2rem); letter-spacing: -0.045em; }
+.header p { margin-top: 7px; color: #737b76; font-size: 0.8125rem; }
+
+.directionButton {
+  display: inline-flex;
+  min-width: 108px;
+  min-height: 46px;
+  padding: 0 13px;
+  border: 1px solid #dfe2e0;
+  border-radius: 11px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: #3f4742;
+  background: #fafbfa;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.directionButton:hover { background: #f0f2f1; }
+.directionButton:focus, .directionButton:focus-visible { border-color: #dfe2e0; outline: none; box-shadow: none; }
+.directionButton img { width: 20px; height: 20px; opacity: 0.78; }
+
+.workspace { min-height: 0; padding: 28px clamp(24px, 4vw, 56px) 48px; overflow-y: auto; overscroll-behavior: contain; flex: 1; }
+
+.stateCard {
+  display: flex;
+  width: min(620px, 100%);
+  min-height: 210px;
+  padding: 28px;
+  border: 1px solid #e0e3e1;
+  border-radius: 18px;
+  margin: 34px auto;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 11px;
+  color: #6b746e;
+  background: #fff;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.stateCard strong { color: #303733; font-size: 0.9375rem; }
+.errorState { color: #9e3c3c; }
+.stateCard button, .pagination button { min-height: 38px; padding: 0 14px; border: 1px solid #dadeDC; border-radius: 10px; color: #48504b; background: #fff; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
+.stateCard button:hover, .pagination button:hover:not(:disabled) { background: #f0f2f1; }
+
+.pagination { display: flex; padding-top: 24px; align-items: center; justify-content: center; gap: 16px; }
+.pagination span { color: #727a75; font-size: 0.75rem; }
+.pagination span strong { color: #303733; }
+.pagination button:disabled { opacity: 0.5; cursor: default; }
+.mobileBackdrop { display: none; }
+
+@media (max-width: 768px) {
+  .sidebarLayer { position: fixed; z-index: 50; inset: 0 auto 0 0; }
+  .mobileBackdrop { position: fixed; z-index: 40; inset: 0; display: block; padding: 0; border: 0; background: rgb(20 25 21 / 32%); }
+  .header { min-height: 88px; padding: 16px; }
+  .workspace { padding: 18px 14px 32px; }
+}
+
+@media (max-width: 480px) { .header p { display: none; } .header h1 { font-size: 1.35rem; } }

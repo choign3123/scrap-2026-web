@@ -1,0 +1,26 @@
+/* 관리자 공지 목록은 관리자 문의 화면과 동일한 고정 프레임을 사용합니다. */
+.page { display: flex; min-width: 320px; height: 100dvh; overflow: hidden; background: #f4f5f4; }
+.content { display: flex; min-width: 0; min-height: 0; overflow: hidden; flex: 1; flex-direction: column; }
+.header { display: flex; min-height: 112px; padding: 22px clamp(24px, 4vw, 56px); border-bottom: 1px solid #e2e4e3; align-items: center; justify-content: space-between; gap: 24px; flex: 0 0 auto; background: #fff; }
+.header h1 { color: #222824; font-size: clamp(1.45rem, 2.6vw, 2rem); letter-spacing: -0.045em; }
+.header p { margin-top: 7px; color: #737b76; font-size: 0.8125rem; }
+.headerActions { display: flex; align-items: center; gap: 9px; }
+.directionButton, .createButton { display: inline-flex; min-height: 46px; padding: 0 13px; border-radius: 11px; align-items: center; justify-content: center; gap: 7px; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
+.directionButton { min-width: 106px; border: 1px solid #dfe2e0; color: #3f4742; background: #fafbfa; }
+.directionButton:hover { background: #f0f2f1; }
+.directionButton:focus, .directionButton:focus-visible { border-color: #dfe2e0; outline: none; box-shadow: none; }
+.directionButton img { width: 20px; height: 20px; opacity: 0.78; }
+.createButton { border: 0; color: #fff; background: #303733; }
+.createButton:hover { background: #202622; }
+.createButton img { width: 20px; height: 20px; filter: brightness(0) invert(1); }
+.workspace { min-height: 0; padding: 28px clamp(24px, 4vw, 56px) 48px; overflow-y: auto; overscroll-behavior: contain; flex: 1; }
+.stateCard, .accessState { display: flex; width: min(620px, 100%); min-height: 210px; padding: 28px; border: 1px solid #e0e3e1; border-radius: 18px; margin: 38px auto; align-items: center; justify-content: center; flex-direction: column; gap: 11px; color: #6b746e; background: #fff; font-size: 0.8125rem; line-height: 1.6; text-align: center; }
+.stateCard strong, .accessState strong { color: #303733; font-size: 0.9375rem; }
+.errorState { color: #9e3c3c; }
+.stateCard button, .accessState button, .pagination button { min-height: 38px; padding: 0 14px; border: 1px solid #dadeDC; border-radius: 10px; color: #48504b; background: #fff; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
+.stateCard button:hover, .accessState button:hover, .pagination button:hover:not(:disabled) { background: #f0f2f1; }
+.pagination { display: flex; padding-top: 24px; align-items: center; justify-content: center; gap: 16px; }
+.pagination span { color: #727a75; font-size: 0.75rem; }.pagination span strong { color: #303733; }.pagination button:disabled { opacity: 0.5; cursor: default; }
+.accessState { min-height: 100dvh; border: 0; border-radius: 0; margin: 0; background: #f4f5f4; }
+@media (max-width: 720px) { .page { flex-direction: column; } .header { min-height: 96px; padding: 18px 16px; } .header p { display: none; } .workspace { padding: 18px 14px 34px; } }
+@media (max-width: 480px) { .header { align-items: flex-start; flex-direction: column; } .headerActions { width: 100%; } .directionButton, .createButton { flex: 1; } }

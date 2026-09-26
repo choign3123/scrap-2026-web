@@ -190,8 +190,11 @@ function AdminInquiryPage() {
     <main className={styles.page}>
       <AdminSidebar
         isLoggingOut={isLoggingOut}
+        activeMenu="inquiries"
         onBackToService={() => navigate('/dashboard')}
         onLogout={handleLogout}
+        onSelectInquiries={() => navigate('/admin')}
+        onSelectNotices={() => navigate('/admin/notices')}
       />
 
       <section className={styles.content}>

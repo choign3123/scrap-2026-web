@@ -1,0 +1,61 @@
+/* 제목과 날짜를 분리해 많은 공지도 빠르게 훑을 수 있는 공통 목록 행입니다. */
+.list {
+  display: grid;
+  width: min(900px, 100%);
+  margin: 0 auto;
+  gap: 9px;
+}
+
+.item {
+  display: grid;
+  min-height: 66px;
+  padding: 0 18px 0 20px;
+  border: 1px solid #e1e4e2;
+  border-radius: 14px;
+  align-items: center;
+  column-gap: 16px;
+  grid-template-columns: minmax(0, 1fr) auto 18px;
+  color: #303733;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 140ms ease, background 140ms ease, transform 140ms ease;
+}
+
+.item:hover {
+  border-color: #ced3d0;
+  background: #fafbfa;
+  transform: translateY(-1px);
+}
+
+.item:focus,
+.item:focus-visible { border-color: #e1e4e2; outline: none; box-shadow: none; }
+
+.title {
+  overflow: hidden;
+  color: #2e3530;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.date {
+  color: #858c87;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.arrow { color: #8a918d; font-size: 1.5rem; font-weight: 300; line-height: 1; }
+
+@media (max-width: 480px) {
+  .item {
+    min-height: 62px;
+    padding: 0 13px 0 15px;
+    column-gap: 8px;
+    grid-template-columns: minmax(0, 1fr) 18px;
+  }
+
+  .date { display: none; }
+}

@@ -20,6 +20,18 @@ const CustomerCenterPage = lazy(
 const AdminInquiryPage = lazy(
   () => import('../pages/AdminInquiryPage/AdminInquiryPage'),
 );
+const NoticeListPage = lazy(
+  () => import('../pages/NoticeListPage/NoticeListPage'),
+);
+const NoticeDetailPage = lazy(
+  () => import('../pages/NoticeDetailPage/NoticeDetailPage'),
+);
+const AdminNoticeListPage = lazy(
+  () => import('../pages/AdminNoticeListPage/AdminNoticeListPage'),
+);
+const AdminNoticeCreatePage = lazy(
+  () => import('../pages/AdminNoticeCreatePage/AdminNoticeCreatePage'),
+);
 
 /** URL과 페이지 컴포넌트의 관계를 한곳에서 관리합니다. */
 export const router = createBrowserRouter([
@@ -77,10 +89,50 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: '/notices',
+        element: (
+          <Suspense fallback={<FullPageLoader message="공지사항을 준비하고 있습니다." />}>
+            <NoticeListPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/notices/:noticeId',
+        element: (
+          <Suspense fallback={<FullPageLoader message="공지사항을 준비하고 있습니다." />}>
+            <NoticeDetailPage />
+          </Suspense>
+        ),
+      },
+      {
         path: '/admin',
         element: (
           <Suspense fallback={<FullPageLoader message="관리자 화면을 준비하고 있습니다." />}>
             <AdminInquiryPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/admin/notices',
+        element: (
+          <Suspense fallback={<FullPageLoader message="공지사항 관리를 준비하고 있습니다." />}>
+            <AdminNoticeListPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/admin/notices/new',
+        element: (
+          <Suspense fallback={<FullPageLoader message="공지 등록 화면을 준비하고 있습니다." />}>
+            <AdminNoticeCreatePage />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/admin/notices/:noticeId',
+        element: (
+          <Suspense fallback={<FullPageLoader message="공지사항을 준비하고 있습니다." />}>
+            <NoticeDetailPage />
           </Suspense>
         ),
       },

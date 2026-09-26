@@ -1,0 +1,26 @@
+/* 상세 공지도 목록 화면과 같은 고정 프레임 안에서 본문만 스크롤합니다. */
+.page { display: flex; min-width: 320px; height: 100dvh; overflow: hidden; background: #f4f5f4; }
+.sidebarLayer { height: 100%; flex: 0 0 auto; }
+.content { display: flex; min-width: 0; min-height: 0; overflow: hidden; flex: 1; flex-direction: column; }
+
+.header { display: flex; min-height: 78px; padding: 16px clamp(20px, 3.3vw, 44px); border-bottom: 1px solid #e2e4e3; align-items: center; gap: 9px; flex: 0 0 auto; background: #fff; }
+.header h1 { margin-left: 4px; color: #2a312c; font-size: 1rem; letter-spacing: -0.03em; }
+.iconButton { display: grid; width: 42px; height: 42px; border: 0; border-radius: 11px; background: transparent; cursor: pointer; place-items: center; }
+.iconButton:hover { background: #ecefed; }
+.iconButton img { width: 25px; height: 25px; }
+
+.workspace { min-height: 0; padding: clamp(30px, 5vw, 66px) clamp(20px, 7vw, 110px); overflow-y: auto; overscroll-behavior: contain; flex: 1; }
+.noticeArticle { width: min(800px, 100%); padding: clamp(26px, 4vw, 46px); border: 1px solid #e1e4e2; border-radius: 20px; margin: 0 auto; background: #fff; box-shadow: 0 8px 30px rgb(30 37 32 / 4%); }
+.noticeArticle > header { padding-bottom: 25px; border-bottom: 1px solid #eceeed; margin-bottom: 30px; }
+.noticeArticle time { color: #838b86; font-size: 0.75rem; font-variant-numeric: tabular-nums; }
+.noticeArticle h2 { margin-top: 10px; color: #252c27; font-size: clamp(1.35rem, 2.5vw, 1.8rem); letter-spacing: -0.04em; line-height: 1.4; overflow-wrap: anywhere; }
+
+.stateCard { display: flex; width: min(600px, 100%); min-height: 190px; padding: 28px; border: 1px solid #e0e3e1; border-radius: 18px; margin: 34px auto; align-items: center; justify-content: center; flex-direction: column; gap: 11px; color: #6b746e; background: #fff; font-size: 0.8125rem; line-height: 1.6; text-align: center; }
+.stateCard strong { color: #303733; font-size: 0.9375rem; }
+.errorState { color: #9e3c3c; }
+.stateCard button { min-height: 38px; padding: 0 14px; border: 1px solid #dadeDC; border-radius: 10px; color: #48504b; background: #fff; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
+.stateCard button:hover { background: #f0f2f1; }
+.accessState { display: flex; min-width: 320px; min-height: 100dvh; padding: 24px; align-items: center; justify-content: center; flex-direction: column; gap: 11px; color: #68716b; background: #f4f5f4; font-size: 0.8125rem; text-align: center; }.accessState strong { color: #303733; font-size: 0.9375rem; }.accessState button { min-height: 40px; padding: 0 15px; border: 0; border-radius: 10px; color: #fff; background: #343b36; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
+.mobileBackdrop { display: none; }
+
+@media (max-width: 768px) { .sidebarLayer { position: fixed; z-index: 50; inset: 0 auto 0 0; } .mobileBackdrop { position: fixed; z-index: 40; inset: 0; display: block; padding: 0; border: 0; background: rgb(20 25 21 / 32%); } .workspace { padding: 24px 14px 34px; } .noticeArticle { padding: 24px 20px; border-radius: 16px; } }

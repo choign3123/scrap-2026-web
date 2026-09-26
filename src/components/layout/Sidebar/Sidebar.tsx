@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState, type MouseEvent, type PointerEvent } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import categoryAddIcon from '../../../assets/icons/category-add.svg';
+import bellFillIcon from '../../../assets/icons/bell-fill.svg';
+import bellIcon from '../../../assets/icons/bell.svg';
 import folderIcon from '../../../assets/icons/folder.svg';
 import questionIcon from '../../../assets/icons/question-duotone-line.svg';
 import scrapIcon from '../../../assets/icons/scrap-clip.svg';
@@ -305,6 +307,21 @@ function Sidebar({
         >
           <img className={styles.supportIcon} src={questionIcon} alt="" />
           <span>고객센터</span>
+        </button>
+
+        <button
+          type="button"
+          className={`${styles.favoriteButton} ${location.pathname.startsWith('/notices') ? styles.selectedNavigation : ''}`}
+          aria-current={location.pathname.startsWith('/notices') ? 'page' : undefined}
+          onClick={() => navigate('/notices')}
+        >
+          {/* 선택된 공지 메뉴는 채워진 종 아이콘으로 현재 위치를 명확히 표시합니다. */}
+          <img
+            className={styles.supportIcon}
+            src={location.pathname.startsWith('/notices') ? bellFillIcon : bellIcon}
+            alt=""
+          />
+          <span>공지사항</span>
         </button>
 
         <div className={styles.categoryHeader}>

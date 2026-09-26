@@ -5,12 +5,22 @@ import styles from './AdminSidebar.module.css';
 
 interface AdminSidebarProps {
   isLoggingOut: boolean;
+  activeMenu: 'inquiries' | 'notices';
   onBackToService: () => void;
   onLogout: () => void;
+  onSelectInquiries: () => void;
+  onSelectNotices: () => void;
 }
 
 /** 관리자 기능과 일반 사용자 화면을 명확히 구분하는 관리자 전용 사이드바입니다. */
-function AdminSidebar({ isLoggingOut, onBackToService, onLogout }: AdminSidebarProps) {
+function AdminSidebar({
+  isLoggingOut,
+  activeMenu,
+  onBackToService,
+  onLogout,
+  onSelectInquiries,
+  onSelectNotices,
+}: AdminSidebarProps) {
   return (
     <aside className={styles.sidebar} aria-label="관리자 메뉴">
       <header className={styles.header}>
@@ -22,7 +32,12 @@ function AdminSidebar({ isLoggingOut, onBackToService, onLogout }: AdminSidebarP
       </header>
 
       <nav className={styles.navigation}>
-        <button type="button" className={styles.activeMenu} aria-current="page">
+        <button
+          type="button"
+          className={activeMenu === 'inquiries' ? styles.activeMenu : undefined}
+          aria-current={activeMenu === 'inquiries' ? 'page' : undefined}
+          onClick={onSelectInquiries}
+        >
           <img src={questionIcon} alt="" />
           <span>고객센터</span>
         </button>
@@ -31,10 +46,14 @@ function AdminSidebar({ isLoggingOut, onBackToService, onLogout }: AdminSidebarP
           <span>이용 통계</span>
           <small>준비 중</small>
         </button>
-        <button type="button" disabled>
+        <button
+          type="button"
+          className={activeMenu === 'notices' ? styles.activeMenu : undefined}
+          aria-current={activeMenu === 'notices' ? 'page' : undefined}
+          onClick={onSelectNotices}
+        >
           <img src={warningIcon} alt="" />
           <span>공지사항</span>
-          <small>준비 중</small>
         </button>
       </nav>
 
