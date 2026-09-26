@@ -5,8 +5,9 @@
 
 .header {
   display: flex;
-  min-height: 112px;
-  padding: 22px clamp(24px, 4vw, 56px);
+  /* 대시보드의 카테고리·즐겨찾기 헤더와 같은 높이와 여백을 사용합니다. */
+  min-height: 92px;
+  padding: 18px clamp(24px, 4vw, 56px);
   border-bottom: 1px solid #e2e4e3;
   align-items: center;
   justify-content: space-between;
@@ -16,8 +17,6 @@
 }
 
 .header h1 { color: #222824; font-size: clamp(1.45rem, 2.6vw, 2rem); letter-spacing: -0.045em; }
-.header p { margin-top: 7px; color: #737b76; font-size: 0.8125rem; }
-
 .directionButton {
   display: inline-flex;
   min-width: 108px;
@@ -78,4 +77,4 @@
   .workspace { padding: 18px 14px 32px; }
 }
 
-@media (max-width: 480px) { .header p { display: none; } .header h1 { font-size: 1.35rem; } }
+@media (max-width: 480px) { .header h1 { font-size: 1.35rem; } }

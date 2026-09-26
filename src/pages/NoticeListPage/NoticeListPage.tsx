@@ -48,7 +48,6 @@ function NoticeListPage() {
         <header className={styles.header}>
           <div>
             <h1 id="notice-list-title">공지사항</h1>
-            <p>스크랩 서비스의 새로운 소식과 중요한 안내를 확인해 주세요.</p>
           </div>
           <button
             type="button"
